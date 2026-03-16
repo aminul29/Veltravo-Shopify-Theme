@@ -1,0 +1,136 @@
+<section class="featured-blog section-shell">
+  <div class="page-width">
+    <div class="section-heading">
+      <h2>
+        {% if section.settings.heading != blank %}
+          {{ section.settings.heading | escape }}
+        {% else %}
+          {{ 'sections.featured_blog.default_heading' | t }}
+        {% endif %}
+      </h2>
+      {% if section.settings.subheading != blank %}
+        <p>{{ section.settings.subheading | escape }}</p>
+      {% endif %}
+    </div>
+    {% if section.settings.blog != blank and section.settings.blog.articles_count > 0 %}
+      <div class="featured-blog__grid">
+        {% for article in section.settings.blog.articles limit: section.settings.article_limit %}
+          <article class="featured-blog__card card-surface">
+            <a class="featured-blog__image" href="{{ article.url }}">
+              {% if article.image %}
+                {{ article.image | image_url: width: 720 | image_tag: loading: 'lazy', widths: '320, 520, 720', alt: article.title | escape }}
+              {% else %}
+                {{ 'lifestyle-2' | placeholder_svg_tag: 'featured-blog__placeholder' }}
+              {% endif %}
+            </a>
+            <div class="featured-blog__copy">
+              <p class="featured-blog__meta">{{ article.published_at | time_tag: format: 'date' }}</p>
+              <h3><a href="{{ article.url }}">{{ article.title | escape }}</a></h3>
+              {% if article.excerpt != blank %}
+                <p>{{ article.excerpt | strip_html | truncatewords: 24 }}</p>
+              {% else %}
+                <p>{{ article.content | strip_html | truncatewords: 24 }}</p>
+              {% endif %}
+              <a class="button button--ghost" href="{{ article.url }}">{{ 'general.blog.read_more' | t }}</a>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="featured-blog__empty card-surface">{{ 'general.empty.blog' | t }}</div>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .featured-blog__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .featured-blog__card {
+    overflow: hidden;
+  }
+
+  .featured-blog__image {
+    display: block;
+    aspect-ratio: 16 / 10;
+    background: linear-gradient(135deg, rgba(31, 109, 240, 0.08), rgba(17, 24, 39, 0.04));
+  }
+
+  .featured-blog__image img,
+  .featured-blog__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .featured-blog__placeholder {
+    padding: 2rem;
+  }
+
+  .featured-blog__copy {
+    display: grid;
+    gap: 0.8rem;
+    padding: 1.25rem;
+  }
+
+  .featured-blog__copy h3,
+  .featured-blog__copy p {
+    margin: 0;
+  }
+
+  .featured-blog__meta {
+    color: color-mix(in srgb, var(--color-text) 62%, transparent);
+    font-size: 0.9rem;
+  }
+
+  .featured-blog__empty {
+    padding: 1.5rem;
+  }
+
+  @media screen and (max-width: 989px) {
+    .featured-blog__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.featured_blog.name",
+  "class": "section-featured-blog",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:labels.heading"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "t:labels.subheading"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "t:labels.blog"
+    },
+    {
+      "type": "range",
+      "id": "article_limit",
+      "label": "t:labels.article_limit",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.featured_blog.name"
+    }
+  ]
+}
+{% endschema %}

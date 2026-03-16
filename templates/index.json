@@ -1,0 +1,268 @@
+{
+  "sections": {
+    "hero": {
+      "type": "home-hero-merchandising",
+      "settings": {
+        "auto_rotate": true,
+        "rotation_seconds": 5
+      },
+      "blocks": {
+        "slideone": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "New arrivals",
+            "heading": "Shape the homepage around your best products",
+            "text": "Use flexible sections for promotions, featured collections, and conversion-focused merchandising.",
+            "button_label": "Shop now",
+            "accent_color": "#1f6df0",
+            "background_color": "#eef4ff"
+          }
+        },
+        "slidetwo": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "Editor ready",
+            "heading": "Merchants can swap sections without touching code",
+            "text": "The homepage is built with JSON templates and reusable sections that work cleanly in the Shopify theme editor.",
+            "button_label": "Explore collections",
+            "accent_color": "#0f766e",
+            "background_color": "#ecfeff"
+          }
+        }
+      },
+      "block_order": [
+        "slideone",
+        "slidetwo"
+      ]
+    },
+    "promo_tiles": {
+      "type": "promo-tile-row",
+      "blocks": {
+        "tileone": {
+          "type": "tile",
+          "settings": {
+            "heading": "Collection launch",
+            "text": "Highlight limited drops, seasonal edits, or top campaigns."
+          }
+        },
+        "tiletwo": {
+          "type": "tile",
+          "settings": {
+            "heading": "Bundle offers",
+            "text": "Use editorial promo cards to point customers at high-intent offers."
+          }
+        },
+        "tilethree": {
+          "type": "tile",
+          "settings": {
+            "heading": "Top categories",
+            "text": "Bridge customers from the hero straight into browsable shopping paths."
+          }
+        }
+      },
+      "block_order": [
+        "tileone",
+        "tiletwo",
+        "tilethree"
+      ]
+    },
+    "featured_tabs": {
+      "type": "featured-collection-tabs",
+      "blocks": {
+        "tabone": {
+          "type": "collection_tab",
+          "settings": {
+            "label": "Featured",
+            "product_limit": 4
+          }
+        },
+        "tabtwo": {
+          "type": "collection_tab",
+          "settings": {
+            "label": "New",
+            "product_limit": 4
+          }
+        },
+        "tabthree": {
+          "type": "collection_tab",
+          "settings": {
+            "label": "Top selling",
+            "product_limit": 4
+          }
+        }
+      },
+      "block_order": [
+        "tabone",
+        "tabtwo",
+        "tabthree"
+      ]
+    },
+    "deal": {
+      "type": "deal-spotlight",
+      "settings": {}
+    },
+    "categories": {
+      "type": "featured-categories-grid",
+      "blocks": {
+        "catone": {
+          "type": "category_card",
+          "settings": {
+            "title_override": "Audio"
+          }
+        },
+        "cattwo": {
+          "type": "category_card",
+          "settings": {
+            "title_override": "Wearables"
+          }
+        },
+        "catthree": {
+          "type": "category_card",
+          "settings": {
+            "title_override": "Gaming"
+          }
+        },
+        "catfour": {
+          "type": "category_card",
+          "settings": {
+            "title_override": "Computing"
+          }
+        },
+        "catfive": {
+          "type": "category_card",
+          "settings": {
+            "title_override": "Home tech"
+          }
+        },
+        "catsix": {
+          "type": "category_card",
+          "settings": {
+            "title_override": "Accessories"
+          }
+        }
+      },
+      "block_order": [
+        "catone",
+        "cattwo",
+        "catthree",
+        "catfour",
+        "catfive",
+        "catsix"
+      ]
+    },
+    "top_selling": {
+      "type": "top-selling-showcase",
+      "settings": {
+        "product_limit": 4,
+        "show_vendor": false
+      }
+    },
+    "logos": {
+      "type": "logo-list",
+      "blocks": {
+        "logoone": {
+          "type": "logo",
+          "settings": {
+            "title": "Brand one"
+          }
+        },
+        "logotwo": {
+          "type": "logo",
+          "settings": {
+            "title": "Brand two"
+          }
+        },
+        "logothree": {
+          "type": "logo",
+          "settings": {
+            "title": "Brand three"
+          }
+        },
+        "logofour": {
+          "type": "logo",
+          "settings": {
+            "title": "Brand four"
+          }
+        },
+        "logofive": {
+          "type": "logo",
+          "settings": {
+            "title": "Brand five"
+          }
+        }
+      },
+      "block_order": [
+        "logoone",
+        "logotwo",
+        "logothree",
+        "logofour",
+        "logofive"
+      ]
+    },
+    "blog": {
+      "type": "featured-blog",
+      "settings": {
+        "article_limit": 3
+      }
+    },
+    "benefits": {
+      "type": "store-benefits",
+      "blocks": {
+        "benefitone": {
+          "type": "benefit",
+          "settings": {
+            "icon_label": "01",
+            "title": "Free shipping",
+            "text": "Use a clear threshold to lift average order value."
+          }
+        },
+        "benefittwo": {
+          "type": "benefit",
+          "settings": {
+            "icon_label": "02",
+            "title": "Flexible returns",
+            "text": "Reassure customers with simple post-purchase policies."
+          }
+        },
+        "benefitthree": {
+          "type": "benefit",
+          "settings": {
+            "icon_label": "03",
+            "title": "Fast support",
+            "text": "Publish response expectations and contact options."
+          }
+        },
+        "benefitfour": {
+          "type": "benefit",
+          "settings": {
+            "icon_label": "04",
+            "title": "Secure checkout",
+            "text": "Use proof points that reinforce trust at every step."
+          }
+        }
+      },
+      "block_order": [
+        "benefitone",
+        "benefittwo",
+        "benefitthree",
+        "benefitfour"
+      ]
+    },
+    "newsletter": {
+      "type": "newsletter-signup",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "promo_tiles",
+    "featured_tabs",
+    "deal",
+    "categories",
+    "top_selling",
+    "logos",
+    "blog",
+    "benefits",
+    "newsletter"
+  ]
+}

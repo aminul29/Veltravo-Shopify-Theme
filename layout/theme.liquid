@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_accent }}">
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+    <title>
+      {{ page_title }}
+      {%- if current_tags -%}
+        {{ ' | ' }}{{ current_tags | join: ', ' }}
+      {%- endif -%}
+      {%- if current_page != 1 -%}
+        {{ ' | ' }}{{ 'general.meta.page' | t: page: current_page }}
+      {%- endif -%}
+      {%- unless page_title contains shop.name -%}
+        {{ ' | ' }}{{ shop.name }}
+      {%- endunless -%}
+    </title>
+    {{ content_for_header }}
+    {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
+    {% style %}
+      :root {
+        --container-width: {{ settings.container_width | default: 1280 }}px;
+        --color-background: {{ settings.color_background | default: '#f6f7fb' }};
+        --color-surface: {{ settings.color_surface | default: '#ffffff' }};
+        --color-text: {{ settings.color_text | default: '#111827' }};
+        --color-accent: {{ settings.color_accent | default: '#1f6df0' }};
+        --type-scale: {{ settings.type_scale | default: 100 | divided_by: 100.0 }};
+      }
+    {% endstyle %}
+  </head>
+  <body class="template-{{ template.name | handleize }}">
+    <a class="skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+    {% sections 'header-group' %}
+    <main id="MainContent" role="main">
+      {{ content_for_layout }}
+    </main>
+    {% sections 'footer-group' %}
+  </body>
+</html>

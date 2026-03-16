@@ -1,0 +1,220 @@
+<footer class="site-footer">
+  <div class="page-width site-footer__inner">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <a class="site-footer__logo" href="{{ routes.root_url }}">
+          {% if settings.logo != blank %}
+            {{ settings.logo | image_url: width: 180 | image_tag: widths: '120, 180, 240', alt: shop.name | escape }}
+          {% else %}
+            <span>{{ shop.name }}</span>
+          {% endif %}
+        </a>
+        {% if section.settings.contact_text != blank %}
+          <div class="site-footer__richtext rte">{{ section.settings.contact_text }}</div>
+        {% endif %}
+        <ul class="list-reset site-footer__socials">
+          {% if settings.social_facebook != blank %}
+            <li><a href="{{ settings.social_facebook }}">Facebook</a></li>
+          {% endif %}
+          {% if settings.social_instagram != blank %}
+            <li><a href="{{ settings.social_instagram }}">Instagram</a></li>
+          {% endif %}
+          {% if settings.social_x != blank %}
+            <li><a href="{{ settings.social_x }}">X</a></li>
+          {% endif %}
+          {% if settings.social_youtube != blank %}
+            <li><a href="{{ settings.social_youtube }}">YouTube</a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+      {% assign menu_one = section.settings.menu_one %}
+      {% assign menu_two = section.settings.menu_two %}
+      {% assign menu_three = section.settings.menu_three %}
+
+      {% if menu_one != blank %}
+        <nav class="site-footer__menu" aria-label="{{ menu_one.title | escape }}">
+          <h2>{{ menu_one.title | escape }}</h2>
+          <ul class="list-reset">
+            {% for link in menu_one.links %}
+              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {% endfor %}
+          </ul>
+        </nav>
+      {% endif %}
+
+      {% if menu_two != blank %}
+        <nav class="site-footer__menu" aria-label="{{ menu_two.title | escape }}">
+          <h2>{{ menu_two.title | escape }}</h2>
+          <ul class="list-reset">
+            {% for link in menu_two.links %}
+              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {% endfor %}
+          </ul>
+        </nav>
+      {% endif %}
+
+      {% if menu_three != blank %}
+        <nav class="site-footer__menu" aria-label="{{ menu_three.title | escape }}">
+          <h2>{{ menu_three.title | escape }}</h2>
+          <ul class="list-reset">
+            {% for link in menu_three.links %}
+              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {% endfor %}
+          </ul>
+        </nav>
+      {% endif %}
+    </div>
+
+    <div class="site-footer__bottom">
+      {% if section.settings.footer_text != blank %}
+        <div class="rte">{{ section.settings.footer_text }}</div>
+      {% endif %}
+      {% if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 %}
+        <ul class="list-reset site-footer__payments">
+          {% for type in shop.enabled_payment_types %}
+            <li>{{ type | payment_type_svg_tag }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+</footer>
+
+{% stylesheet %}
+  .site-footer {
+    margin-top: 3rem;
+    background: #0f172a;
+    color: #ffffff;
+  }
+
+  .site-footer__inner {
+    display: grid;
+    gap: 2rem;
+    padding-block: 3rem 2rem;
+  }
+
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .site-footer__logo {
+    display: inline-flex;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    font-weight: 800;
+  }
+
+  .site-footer__logo img {
+    max-width: 180px;
+  }
+
+  .site-footer__richtext > *:first-child,
+  .site-footer__bottom .rte > *:first-child {
+    margin-top: 0;
+  }
+
+  .site-footer__socials,
+  .site-footer__menu ul {
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .site-footer__socials {
+    grid-template-columns: repeat(auto-fit, minmax(100px, max-content));
+    margin-top: 1rem;
+  }
+
+  .site-footer__menu h2 {
+    margin: 0 0 0.85rem;
+    font-size: 1rem;
+  }
+
+  .site-footer__menu a,
+  .site-footer__socials a {
+    color: color-mix(in srgb, #ffffff 86%, transparent);
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .site-footer__payments {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .site-footer__payments svg {
+    width: 2.5rem;
+    height: auto;
+  }
+
+  @media screen and (max-width: 989px) {
+    .site-footer__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .site-footer__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .site-footer__bottom {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.footer.name",
+  "class": "section-footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu_one",
+      "label": "t:labels.menu"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_two",
+      "label": "t:labels.menu"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_three",
+      "label": "t:labels.menu"
+    },
+    {
+      "type": "richtext",
+      "id": "contact_text",
+      "label": "t:labels.contact_text",
+      "default": "<p>Share your store address, phone number, or customer care details here.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "footer_text",
+      "label": "t:labels.footer_text",
+      "default": "<p>Built for high-conviction merchandising and modern Shopify content management.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "t:labels.show_payment_icons",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,104 @@
+{% doc %}
+  Renders a product card for collection and product showcase sections.
+
+  @param {object} product - The product to render
+  @param {boolean} [show_vendor] - Whether the product vendor should be shown
+
+  @example
+  {% render 'product-card', product: product, show_vendor: true %}
+{% enddoc %}
+
+<article class="product-card card-surface">
+  <a class="product-card__image" href="{{ product.url }}">
+    {% if product.featured_image %}
+      {{
+        product.featured_image
+        | image_url: width: 720
+        | image_tag: loading: 'lazy', widths: '320, 480, 720', alt: product.featured_image.alt | escape
+      }}
+    {% else %}
+      {{ 'product-1' | placeholder_svg_tag: 'product-card__placeholder' }}
+    {% endif %}
+  </a>
+  <div class="product-card__content">
+    {% if show_vendor and product.vendor != blank %}
+      <p class="product-card__vendor">{{ product.vendor | escape }}</p>
+    {% endif %}
+    <h3 class="product-card__title">
+      <a href="{{ product.url }}">{{ product.title | escape }}</a>
+    </h3>
+    <div class="product-card__price">
+      {% if product.price_varies %}
+        <span>{{ 'general.product.from' | t }}</span>
+      {% endif %}
+      {{ product.price | money }}
+      {% if product.compare_at_price > product.price %}
+        <s>{{ product.compare_at_price | money }}</s>
+      {% endif %}
+    </div>
+    <a class="button button--ghost product-card__link" href="{{ product.url }}">
+      {{ 'general.product.view_product' | t }}
+    </a>
+  </div>
+</article>
+
+{% stylesheet %}
+  .product-card {
+    display: grid;
+    overflow: hidden;
+  }
+
+  .product-card__image {
+    display: block;
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(135deg, rgba(31, 109, 240, 0.08), rgba(17, 24, 39, 0.04));
+  }
+
+  .product-card__image img,
+  .product-card__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .product-card__placeholder {
+    padding: 2rem;
+  }
+
+  .product-card__content {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .product-card__vendor {
+    margin: 0;
+    color: color-mix(in srgb, var(--color-text) 60%, transparent);
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .product-card__title {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+
+  .product-card__price {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    align-items: center;
+    font-weight: 700;
+  }
+
+  .product-card__price s {
+    color: color-mix(in srgb, var(--color-text) 55%, transparent);
+    font-weight: 400;
+  }
+
+  .product-card__link {
+    width: 100%;
+  }
+{% endstylesheet %}

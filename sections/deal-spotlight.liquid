@@ -1,0 +1,208 @@
+{%- liquid
+  assign spotlight_product = section.settings.product
+  if spotlight_product == blank and section.settings.collection != blank and section.settings.collection.products_count > 0
+    assign spotlight_product = section.settings.collection.products.first
+  endif
+-%}
+
+<section class="deal-spotlight section-shell" id="DealSpotlight-{{ section.id }}">
+  <div class="page-width">
+    <div class="deal-spotlight__card card-surface">
+      <div class="deal-spotlight__copy">
+        <div class="section-heading">
+          <span class="section-heading__eyebrow">{{ 'sections.deal_spotlight.countdown_label' | t }}</span>
+          <h2>
+            {% if section.settings.heading != blank %}
+              {{ section.settings.heading | escape }}
+            {% else %}
+              {{ 'sections.deal_spotlight.default_heading' | t }}
+            {% endif %}
+          </h2>
+          {% if section.settings.subheading != blank %}
+            <p>{{ section.settings.subheading | escape }}</p>
+          {% endif %}
+        </div>
+        {% if spotlight_product != blank %}
+          <div class="deal-spotlight__price">
+            <strong>{{ spotlight_product.price | money }}</strong>
+            {% if spotlight_product.compare_at_price > spotlight_product.price %}
+              <s>{{ spotlight_product.compare_at_price | money }}</s>
+            {% endif %}
+          </div>
+          {% if section.settings.end_datetime != blank %}
+            <div class="deal-spotlight__countdown" data-countdown data-end="{{ section.settings.end_datetime | escape }}">
+              <div><span data-days>00</span><small>{{ 'sections.deal_spotlight.days' | t }}</small></div>
+              <div><span data-hours>00</span><small>{{ 'sections.deal_spotlight.hours' | t }}</small></div>
+              <div><span data-minutes>00</span><small>{{ 'sections.deal_spotlight.minutes' | t }}</small></div>
+              <div><span data-seconds>00</span><small>{{ 'sections.deal_spotlight.seconds' | t }}</small></div>
+            </div>
+          {% endif %}
+          <a class="button" href="{{ spotlight_product.url }}">{{ 'general.product.view_product' | t }}</a>
+        {% else %}
+          <p>{{ 'general.empty.collection' | t }}</p>
+        {% endif %}
+      </div>
+      <div class="deal-spotlight__media">
+        {% if spotlight_product != blank %}
+          {% if spotlight_product.featured_image %}
+            {{ spotlight_product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360, 640, 900', alt: spotlight_product.title | escape }}
+          {% else %}
+            {{ 'product-2' | placeholder_svg_tag: 'deal-spotlight__placeholder' }}
+          {% endif %}
+        {% else %}
+          {{ 'product-2' | placeholder_svg_tag: 'deal-spotlight__placeholder' }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .deal-spotlight__card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 40%);
+    gap: 1.5rem;
+    padding: 1.5rem;
+    align-items: center;
+  }
+
+  .deal-spotlight__copy {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .deal-spotlight__price {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    font-size: 1.5rem;
+  }
+
+  .deal-spotlight__price s {
+    color: color-mix(in srgb, var(--color-text) 55%, transparent);
+    font-size: 1rem;
+  }
+
+  .deal-spotlight__countdown {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .deal-spotlight__countdown div {
+    display: grid;
+    place-items: center;
+    padding: 1rem 0.5rem;
+    border-radius: 1rem;
+    background: color-mix(in srgb, var(--color-accent) 8%, #ffffff);
+  }
+
+  .deal-spotlight__countdown span {
+    font-size: 1.6rem;
+    font-weight: 800;
+  }
+
+  .deal-spotlight__countdown small {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .deal-spotlight__media img,
+  .deal-spotlight__placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 1.5rem;
+  }
+
+  .deal-spotlight__placeholder {
+    padding: 2rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .deal-spotlight__card {
+      grid-template-columns: 1fr;
+    }
+
+    .deal-spotlight__countdown {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  (() => {
+    const sectionRoot = document.currentScript.closest('.shopify-section')
+    const countdown = sectionRoot?.querySelector('[data-countdown]')
+    if (!countdown) return
+    const end = new Date(countdown.dataset.end)
+    if (Number.isNaN(end.getTime())) {
+      countdown.remove()
+      return
+    }
+    const parts = {
+      days: countdown.querySelector('[data-days]'),
+      hours: countdown.querySelector('[data-hours]'),
+      minutes: countdown.querySelector('[data-minutes]'),
+      seconds: countdown.querySelector('[data-seconds]')
+    }
+    const render = () => {
+      const diff = end.getTime() - Date.now()
+      if (diff <= 0) {
+        countdown.remove()
+        return
+      }
+      const days = Math.floor(diff / 86400000)
+      const hours = Math.floor((diff % 86400000) / 3600000)
+      const minutes = Math.floor((diff % 3600000) / 60000)
+      const seconds = Math.floor((diff % 60000) / 1000)
+      parts.days.textContent = String(days).padStart(2, '0')
+      parts.hours.textContent = String(hours).padStart(2, '0')
+      parts.minutes.textContent = String(minutes).padStart(2, '0')
+      parts.seconds.textContent = String(seconds).padStart(2, '0')
+    }
+    render()
+    window.setInterval(render, 1000)
+  })()
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:sections.deal_spotlight.name",
+  "class": "section-deal-spotlight",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:labels.heading"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "t:labels.subheading"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:labels.product"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:labels.collection"
+    },
+    {
+      "type": "text",
+      "id": "end_datetime",
+      "label": "t:labels.end_datetime",
+      "info": "ISO format, for example 2026-12-31T23:59:59"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.deal_spotlight.name"
+    }
+  ]
+}
+{% endschema %}

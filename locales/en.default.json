@@ -1,0 +1,86 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "open_search": "Open search",
+      "close": "Close"
+    },
+    "meta": {
+      "page": "Page {{ page }}"
+    },
+    "header": {
+      "menu": "Menu",
+      "categories": "Categories",
+      "search": "Search",
+      "search_placeholder": "Search the store",
+      "hotline": "Hotline",
+      "account": "Account",
+      "cart": "Cart"
+    },
+    "localization": {
+      "country": "Country",
+      "language": "Language"
+    },
+    "product": {
+      "view_product": "View product",
+      "sold_out": "Sold out",
+      "from": "From"
+    },
+    "blog": {
+      "read_more": "Read more"
+    },
+    "newsletter": {
+      "email_placeholder": "Enter your email address",
+      "submit": "Subscribe",
+      "success": "Thanks for subscribing.",
+      "subheading": "Newsletter"
+    },
+    "empty": {
+      "collection": "Choose a collection to display products here.",
+      "blog": "Choose a blog to display articles here.",
+      "menu": "Choose a menu to populate this area.",
+      "slides": "Add slides to populate this section."
+    }
+  },
+  "sections": {
+    "announcement_bar": {
+      "default": "Free shipping on orders over $99"
+    },
+    "hero": {
+      "default_eyebrow": "New season",
+      "default_heading": "Build a homepage that merchandises your store",
+      "default_text": "Feature collections, highlight promotions, and drive customers toward your strongest products.",
+      "default_button": "Shop now"
+    },
+    "featured_collection_tabs": {
+      "default_heading": "Popular picks"
+    },
+    "deal_spotlight": {
+      "default_heading": "Deal spotlight",
+      "countdown_label": "Offer ends in",
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "seconds": "Seconds"
+    },
+    "featured_categories_grid": {
+      "default_heading": "Featured categories"
+    },
+    "top_selling_showcase": {
+      "default_heading": "Top selling this week"
+    },
+    "logo_list": {
+      "default_heading": "Brands we carry"
+    },
+    "featured_blog": {
+      "default_heading": "From the journal"
+    },
+    "store_benefits": {
+      "default_heading": "Why customers buy from you"
+    },
+    "newsletter_signup": {
+      "default_heading": "Subscribe to our newsletter",
+      "default_text": "Share updates, launches, and offers to grow repeat purchases."
+    }
+  }
+}

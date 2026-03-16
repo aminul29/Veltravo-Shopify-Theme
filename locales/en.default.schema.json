@@ -1,0 +1,163 @@
+{
+  "settings_schema": {
+    "colors": {
+      "name": "Colors",
+      "settings": {
+        "heading": {
+          "content": "Theme colors"
+        },
+        "background": {
+          "label": "Background"
+        },
+        "surface": {
+          "label": "Surface"
+        },
+        "text": {
+          "label": "Text"
+        },
+        "accent": {
+          "label": "Accent"
+        }
+      }
+    },
+    "typography": {
+      "name": "Typography",
+      "settings": {
+        "heading": {
+          "content": "Typography"
+        },
+        "type_scale": {
+          "label": "Type scale"
+        }
+      }
+    },
+    "layout": {
+      "name": "Layout",
+      "settings": {
+        "heading": {
+          "content": "Layout"
+        },
+        "container_width": {
+          "label": "Container width"
+        }
+      }
+    },
+    "contact": {
+      "name": "Contact and social",
+      "settings": {
+        "heading": {
+          "content": "Store contact"
+        },
+        "logo": {
+          "label": "Logo"
+        },
+        "hotline_label": {
+          "label": "Hotline label"
+        },
+        "hotline_text": {
+          "label": "Hotline text"
+        },
+        "social_facebook": {
+          "label": "Facebook URL"
+        },
+        "social_instagram": {
+          "label": "Instagram URL"
+        },
+        "social_x": {
+          "label": "X URL"
+        },
+        "social_youtube": {
+          "label": "YouTube URL"
+        }
+      }
+    }
+  },
+  "sections": {
+    "announcement_bar": {
+      "name": "Announcement bar"
+    },
+    "header": {
+      "name": "Header"
+    },
+    "footer": {
+      "name": "Footer"
+    },
+    "home_hero_merchandising": {
+      "name": "Home hero merchandising"
+    },
+    "promo_tile_row": {
+      "name": "Promo tile row"
+    },
+    "featured_collection_tabs": {
+      "name": "Featured collection tabs"
+    },
+    "deal_spotlight": {
+      "name": "Deal spotlight"
+    },
+    "featured_categories_grid": {
+      "name": "Featured categories grid"
+    },
+    "top_selling_showcase": {
+      "name": "Top selling showcase"
+    },
+    "logo_list": {
+      "name": "Logo list"
+    },
+    "featured_blog": {
+      "name": "Featured blog"
+    },
+    "store_benefits": {
+      "name": "Store benefits"
+    },
+    "newsletter_signup": {
+      "name": "Newsletter signup"
+    }
+  },
+  "presets": {
+    "default": "Default"
+  },
+  "labels": {
+    "heading": "Heading",
+    "subheading": "Subheading",
+    "text": "Text",
+    "richtext": "Rich text",
+    "button_label": "Button label",
+    "button_link": "Button link",
+    "image": "Image",
+    "link": "Link",
+    "link_list": "Menu",
+    "collection": "Collection",
+    "collection_label": "Tab label",
+    "product": "Product",
+    "blog": "Blog",
+    "article_limit": "Article limit",
+    "product_limit": "Product limit",
+    "show_vendor": "Show vendor",
+    "main_menu": "Main menu",
+    "category_menu": "Category menu",
+    "show_search": "Show search",
+    "show_account": "Show account",
+    "show_cart": "Show cart",
+    "enable_localization": "Enable localization",
+    "sticky_header": "Enable sticky header",
+    "logo_width": "Logo width",
+    "hotline_label": "Hotline label",
+    "auto_rotate": "Auto-rotate",
+    "rotation_seconds": "Rotation seconds",
+    "eyebrow": "Eyebrow",
+    "background_color": "Background color",
+    "accent_color": "Accent color",
+    "end_datetime": "Countdown end datetime",
+    "footer_text": "Footer text",
+    "contact_text": "Contact text",
+    "menu": "Menu",
+    "show_payment_icons": "Show payment icons",
+    "icon_label": "Icon label",
+    "title": "Title",
+    "description": "Description",
+    "limit": "Limit",
+    "title_override": "Title override",
+    "image_override": "Image override",
+    "logo_image": "Logo image"
+  }
+}

@@ -1,0 +1,130 @@
+{%- liquid
+  assign announcement_id = 'AnnouncementBar-' | append: section.id
+-%}
+
+{% if section.blocks.size > 0 %}
+  <section class="announcement-bar color-scheme-1" id="{{ announcement_id }}">
+    <div class="page-width announcement-bar__inner">
+      <div
+        class="announcement-bar__items"
+        data-announcements
+        data-auto-rotate="{{ section.settings.auto_rotate }}"
+        data-rotation-seconds="{{ section.settings.rotation_seconds }}"
+      >
+        {% for block in section.blocks %}
+          {%- liquid
+            assign announcement_text = block.settings.text
+            if announcement_text == blank
+              assign announcement_text = 'sections.announcement_bar.default' | t
+            endif
+          -%}
+          <div
+            class="announcement-bar__item{% if forloop.first %} is-active{% endif %}"
+            data-announcement-item
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}">{{ announcement_text | escape }}</a>
+            {% else %}
+              <p>{{ announcement_text | escape }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% stylesheet %}
+  .announcement-bar {
+    background: #0f172a;
+    color: #ffffff;
+  }
+
+  .announcement-bar__inner {
+    padding-block: 0.7rem;
+  }
+
+  .announcement-bar__items {
+    display: grid;
+  }
+
+  .announcement-bar__item {
+    display: none;
+    text-align: center;
+    font-size: 0.92rem;
+  }
+
+  .announcement-bar__item.is-active {
+    display: block;
+  }
+
+  .announcement-bar__item a,
+  .announcement-bar__item p {
+    margin: 0;
+    color: inherit;
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  (() => {
+    const sectionRoot = document.currentScript.closest('.shopify-section')
+    const host = sectionRoot?.querySelector('[data-announcements]')
+    if (!host) return
+    const items = [...host.querySelectorAll('[data-announcement-item]')]
+    if (items.length < 2) return
+    const autoRotate = host.dataset.autoRotate === 'true'
+    const interval = Math.max(Number(host.dataset.rotationSeconds || 5) * 1000, 3000)
+    if (!autoRotate) return
+    let index = 0
+    window.setInterval(() => {
+      items[index].classList.remove('is-active')
+      index = (index + 1) % items.length
+      items[index].classList.add('is-active')
+    }, interval)
+  })()
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:sections.announcement_bar.name",
+  "class": "section-announcement-bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "auto_rotate",
+      "label": "t:labels.auto_rotate",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "rotation_seconds",
+      "label": "t:labels.rotation_seconds",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "t:sections.announcement_bar.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:labels.text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:labels.link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6
+}
+{% endschema %}
