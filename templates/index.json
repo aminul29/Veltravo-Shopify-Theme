@@ -1,19 +1,26 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "home-hero-merchandising",
-      "settings": {
-        "auto_rotate": true,
-        "rotation_seconds": 5
-      },
       "blocks": {
         "slideone": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/10e82f99-1254-4173-8085-085eb6ac5647.jpg",
             "eyebrow": "New arrivals",
             "heading": "Shape the homepage around your best products",
             "text": "Use flexible sections for promotions, featured collections, and conversion-focused merchandising.",
             "button_label": "Shop now",
+            "button_link": "",
             "accent_color": "#1f6df0",
             "background_color": "#eef4ff"
           }
@@ -25,6 +32,7 @@
             "heading": "Merchants can swap sections without touching code",
             "text": "The homepage is built with JSON templates and reusable sections that work cleanly in the Shopify theme editor.",
             "button_label": "Explore collections",
+            "button_link": "",
             "accent_color": "#0f766e",
             "background_color": "#ecfeff"
           }
@@ -33,7 +41,12 @@
       "block_order": [
         "slideone",
         "slidetwo"
-      ]
+      ],
+      "settings": {
+        "category_menu": "",
+        "auto_rotate": true,
+        "rotation_seconds": 5
+      }
     },
     "promo_tiles": {
       "type": "promo-tile-row",
@@ -42,21 +55,27 @@
           "type": "tile",
           "settings": {
             "heading": "Collection launch",
-            "text": "Highlight limited drops, seasonal edits, or top campaigns."
+            "text": "Highlight limited drops, seasonal edits, or top campaigns.",
+            "button_label": "",
+            "link": ""
           }
         },
         "tiletwo": {
           "type": "tile",
           "settings": {
             "heading": "Bundle offers",
-            "text": "Use editorial promo cards to point customers at high-intent offers."
+            "text": "Use editorial promo cards to point customers at high-intent offers.",
+            "button_label": "",
+            "link": ""
           }
         },
         "tilethree": {
           "type": "tile",
           "settings": {
             "heading": "Top categories",
-            "text": "Bridge customers from the hero straight into browsable shopping paths."
+            "text": "Bridge customers from the hero straight into browsable shopping paths.",
+            "button_label": "",
+            "link": ""
           }
         }
       },
@@ -64,7 +83,8 @@
         "tileone",
         "tiletwo",
         "tilethree"
-      ]
+      ],
+      "settings": {}
     },
     "featured_tabs": {
       "type": "featured-collection-tabs",
@@ -72,6 +92,7 @@
         "tabone": {
           "type": "collection_tab",
           "settings": {
+            "collection": "",
             "label": "Featured",
             "product_limit": 4
           }
@@ -79,6 +100,7 @@
         "tabtwo": {
           "type": "collection_tab",
           "settings": {
+            "collection": "",
             "label": "New",
             "product_limit": 4
           }
@@ -86,6 +108,7 @@
         "tabthree": {
           "type": "collection_tab",
           "settings": {
+            "collection": "",
             "label": "Top selling",
             "product_limit": 4
           }
@@ -95,11 +118,22 @@
         "tabone",
         "tabtwo",
         "tabthree"
-      ]
+      ],
+      "settings": {
+        "heading": "",
+        "subheading": "",
+        "show_vendor": false
+      }
     },
     "deal": {
       "type": "deal-spotlight",
-      "settings": {}
+      "settings": {
+        "heading": "",
+        "subheading": "",
+        "product": "",
+        "collection": "",
+        "end_datetime": ""
+      }
     },
     "categories": {
       "type": "featured-categories-grid",
@@ -107,37 +141,55 @@
         "catone": {
           "type": "category_card",
           "settings": {
-            "title_override": "Audio"
+            "collection": "",
+            "link": "",
+            "title_override": "Audio",
+            "description": ""
           }
         },
         "cattwo": {
           "type": "category_card",
           "settings": {
-            "title_override": "Wearables"
+            "collection": "",
+            "link": "",
+            "title_override": "Wearables",
+            "description": ""
           }
         },
         "catthree": {
           "type": "category_card",
           "settings": {
-            "title_override": "Gaming"
+            "collection": "",
+            "link": "",
+            "title_override": "Gaming",
+            "description": ""
           }
         },
         "catfour": {
           "type": "category_card",
           "settings": {
-            "title_override": "Computing"
+            "collection": "",
+            "link": "",
+            "title_override": "Computing",
+            "description": ""
           }
         },
         "catfive": {
           "type": "category_card",
           "settings": {
-            "title_override": "Home tech"
+            "collection": "",
+            "link": "",
+            "title_override": "Home tech",
+            "description": ""
           }
         },
         "catsix": {
           "type": "category_card",
           "settings": {
-            "title_override": "Accessories"
+            "collection": "",
+            "link": "",
+            "title_override": "Accessories",
+            "description": ""
           }
         }
       },
@@ -148,11 +200,19 @@
         "catfour",
         "catfive",
         "catsix"
-      ]
+      ],
+      "settings": {
+        "heading": "",
+        "subheading": ""
+      }
     },
     "top_selling": {
       "type": "top-selling-showcase",
       "settings": {
+        "heading": "",
+        "subheading": "",
+        "collection": "",
+        "featured_product": "",
         "product_limit": 4,
         "show_vendor": false
       }
@@ -163,31 +223,36 @@
         "logoone": {
           "type": "logo",
           "settings": {
-            "title": "Brand one"
+            "title": "Brand one",
+            "link": ""
           }
         },
         "logotwo": {
           "type": "logo",
           "settings": {
-            "title": "Brand two"
+            "title": "Brand two",
+            "link": ""
           }
         },
         "logothree": {
           "type": "logo",
           "settings": {
-            "title": "Brand three"
+            "title": "Brand three",
+            "link": ""
           }
         },
         "logofour": {
           "type": "logo",
           "settings": {
-            "title": "Brand four"
+            "title": "Brand four",
+            "link": ""
           }
         },
         "logofive": {
           "type": "logo",
           "settings": {
-            "title": "Brand five"
+            "title": "Brand five",
+            "link": ""
           }
         }
       },
@@ -197,11 +262,17 @@
         "logothree",
         "logofour",
         "logofive"
-      ]
+      ],
+      "settings": {
+        "heading": ""
+      }
     },
     "blog": {
       "type": "featured-blog",
       "settings": {
+        "heading": "",
+        "subheading": "",
+        "blog": "",
         "article_limit": 3
       }
     },
@@ -246,11 +317,17 @@
         "benefittwo",
         "benefitthree",
         "benefitfour"
-      ]
+      ],
+      "settings": {
+        "heading": ""
+      }
     },
     "newsletter": {
       "type": "newsletter-signup",
-      "settings": {}
+      "settings": {
+        "heading": "",
+        "text": ""
+      }
     }
   },
   "order": [
