@@ -1,0 +1,58 @@
+{% doc %}
+  Renders a featured category card.
+
+  @param {object} [block] - Section block object
+  @param {string} [fallback_image] - Fallback image asset filename
+  @param {string} [fallback_title] - Fallback title
+  @param {string} [fallback_link] - Fallback URL
+{% enddoc %}
+
+{%- liquid
+  assign category_collection = blank
+  assign category_title = fallback_title | default: 'Featured category'
+  assign category_url = fallback_link | default: '#.'
+
+  if block != blank
+    assign category_collection = block.settings.collection
+    assign category_title = block.settings.title
+    if category_title == blank and category_collection != blank
+      assign category_title = category_collection.title
+    endif
+    if category_title == blank
+      assign category_title = fallback_title | default: 'Featured category'
+    endif
+
+    assign category_url = block.settings.link
+    if category_url == blank and category_collection != blank
+      assign category_url = category_collection.url
+    endif
+    if category_url == blank
+      assign category_url = fallback_link | default: '#.'
+    endif
+  endif
+-%}
+
+<div class="col-md-4" {% if block != blank %}{{ block.shopify_attributes }}{% endif %}>
+  <div class="some-cate">
+    {% if block != blank and block.settings.image != blank %}
+      {{ block.settings.image | image_url: width: 140 | image_tag: alt: category_title, loading: 'lazy' }}
+    {% elsif category_collection != blank and category_collection.featured_image != blank %}
+      {{ category_collection.featured_image | image_url: width: 140 | image_tag: alt: category_title, loading: 'lazy' }}
+    {% elsif fallback_image != blank %}
+      <img src="{{ fallback_image | asset_url }}" alt="{{ category_title | escape }}">
+    {% endif %}
+    <h5>{{ category_title }}</h5>
+    <ul>
+      {% if block != blank and block.settings.menu != blank and block.settings.menu.links.size > 0 %}
+        {% for link in block.settings.menu.links limit: 4 %}
+          <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+        {% endfor %}
+      {% elsif category_collection != blank and category_collection.products_count > 0 %}
+        {% for product in category_collection.products limit: 4 %}
+          <li><a href="{{ product.url }}">{{ product.title | escape }}</a></li>
+        {% endfor %}
+      {% endif %}
+      <li><a href="{{ category_url }}"> View all <i class="fa fa-angle-double-right"></i></a></li>
+    </ul>
+  </div>
+</div>

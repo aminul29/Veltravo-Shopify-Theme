@@ -1,23 +1,72 @@
-﻿    <!-- Clients img -->
-    <section class="light-gry-bg clients-img">
-      <div class="container">
-        <ul>
-          <li><img src="{{ 'c-img-1.png' | asset_url }}" alt=""></li>
-          <li><img src="{{ 'c-img-2.png' | asset_url }}" alt=""></li>
-          <li><img src="{{ 'c-img-3.png' | asset_url }}" alt=""></li>
-          <li><img src="{{ 'c-img-4.png' | asset_url }}" alt=""></li>
-          <li><img src="{{ 'c-img-5.png' | asset_url }}" alt=""></li>
-        </ul>
-      </div>
-    </section>
-    
+<!-- Clients img -->
+<section class="light-gry-bg clients-img">
+  <div class="container">
+    <ul id="client-slide-1">
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          {%- liquid
+            assign fallback_logo = 'c-img-1.png'
+            case forloop.index
+              when 2
+                assign fallback_logo = 'c-img-2.png'
+              when 3
+                assign fallback_logo = 'c-img-3.png'
+              when 4
+                assign fallback_logo = 'c-img-4.png'
+              when 5
+                assign fallback_logo = 'c-img-5.png'
+            endcase
+          -%}
+          {% render 'logo-item', block: block, fallback_logo: fallback_logo %}
+        {% endfor %}
+      {% else %}
+        {% render 'logo-item', fallback_logo: 'c-img-1.png' %}
+        {% render 'logo-item', fallback_logo: 'c-img-2.png' %}
+        {% render 'logo-item', fallback_logo: 'c-img-3.png' %}
+        {% render 'logo-item', fallback_logo: 'c-img-4.png' %}
+        {% render 'logo-item', fallback_logo: 'c-img-5.png' %}
+      {% endif %}
+    </ul>
+  </div>
+</section>
+
 {% schema %}
 {
   "name": "Logo List",
-  "settings": [],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo image"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Alt text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Logo link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
   "presets": [
     {
-      "name": "Logo List"
+      "name": "Logo List",
+      "blocks": [
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" }
+      ]
     }
   ]
 }

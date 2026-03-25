@@ -1,112 +1,183 @@
-﻿  <!-- Slid Sec -->
-  <section class="slid-sec">
-    <div class="container">
-      <div class="container-fluid">
-        <div class="row"> 
-          
-          <!-- Main Slider  -->
-          <div class="col-md-3 no-padding">
-            <div class="cate-bar-in relative margin-top-0">
-              <div id="cater">
-                <ul>
-                  <li><a href="#."> Home Audio & Theater</a></li>
-                  <li><a href="#."> TV & Video</a></li>
-                  <li><a href="#."> Camera, Photo & Video</a></li>
-                  <li><a href="#."> Cell Phones & Accessories</a></li>
-                  <li><a href="#."> Headphones</a></li>
-                  <li><a href="#."> Video Games</a></li>
-                  <li><a href="#."> Bluetooth & Wireless Speakers</a></li>
-                  <li><a href="#."> Gaming Console</a></li>
-                  <li><a href="#."> Computers & Tablets</a></li>
-                  <li><a href="#."> Monitors</a></li>
-                  <li><a href="#."> Home Appliances</a></li>
-                  <li><a href="#."> Office Supplies</a></li>
-                </ul>
-              </div>
+{%- liquid
+  assign categories_menu = section.settings.categories_menu
+-%}
+
+<!-- Slid Sec -->
+<section class="slid-sec">
+  <div class="container">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 no-padding">
+          <div class="cate-bar-in relative margin-top-0">
+            <div id="cater">
+              <ul>
+                {% if categories_menu != blank and categories_menu.links.size > 0 %}
+                  {% for link in categories_menu.links %}
+                    {% if link.links != blank and link.links.size > 0 %}
+                      <li class="sub-menu">
+                        <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                        <ul>
+                          {% for child_link in link.links %}
+                            <li><a href="{{ child_link.url }}">{{ child_link.title | escape }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      </li>
+                    {% else %}
+                      <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              </ul>
             </div>
           </div>
-          
-          <!-- Main Slider  -->
-          <div class="col-md-9 no-padding"> 
-            
-            <!-- Main Slider Start -->
-            <div class="tp-banner-container">
-              <div class="tp-banner with-bg-slide-all">
-                <ul>
-                  <li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off"> 
-                    <!-- MAIN IMAGE --> 
-                    <img src="{{ 'trans-bg.png' | asset_url }}" alt="slider" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat"> 
-                    
-                    <!-- LAYER NR. 1 -->
+        </div>
+
+        <div class="col-md-9 no-padding">
+          <div class="tp-banner-container">
+            <div class="tp-banner with-bg-slide-all">
+              <ul>
+                {% if section.blocks.size > 0 %}
+                  {% for block in section.blocks %}
+                    {%- liquid
+                      assign layer_image = block.settings.foreground_image
+                      if layer_image == blank
+                        if forloop.index == 2
+                          assign layer_image = 'slide-item-9-1.png'
+                        else
+                          assign layer_image = 'slide-item-7-2.png'
+                        endif
+                      endif
+                    -%}
+                    <li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off" {{ block.shopify_attributes }}>
+                      {% if block.settings.background_image != blank %}
+                        <img src="{{ block.settings.background_image | image_url: width: 1600 }}" alt="{{ block.settings.title | escape }}" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
+                      {% else %}
+                        <img src="{{ 'trans-bg.png' | asset_url }}" alt="slider" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
+                      {% endif %}
+
+                      <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-80" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:26px; font-weight:500; color:#888888;  max-width: auto; max-height: auto; white-space: nowrap;">{{ block.settings.pretitle }}</div>
+                      <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; font-size:36px; color:#22c961; font-weight:800; white-space: nowrap;">{{ block.settings.title }}</div>
+                      <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="10" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:36px; font-weight:800; color:#000;  max-width: auto; max-height: auto; white-space: nowrap;">{{ block.settings.price_text }}</div>
+                      <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="{{ block.settings.image_offset }}" data-y="center" data-voffset="0" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 1;"><img src="{% if block.settings.foreground_image != blank %}{{ block.settings.foreground_image | image_url: width: 900 }}{% else %}{{ layer_image | asset_url }}{% endif %}" alt=""></div>
+                      <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="{{ block.settings.button_link | default: '#.' }}" class="btn-round big">{{ block.settings.button_label }}</a></div>
+                    </li>
+                  {% endfor %}
+                {% else %}
+                  <li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+                    <img src="{{ 'trans-bg.png' | asset_url }}" alt="slider" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
                     <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-80" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:26px; font-weight:500; color:#888888;  max-width: auto; max-height: auto; white-space: nowrap;">Go Portable, Get Productive </div>
-                    
-                    <!-- LAYER NR. 2 -->
                     <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; font-size:36px; color:#22c961; font-weight:800; white-space: nowrap;">M75 Sport Watch</div>
-                    
-                    <!-- LAYER NR. 1 -->
                     <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="10" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:36px; font-weight:800; color:#000;  max-width: auto; max-height: auto; white-space: nowrap;">$550.00 </div>
-                    <!-- LAYER NR. 1 -->
                     <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="50" data-y="center" data-voffset="0" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 1;"><img src="{{ 'slide-item-7-2.png' | asset_url }}" alt=""> </div>
-                    
-                    <!-- LAYER NR. 4 -->
                     <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="#." class="btn-round big">Shop Now</a> </div>
                   </li>
-                  
-                  <!-- SLIDE  -->
-                  <li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off"> 
-                    <!-- MAIN IMAGE --> 
-                    <img src="{{ 'trans-bg.png' | asset_url }}" alt="slider" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat"> 
-                    
-                    <!-- LAYER NR. 1 -->
+                  <li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+                    <img src="{{ 'trans-bg.png' | asset_url }}" alt="slider" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
                     <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-90" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:24px; font-weight:500; color:#888888;  max-width: auto; max-height: auto; white-space: nowrap;">High Quality VR Glasses </div>
-                    
-                    <!-- LAYER NR. 2 -->
                     <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; font-size:36px; color:#22c961; font-weight:800; white-space: nowrap;">3D Daydream View</div>
-                    
-                    <!-- LAYER NR. 1 -->
                     <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="20" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:36px; font-weight:800; color:#000;  max-width: auto; max-height: auto; white-space: nowrap;">$550.00 </div>
-                    <!-- LAYER NR. 1 -->
                     <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="80" data-y="center" data-voffset="30" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 1;"><img src="{{ 'slide-item-9-1.png' | asset_url }}" alt=""> </div>
-                    
-                    <!-- LAYER NR. 4 -->
                     <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="#." class="btn-round big">Shop Now</a> </div>
                   </li>
-                  
-                  <!-- SLIDE  -->
-                  <li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off"> 
-                    <!-- MAIN IMAGE --> 
-                    <img src="{{ 'trans-bg.png' | asset_url }}" alt="slider" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat"> 
-                    
-                    <!-- LAYER NR. 1 -->
+                  <li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+                    <img src="{{ 'trans-bg.png' | asset_url }}" alt="slider" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
                     <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-90" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:24px; font-weight:500; color:#888888;  max-width: auto; max-height: auto; white-space: nowrap;">No restocking fee</div>
-                    
-                    <!-- LAYER NR. 2 -->
                     <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; font-size:36px; color:#22c961; font-weight:800; white-space: nowrap;">M75 Sport Watch</div>
-                    
-                    <!-- LAYER NR. 1 -->
                     <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="20" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:36px; font-weight:800; color:#000;  max-width: auto; max-height: auto; white-space: nowrap;">$320.00 </div>
-                    <!-- LAYER NR. 1 -->
                     <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="50" data-y="center" data-voffset="0" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 1;"><img src="{{ 'slide-item-7-2.png' | asset_url }}" alt=""> </div>
-                    
-                    <!-- LAYER NR. 4 -->
                     <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="120" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="#." class="btn-round big">Shop Now</a> </div>
                   </li>
-                </ul>
-              </div>
+                {% endif %}
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  
+  </div>
+</section>
+
 {% schema %}
 {
   "name": "Home Hero Merchandising",
-  "settings": [],
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "categories_menu",
+      "label": "Categories menu"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "pretitle",
+          "label": "Pretitle",
+          "default": "Go Portable, Get Productive"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "M75 Sport Watch"
+        },
+        {
+          "type": "text",
+          "id": "price_text",
+          "label": "Price text",
+          "default": "$550.00"
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background image"
+        },
+        {
+          "type": "image_picker",
+          "id": "foreground_image",
+          "label": "Foreground image"
+        },
+        {
+          "type": "range",
+          "id": "image_offset",
+          "label": "Foreground horizontal offset",
+          "min": 0,
+          "max": 300,
+          "step": 10,
+          "default": 50
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
   "presets": [
     {
-      "name": "Home Hero Merchandising"
+      "name": "Home Hero Merchandising",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
     }
   ]
 }

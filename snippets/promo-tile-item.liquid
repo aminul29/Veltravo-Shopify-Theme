@@ -1,0 +1,57 @@
+{% doc %}
+  Renders a promo tile block for the promo tile row section.
+
+  @param {object} [block] - Section block object
+  @param {string} [fallback_variant] - Tile variant: regular, watch, or sale
+  @param {string} [fallback_subtitle] - Subtitle text
+  @param {string} [fallback_title] - Title text
+  @param {string} [fallback_price] - Price text
+  @param {string} [fallback_highlight] - Highlight text (sale variant)
+  @param {string} [fallback_text] - Body text (sale variant)
+  @param {string} [fallback_button_label] - Button label (sale variant)
+  @param {string} [fallback_link] - CTA link
+{% enddoc %}
+
+{%- liquid
+  assign tile_variant = fallback_variant | default: 'regular'
+  assign subtitle = fallback_subtitle
+  assign title = fallback_title
+  assign price = fallback_price
+  assign highlight = fallback_highlight
+  assign body_text = fallback_text
+  assign button_label = fallback_button_label
+  assign tile_link = fallback_link | default: '#.'
+
+  if block != blank
+    assign tile_variant = block.settings.tile_variant | default: 'regular'
+    assign subtitle = block.settings.subtitle
+    assign title = block.settings.title
+    assign price = block.settings.price
+    assign highlight = block.settings.highlight
+    assign body_text = block.settings.body_text
+    assign button_label = block.settings.button_label
+    assign tile_link = block.settings.link | default: '#.'
+  endif
+-%}
+
+{% if tile_variant == 'sale' %}
+  <div class="col-md-4" {% if block != blank %}{{ block.shopify_attributes }}{% endif %}>
+    <div class="week-sale-bnr">
+      <h4>{{ title }} <span>{{ highlight }}</span></h4>
+      <p>{{ body_text }}</p>
+      <a href="{{ tile_link }}" class="btn-round">{{ button_label }}</a>
+    </div>
+  </div>
+{% else %}
+  <div class="col-md-4" {% if block != blank %}{{ block.shopify_attributes }}{% endif %}>
+    <div class="product">
+      <a href="{{ tile_link }}" class="like-bnr{% if tile_variant == 'watch' %} watch{% endif %}">
+        <div class="position-center-center">
+          <h5>{{ subtitle }}</h5>
+          <h4>{{ title }}</h4>
+          <span class="price">{{ price }}</span>
+        </div>
+      </a>
+    </div>
+  </div>
+{% endif %}

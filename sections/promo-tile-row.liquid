@@ -1,52 +1,126 @@
-﻿    <!-- Banner -->
-    <section class="disply-sec slid-sec margin-bottom-0">
-      <div class="container">
-        <div class="row"> 
-          
-          <!-- Smartphone -->
-          <div class="col-md-4">
-            <div class="product">
-              <div class="like-bnr">
-                <div class="position-center-center">
-                  <h5>New line required</h5>
-                  <h4>Z68 Web Camera</h4>
-                  <span class="price">$85.00</span> </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Sport -->
-          <div class="col-md-4">
-            <div class="product">
-              <div class="like-bnr watch">
-                <div class="position-center-center">
-                  <h5>No restocking fee<br>
-                    ($35 savings)</h5>
-                  <h4>SmartPhone</h4>
-                  <span class="price">$450.00</span> </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Saving up -->
-          <div class="col-md-4">
-            <div class="week-sale-bnr">
-              <h4>Huge <span>Sale!</span></h4>
-              <p>Saving up to 50% off all online
-                store items this week.</p>
-              <a href="#." class="btn-round">Shop now</a> </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
+<!-- Banner -->
+<section class="disply-sec slid-sec margin-bottom-0">
+  <div class="container">
+    <div class="row">
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          {% render 'promo-tile-item', block: block %}
+        {% endfor %}
+      {% else %}
+        {% render 'promo-tile-item', fallback_variant: 'regular', fallback_subtitle: 'New line required', fallback_title: 'Z68 Web Camera', fallback_price: '$85.00', fallback_link: '#.' %}
+        {% render 'promo-tile-item', fallback_variant: 'watch', fallback_subtitle: 'No restocking fee ($35 savings)', fallback_title: 'SmartPhone', fallback_price: '$450.00', fallback_link: '#.' %}
+        {% render 'promo-tile-item', fallback_variant: 'sale', fallback_title: 'Huge', fallback_highlight: 'Sale!', fallback_text: 'Saving up to 50% off all online store items this week.', fallback_button_label: 'Shop now', fallback_link: '#.' %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
 {% schema %}
 {
   "name": "Promo Tile Row",
-  "settings": [],
+  "blocks": [
+    {
+      "type": "promo_tile",
+      "name": "Promo tile",
+      "settings": [
+        {
+          "type": "select",
+          "id": "tile_variant",
+          "label": "Tile style",
+          "default": "regular",
+          "options": [
+            {
+              "value": "regular",
+              "label": "Regular"
+            },
+            {
+              "value": "watch",
+              "label": "Watch"
+            },
+            {
+              "value": "sale",
+              "label": "Sale banner"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "New line required"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Z68 Web Camera"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "$85.00"
+        },
+        {
+          "type": "text",
+          "id": "highlight",
+          "label": "Highlighted text",
+          "default": "Sale!"
+        },
+        {
+          "type": "textarea",
+          "id": "body_text",
+          "label": "Body text",
+          "default": "Saving up to 50% off all online store items this week."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
   "presets": [
     {
-      "name": "Promo Tile Row"
+      "name": "Promo Tile Row",
+      "blocks": [
+        {
+          "type": "promo_tile",
+          "settings": {
+            "tile_variant": "regular",
+            "subtitle": "New line required",
+            "title": "Z68 Web Camera",
+            "price": "$85.00"
+          }
+        },
+        {
+          "type": "promo_tile",
+          "settings": {
+            "tile_variant": "watch",
+            "subtitle": "No restocking fee ($35 savings)",
+            "title": "SmartPhone",
+            "price": "$450.00"
+          }
+        },
+        {
+          "type": "promo_tile",
+          "settings": {
+            "tile_variant": "sale",
+            "title": "Huge",
+            "highlight": "Sale!",
+            "body_text": "Saving up to 50% off all online store items this week.",
+            "button_label": "Shop now"
+          }
+        }
+      ]
     }
   ]
 }

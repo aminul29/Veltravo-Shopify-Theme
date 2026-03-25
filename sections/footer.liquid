@@ -20,15 +20,6 @@
           {% for link in top_links_menu.links %}
             <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
           {% endfor %}
-        {% else %}
-          <li><a href="#."> About us </a></li>
-          <li><a href="#."> Customer Service </a></li>
-          <li><a href="#."> Privacy Policy </a></li>
-          <li><a href="#."> Site Map </a></li>
-          <li><a href="#."> Search Terms </a></li>
-          <li><a href="#."> Advanced Search </a></li>
-          <li><a href="#."> Orders and Returns </a></li>
-          <li><a href="#."> Contact Us</a></li>
         {% endif %}
       </ul>
     </div>
@@ -60,14 +51,6 @@
             {% for link in categories_menu.links %}
               <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
             {% endfor %}
-          {% else %}
-            <li><a href="#.">Home Audio & Theater</a></li>
-            <li><a href="#."> TV & Video</a></li>
-            <li><a href="#."> Camera, Photo & Video</a></li>
-            <li><a href="#."> Cell Phones & Accessories</a></li>
-            <li><a href="#."> Headphones</a></li>
-            <li><a href="#."> Video Games</a></li>
-            <li><a href="#."> Bluetooth & Wireless</a></li>
           {% endif %}
         </ul>
       </div>
@@ -79,12 +62,6 @@
             {% for link in services_menu.links %}
               <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
             {% endfor %}
-          {% else %}
-            <li><a href="#.">Shipping & Returns</a></li>
-            <li><a href="#."> Secure Shopping</a></li>
-            <li><a href="#."> International Shipping</a></li>
-            <li><a href="#."> Affiliates</a></li>
-            <li><a href="#."> Contact </a></li>
           {% endif %}
         </ul>
       </div>
@@ -96,13 +73,6 @@
             {% for link in information_menu.links %}
               <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
             {% endfor %}
-          {% else %}
-            <li><a href="#.">Our Blog</a></li>
-            <li><a href="#."> About Our Shop</a></li>
-            <li><a href="#."> Secure Shopping</a></li>
-            <li><a href="#."> Delivery infomation</a></li>
-            <li><a href="#."> Store Locations</a></li>
-            <li><a href="#."> FAQs</a></li>
           {% endif %}
         </ul>
       </div>

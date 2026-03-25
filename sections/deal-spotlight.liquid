@@ -1,160 +1,315 @@
-﻿    <!-- HOT DEAL -->
-    <section class="padding-top-60 padding-bottom-60">
-      <div class="container">
-        <div class="row"> 
-          
-          <!-- Popular items -->
-          <div class="col-sm-3"> 
-            
-            <!-- heading -->
-            <div class="heading">
-              <h2>Popular items</h2>
-              <hr>
-            </div>
-            <div class="shop-listing on-list"> 
-              
-              <!-- Items list -->
+{%- liquid
+  assign popular_collection = section.settings.popular_collection
+-%}
+
+<!-- HOT DEAL -->
+<section class="padding-top-60 padding-bottom-60">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="heading">
+          <h2>{{ section.settings.popular_heading }}</h2>
+          <hr>
+        </div>
+        <div class="shop-listing on-list">
+          {% if popular_collection != blank and popular_collection.products_count > 0 %}
+            {% for product in popular_collection.products limit: section.settings.popular_products_limit %}
               <div class="media">
-                <div class="media-left"> <a href="#." class="avatar"><img class="img-responsive" src="{{ 'item-img-1-1.jpg' | asset_url }}" alt=""></a> </div>
-                <div class="media-body"> <a href="#">Mp3 Sumergible Deportivo Slim Con 8GB</a>
-                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>                
-                <span class="price"><b>$480.00</b> <small>$780.00</small></span> </div>
+                <div class="media-left">
+                  <a href="{{ product.url }}" class="avatar">
+                    {% if product.featured_image %}
+                      {{ product.featured_image | image_url: width: 160 | image_tag: class: 'img-responsive', alt: product.title, loading: 'lazy' }}
+                    {% else %}
+                      <img class="img-responsive" src="{{ 'item-img-1-1.jpg' | asset_url }}" alt="{{ product.title | escape }}">
+                    {% endif %}
+                  </a>
+                </div>
+                <div class="media-body">
+                  <a href="{{ product.url }}">{{ product.title | escape }}</a>
+                  <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>
+                  <span class="price">
+                    <b>{{ product.price | money }}</b>
+                    {% if product.compare_at_price > product.price %}
+                      <small>{{ product.compare_at_price | money }}</small>
+                    {% endif %}
+                  </span>
+                </div>
               </div>
-              
-              <!-- Items list -->
-              <div class="media">
-                <div class="media-left"> <a href="#." class="avatar"><img class="img-responsive" src="{{ 'item-img-1-2.jpg' | asset_url }}" alt=""></a> </div>
-                <div class="media-body"> <a href="#">Mp3 Sumergible Deportivo
+            {% endfor %}
+          {% else %}
+            <div class="media">
+              <div class="media-left"> <a href="#." class="avatar"><img class="img-responsive" src="{{ 'item-img-1-1.jpg' | asset_url }}" alt=""></a> </div>
+              <div class="media-body"> <a href="#">Mp3 Sumergible Deportivo Slim Con 8GB</a>
+              <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>
+              <span class="price"><b>$480.00</b> <small>$780.00</small></span> </div>
+            </div>
+            <div class="media">
+              <div class="media-left"> <a href="#." class="avatar"><img class="img-responsive" src="{{ 'item-img-1-2.jpg' | asset_url }}" alt=""></a> </div>
+              <div class="media-body"> <a href="#">Mp3 Sumergible Deportivo
 Slim Con 8GB</a>
-                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>                
-                <span class="price">$480.00 </span> </div>
-              </div>
-              
-              <!-- Items list -->
-              <div class="media">
-                <div class="media-left"> <a href="#." class="avatar"><img class="img-responsive" src="{{ 'item-img-1-3.jpg' | asset_url }}" alt=""></a> </div>
-                <div class="media-body"> <a href="#">Mp3 Sumergible Deportivo
+              <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>
+              <span class="price">$480.00 </span> </div>
+            </div>
+            <div class="media">
+              <div class="media-left"> <a href="#." class="avatar"><img class="img-responsive" src="{{ 'item-img-1-3.jpg' | asset_url }}" alt=""></a> </div>
+              <div class="media-body"> <a href="#">Mp3 Sumergible Deportivo
 Slim Con 8GB</a>
-                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>                
-                <span class="price">$480.00 </span> </div>
-              </div>
-              
-              
-              <a href="#." class="view-all">+ View more</a>
-              
-              
+              <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>
+              <span class="price">$480.00 </span> </div>
             </div>
-          </div>
-          
-          <!-- Weekly DEAL -->
-          <div class="col-sm-9"> 
-            
-            <!-- heading -->
-            <div class="heading">
-              <h2>Hot Deal Of the Week</h2>
-              <hr>
-            </div>
-            
-            <!-- Weekly Deal Slide -->
-            <div class="singl-slide with-nav">
-            <!-- Weekly Deal Slide -->
-            <div class="weekly-deal">
-              <div class="media-left">
-                <div class="item-img"> <img class="img-responsive" src="{{ 'item-img-1-17.jpg' | asset_url }}" alt=""> </div>
-                <div class="offer-time">
-                  <div class="countdown"> 
-                    <!-- Days -->
-                    <article> <span class="days">00</span>
-                      <p class="days_ref">Days</p>
-                    </article>
-                    <!-- Hours -->
-                    <article> <span class="hours">00</span>
-                      <p class="hours_ref">Hours</p>
-                    </article>
-                    <!-- Mintes -->
-                    <article><span class="minutes">00</span>
-                      <p class="minutes_ref">Minutes</p>
-                    </article>
-                    <!-- Seconds -->
-                    <article><span class="seconds">00</span>
-                      <p class="seconds_ref">Seconds</p>
-                    </article>
-                  </div>
-                </div>
-              </div>
-              <div class="media-body"> <span class="tags">Desk & Laptop</span> <a href="#." class="tittle">Laptop Alienware 15” i7 Perfect For Gamer</a>
-                <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <span class="margin-left-10">5 Review(s)</span></p>
-                <div class="row">
-                  <div class="col-sm-6"><span class="price">$480.00 <small>$780.00</small></span></div>
-                  <div class="col-sm-6 margin-top-10">
-                    <p>Availability: <span class="in-stock">In stock</span></p>
-                  </div>
-                </div>
-                <ul>
-                  <li>Screen: 1920 x 1080 pixels</li>
-                  <li>Processor: 2.5 GHz None</li>
-                  <li>RAM: 8 GB</li>
-                  <li>Hard Drive: Flash memory solid state</li>
-                  <li>Graphics : Intel HD Graphics 520 Integrated</li>
-                </ul>
-                <a href="#." class="btn-round">Add to Cart</a> </div>
-            </div>
-            
-            <!-- Weekly Deal Slide -->
-            <div class="weekly-deal">
-              <div class="media-left">
-                <div class="item-img"> <img class="img-responsive" src="{{ 'item-img-1-17.jpg' | asset_url }}" alt=""> </div>
-                <div class="offer-time">
-                  <div class="countdown"> 
-                    <!-- Days -->
-                    <article> <span class="days">00</span>
-                      <p class="days_ref">Days</p>
-                    </article>
-                    <!-- Hours -->
-                    <article> <span class="hours">00</span>
-                      <p class="hours_ref">Hours</p>
-                    </article>
-                    <!-- Mintes -->
-                    <article><span class="minutes">00</span>
-                      <p class="minutes_ref">Minutes</p>
-                    </article>
-                    <!-- Seconds -->
-                    <article><span class="seconds">00</span>
-                      <p class="seconds_ref">Seconds</p>
-                    </article>
-                  </div>
-                </div>
-              </div>
-              <div class="media-body"> <span class="tags">Desk & Laptop</span> <a href="#." class="tittle">Laptop Alienware 15” i7 Perfect For Gamer</a>
-                <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <span class="margin-left-10">5 Review(s)</span></p>
-                <div class="row">
-                  <div class="col-sm-6"><span class="price">$480.00 <small>$780.00</small></span></div>
-                  <div class="col-sm-6 margin-top-10">
-                    <p>Availability: <span class="in-stock">In stock</span></p>
-                  </div>
-                </div>
-                <ul>
-                  <li>Screen: 1920 x 1080 pixels</li>
-                  <li>Processor: 2.5 GHz None</li>
-                  <li>RAM: 8 GB</li>
-                  <li>Hard Drive: Flash memory solid state</li>
-                  <li>Graphics : Intel HD Graphics 520 Integrated</li>
-                </ul>
-                <a href="#." class="btn-round">Add to Cart</a> </div>
-            </div>
-            </div>
-          </div>
+          {% endif %}
+
+          <a href="{{ popular_collection.url | default: '#.' }}" class="view-all">+ {{ section.settings.view_more_label }}</a>
         </div>
       </div>
-    </section>
-    
+
+      <div class="col-sm-9">
+        <div class="heading">
+          <h2>{{ section.settings.deal_heading }}</h2>
+          <hr>
+        </div>
+
+        <div class="singl-slide with-nav">
+          {% if section.blocks.size > 0 %}
+            {% for block in section.blocks %}
+              {%- liquid
+                assign deal_product = block.settings.product
+                assign tag_text = block.settings.tag
+                if tag_text == blank and deal_product != blank
+                  assign tag_text = deal_product.type | default: deal_product.vendor
+                endif
+                if tag_text == blank
+                  assign tag_text = 'Desk & Laptop'
+                endif
+              -%}
+              <div class="weekly-deal" {{ block.shopify_attributes }}>
+                <div class="media-left">
+                  <div class="item-img">
+                    {% if deal_product != blank and deal_product.featured_image != blank %}
+                      {{ deal_product.featured_image | image_url: width: 700 | image_tag: class: 'img-responsive', alt: deal_product.title | escape }}
+                    {% else %}
+                      <img class="img-responsive" src="{{ 'item-img-1-17.jpg' | asset_url }}" alt="">
+                    {% endif %}
+                  </div>
+                  <div class="offer-time">
+                    <div class="countdown">
+                      <article> <span class="days">00</span><p class="days_ref">Days</p></article>
+                      <article> <span class="hours">00</span><p class="hours_ref">Hours</p></article>
+                      <article><span class="minutes">00</span><p class="minutes_ref">Minutes</p></article>
+                      <article><span class="seconds">00</span><p class="seconds_ref">Seconds</p></article>
+                    </div>
+                  </div>
+                </div>
+                <div class="media-body">
+                  <span class="tags">{{ tag_text | escape }}</span>
+                  <a href="{{ deal_product.url | default: '#.' }}" class="tittle">{{ deal_product.title | default: block.settings.fallback_title }}</a>
+                  <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <span class="margin-left-10">5 Review(s)</span></p>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <span class="price">
+                        {% if deal_product != blank %}
+                          {{ deal_product.price | money }}
+                          {% if deal_product.compare_at_price > deal_product.price %}
+                            <small>{{ deal_product.compare_at_price | money }}</small>
+                          {% endif %}
+                        {% else %}
+                          $480.00 <small>$780.00</small>
+                        {% endif %}
+                      </span>
+                    </div>
+                    <div class="col-sm-6 margin-top-10">
+                      <p>Availability:
+                        {% if deal_product != blank and deal_product.available %}
+                          <span class="in-stock">In stock</span>
+                        {% else %}
+                          <span class="in-stock">In stock</span>
+                        {% endif %}
+                      </p>
+                    </div>
+                  </div>
+                  <ul>
+                    <li>{{ block.settings.feature_1 }}</li>
+                    <li>{{ block.settings.feature_2 }}</li>
+                    <li>{{ block.settings.feature_3 }}</li>
+                    <li>{{ block.settings.feature_4 }}</li>
+                    <li>{{ block.settings.feature_5 }}</li>
+                  </ul>
+                  <a href="{{ deal_product.url | default: '#.' }}" class="btn-round">{{ block.settings.button_label }}</a>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="weekly-deal">
+              <div class="media-left">
+                <div class="item-img"> <img class="img-responsive" src="{{ 'item-img-1-17.jpg' | asset_url }}" alt=""> </div>
+                <div class="offer-time">
+                  <div class="countdown">
+                    <article> <span class="days">00</span><p class="days_ref">Days</p></article>
+                    <article> <span class="hours">00</span><p class="hours_ref">Hours</p></article>
+                    <article><span class="minutes">00</span><p class="minutes_ref">Minutes</p></article>
+                    <article><span class="seconds">00</span><p class="seconds_ref">Seconds</p></article>
+                  </div>
+                </div>
+              </div>
+              <div class="media-body"> <span class="tags">Desk & Laptop</span> <a href="#." class="tittle">Laptop Alienware 15” i7 Perfect For Gamer</a>
+                <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <span class="margin-left-10">5 Review(s)</span></p>
+                <div class="row">
+                  <div class="col-sm-6"><span class="price">$480.00 <small>$780.00</small></span></div>
+                  <div class="col-sm-6 margin-top-10"><p>Availability: <span class="in-stock">In stock</span></p></div>
+                </div>
+                <ul>
+                  <li>Screen: 1920 x 1080 pixels</li>
+                  <li>Processor: 2.5 GHz None</li>
+                  <li>RAM: 8 GB</li>
+                  <li>Hard Drive: Flash memory solid state</li>
+                  <li>Graphics : Intel HD Graphics 520 Integrated</li>
+                </ul>
+                <a href="#." class="btn-round">Add to Cart</a> </div>
+            </div>
+            <div class="weekly-deal">
+              <div class="media-left">
+                <div class="item-img"> <img class="img-responsive" src="{{ 'item-img-1-17.jpg' | asset_url }}" alt=""> </div>
+                <div class="offer-time">
+                  <div class="countdown">
+                    <article> <span class="days">00</span><p class="days_ref">Days</p></article>
+                    <article> <span class="hours">00</span><p class="hours_ref">Hours</p></article>
+                    <article><span class="minutes">00</span><p class="minutes_ref">Minutes</p></article>
+                    <article><span class="seconds">00</span><p class="seconds_ref">Seconds</p></article>
+                  </div>
+                </div>
+              </div>
+              <div class="media-body"> <span class="tags">Desk & Laptop</span> <a href="#." class="tittle">Laptop Alienware 15” i7 Perfect For Gamer</a>
+                <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <span class="margin-left-10">5 Review(s)</span></p>
+                <div class="row">
+                  <div class="col-sm-6"><span class="price">$480.00 <small>$780.00</small></span></div>
+                  <div class="col-sm-6 margin-top-10"><p>Availability: <span class="in-stock">In stock</span></p></div>
+                </div>
+                <ul>
+                  <li>Screen: 1920 x 1080 pixels</li>
+                  <li>Processor: 2.5 GHz None</li>
+                  <li>RAM: 8 GB</li>
+                  <li>Hard Drive: Flash memory solid state</li>
+                  <li>Graphics : Intel HD Graphics 520 Integrated</li>
+                </ul>
+                <a href="#." class="btn-round">Add to Cart</a> </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 {% schema %}
 {
   "name": "Deal Spotlight",
-  "settings": [],
+  "settings": [
+    {
+      "type": "text",
+      "id": "popular_heading",
+      "label": "Popular heading",
+      "default": "Popular items"
+    },
+    {
+      "type": "text",
+      "id": "deal_heading",
+      "label": "Deal heading",
+      "default": "Hot Deal Of the Week"
+    },
+    {
+      "type": "collection",
+      "id": "popular_collection",
+      "label": "Popular collection"
+    },
+    {
+      "type": "range",
+      "id": "popular_products_limit",
+      "label": "Popular products count",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "view_more_label",
+      "label": "View more label",
+      "default": "View more"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "deal",
+      "name": "Deal slide",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Deal product"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag text",
+          "default": "Desk & Laptop"
+        },
+        {
+          "type": "text",
+          "id": "fallback_title",
+          "label": "Fallback title",
+          "default": "Laptop Alienware 15” i7 Perfect For Gamer"
+        },
+        {
+          "type": "text",
+          "id": "feature_1",
+          "label": "Feature 1",
+          "default": "Screen: 1920 x 1080 pixels"
+        },
+        {
+          "type": "text",
+          "id": "feature_2",
+          "label": "Feature 2",
+          "default": "Processor: 2.5 GHz None"
+        },
+        {
+          "type": "text",
+          "id": "feature_3",
+          "label": "Feature 3",
+          "default": "RAM: 8 GB"
+        },
+        {
+          "type": "text",
+          "id": "feature_4",
+          "label": "Feature 4",
+          "default": "Hard Drive: Flash memory solid state"
+        },
+        {
+          "type": "text",
+          "id": "feature_5",
+          "label": "Feature 5",
+          "default": "Graphics : Intel HD Graphics 520 Integrated"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Add to Cart"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
   "presets": [
     {
-      "name": "Deal Spotlight"
+      "name": "Deal Spotlight",
+      "blocks": [
+        {
+          "type": "deal"
+        },
+        {
+          "type": "deal"
+        }
+      ]
     }
   ]
 }

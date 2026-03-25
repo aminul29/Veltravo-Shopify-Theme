@@ -1,38 +1,81 @@
 {% doc %}
   Template-style product card that mirrors html/index.html card markup.
 
-  @param {object} product - Product object
+  @param {object} [product] - Product object
+  @param {string} [fallback_image] - Fallback asset filename
+  @param {string} [fallback_title] - Fallback title
+  @param {string} [fallback_tag] - Fallback tag
+  @param {string} [fallback_price] - Fallback price text
+  @param {string} [fallback_compare_price] - Fallback compare-at price text
+  @param {string} [fallback_url] - Fallback URL
 {% enddoc %}
+
+{%- liquid
+  assign card_product = product
+  assign card_url = fallback_url | default: '#.'
+  assign card_title = fallback_title | default: 'Template product title'
+  assign card_tag = fallback_tag | default: 'Accessories'
+  assign card_price = fallback_price | default: '$350.00'
+  assign card_compare_price = fallback_compare_price
+-%}
 
 <div class="product">
   <article>
-    {% if product.featured_image %}
-      {{ product.featured_image | image_url: width: 720 | image_tag: class: 'img-responsive', alt: product.title | escape }}
-    {% endif %}
-
-    {% if product.compare_at_price > product.price %}
-      {%- liquid
-        assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
-      -%}
-      <span class="sale-tag">-{{ discount }}%</span>
-    {% endif %}
-
-    {% if product.available and product.compare_at_price <= product.price %}
-      <span class="new-tag">New</span>
-    {% endif %}
-
-    <span class="tag">{{ product.type | default: product.vendor | escape }}</span>
-    <a href="{{ product.url }}" class="tittle">{{ product.title | escape }}</a>
-    <p class="rev">
-      <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-      <span class="margin-left-10">5 Review(s)</span>
-    </p>
-    <div class="price">
-      {{ product.price | money }}
-      {% if product.compare_at_price > product.price %}
-        <span>{{ product.compare_at_price | money }}</span>
+    {% if card_product != blank %}
+      {% if card_product.featured_image %}
+        {{ card_product.featured_image | image_url: width: 720 | image_tag: class: 'img-responsive', alt: card_product.title | escape }}
+      {% elsif fallback_image != blank %}
+        <img class="img-responsive" src="{{ fallback_image | asset_url }}" alt="{{ card_product.title | escape }}">
       {% endif %}
-    </div>
-    <a href="{{ product.url }}" class="cart-btn"><i class="icon-basket-loaded"></i></a>
+
+      {% if card_product.compare_at_price > card_product.price %}
+        {%- liquid
+          assign discount = card_product.compare_at_price | minus: card_product.price | times: 100.0 | divided_by: card_product.compare_at_price | round
+        -%}
+        <span class="sale-tag">-{{ discount }}%</span>
+      {% endif %}
+
+      {% if card_product.available and card_product.compare_at_price <= card_product.price %}
+        <span class="new-tag">New</span>
+      {% endif %}
+
+      <span class="tag">{{ card_product.type | default: card_product.vendor | escape }}</span>
+      <a href="{{ card_product.url }}" class="tittle">{{ card_product.title | escape }}</a>
+      <p class="rev">
+        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>
+        <span class="margin-left-10">5 Review(s)</span>
+      </p>
+      <div class="price">
+        {{ card_product.price | money }}
+        {% if card_product.compare_at_price > card_product.price %}
+          <span>{{ card_product.compare_at_price | money }}</span>
+        {% endif %}
+      </div>
+      <a href="{{ card_product.url }}" class="cart-btn"><i class="icon-basket-loaded"></i></a>
+    {% else %}
+      {% if fallback_image != blank %}
+        <img class="img-responsive" src="{{ fallback_image | asset_url }}" alt="{{ card_title | escape }}">
+      {% endif %}
+
+      {% if card_compare_price != blank %}
+        <span class="sale-tag">-25%</span>
+      {% else %}
+        <span class="new-tag">New</span>
+      {% endif %}
+
+      <span class="tag">{{ card_tag | escape }}</span>
+      <a href="{{ card_url }}" class="tittle">{{ card_title | escape }}</a>
+      <p class="rev">
+        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>
+        <span class="margin-left-10">5 Review(s)</span>
+      </p>
+      <div class="price">
+        {{ card_price }}
+        {% if card_compare_price != blank %}
+          <span>{{ card_compare_price }}</span>
+        {% endif %}
+      </div>
+      <a href="{{ card_url }}" class="cart-btn"><i class="icon-basket-loaded"></i></a>
+    {% endif %}
   </article>
 </div>

@@ -1,47 +1,88 @@
-﻿    <!-- Shipping Info -->
-    <section class="shipping-info">
-      <div class="container">
-        <ul>
-          
-          <!-- Free Shipping -->
-          <li>
-            <div class="media-left"> <i class="flaticon-delivery-truck-1"></i> </div>
-            <div class="media-body">
-              <h5>Free Shipping</h5>
-              <span>On order over $99</span></div>
-          </li>
-          <!-- Money Return -->
-          <li>
-            <div class="media-left"> <i class="flaticon-arrows"></i> </div>
-            <div class="media-body">
-              <h5>Money Return</h5>
-              <span>30 Days money return</span></div>
-          </li>
-          <!-- Support 24/7 -->
-          <li>
-            <div class="media-left"> <i class="flaticon-operator"></i> </div>
-            <div class="media-body">
-              <h5>Support 24/7</h5>
-              <span>Hotline: (+100) 123 456 7890</span></div>
-          </li>
-          <!-- Safe Payment -->
-          <li>
-            <div class="media-left"> <i class="flaticon-business"></i> </div>
-            <div class="media-body">
-              <h5>Safe Payment</h5>
-              <span>Protect online payment</span></div>
-          </li>
-        </ul>
-      </div>
-    </section>
-    
+<!-- Shipping Info -->
+<section class="shipping-info">
+  <div class="container">
+    <ul>
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          {% render 'store-benefit-item', block: block %}
+        {% endfor %}
+      {% else %}
+        {% render 'store-benefit-item', icon_class: 'flaticon-delivery-truck-1', title: 'Free Shipping', text: 'On order over $99' %}
+        {% render 'store-benefit-item', icon_class: 'flaticon-arrows', title: 'Money Return', text: '30 Days money return' %}
+        {% render 'store-benefit-item', icon_class: 'flaticon-operator', title: 'Support 24/7', text: 'Hotline: (+100) 123 456 7890' %}
+        {% render 'store-benefit-item', icon_class: 'flaticon-business', title: 'Safe Payment', text: 'Protect online payment' %}
+      {% endif %}
+    </ul>
+  </div>
+</section>
+
 {% schema %}
 {
   "name": "Store Benefits",
-  "settings": [],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon_class",
+          "label": "Icon class",
+          "default": "flaticon-delivery-truck-1"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "On order over $99"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
   "presets": [
     {
-      "name": "Store Benefits"
+      "name": "Store Benefits",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "icon_class": "flaticon-delivery-truck-1",
+            "title": "Free Shipping",
+            "text": "On order over $99"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon_class": "flaticon-arrows",
+            "title": "Money Return",
+            "text": "30 Days money return"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon_class": "flaticon-operator",
+            "title": "Support 24/7",
+            "text": "Hotline: (+100) 123 456 7890"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon_class": "flaticon-business",
+            "title": "Safe Payment",
+            "text": "Protect online payment"
+          }
+        }
+      ]
     }
   ]
 }

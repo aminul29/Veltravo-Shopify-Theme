@@ -1,0 +1,52 @@
+{% doc %}
+  Renders a blog post card from an article object or a manual section block.
+
+  @param {object} [article] - Shopify article object
+  @param {object} [block] - Section block object
+  @param {string} [fallback_image] - Fallback image asset filename
+  @param {string} [fallback_date] - Fallback date text
+  @param {string} [fallback_comments] - Fallback comments text
+  @param {string} [fallback_title] - Fallback title
+  @param {string} [fallback_excerpt] - Fallback excerpt
+  @param {string} [fallback_url] - Fallback URL
+{% enddoc %}
+
+{%- liquid
+  assign post_image = blank
+  assign post_date = fallback_date | default: '25 Dec, 2017'
+  assign post_comments = fallback_comments | default: '86 Comments'
+  assign post_title = fallback_title | default: 'Blog post title'
+  assign post_excerpt = fallback_excerpt | default: ''
+  assign post_url = fallback_url | default: '#.'
+
+  if article != blank
+    assign post_image = article.image
+    assign post_date = article.published_at | date: '%d %b, %Y'
+    assign post_comments = article.comments_count | append: ' Comments'
+    assign post_title = article.title
+    assign post_excerpt = article.excerpt_or_content | strip_html | truncate: 140
+    assign post_url = article.url
+  elsif block != blank
+    assign post_image = block.settings.image
+    assign post_date = block.settings.date_text | default: post_date
+    assign post_comments = block.settings.comments_text | default: post_comments
+    assign post_title = block.settings.title | default: post_title
+    assign post_excerpt = block.settings.excerpt | default: post_excerpt
+    assign post_url = block.settings.link | default: post_url
+  endif
+-%}
+
+<div class="blog-post" {% if block != blank %}{{ block.shopify_attributes }}{% endif %}>
+  <article>
+    {% if post_image != blank %}
+      {{ post_image | image_url: width: 700 | image_tag: class: 'img-responsive', alt: post_title, loading: 'lazy' }}
+    {% elsif fallback_image != blank %}
+      <img class="img-responsive" src="{{ fallback_image | asset_url }}" alt="{{ post_title | escape }}">
+    {% endif %}
+    <span><i class="fa fa-bookmark-o"></i> {{ post_date }}</span>
+    <span><i class="fa fa-comment-o"></i> {{ post_comments }}</span>
+    <a href="{{ post_url }}" class="tittle">{{ post_title }}</a>
+    <p>{{ post_excerpt }}</p>
+    <a href="{{ post_url }}">Readmore</a>
+  </article>
+</div>

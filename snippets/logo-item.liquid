@@ -1,0 +1,30 @@
+{% doc %}
+  Renders a logo list item.
+
+  @param {object} [block] - Section block object
+  @param {string} [fallback_logo] - Fallback logo asset filename
+  @param {string} [fallback_alt] - Fallback alt text
+  @param {string} [fallback_link] - Fallback URL
+{% enddoc %}
+
+{%- liquid
+  assign logo_alt = fallback_alt | default: 'Client logo'
+  assign logo_link = fallback_link
+  assign logo_image = blank
+
+  if block != blank
+    assign logo_alt = block.settings.alt | default: logo_alt
+    assign logo_link = block.settings.link
+    assign logo_image = block.settings.logo
+  endif
+-%}
+
+<li {% if block != blank %}{{ block.shopify_attributes }}{% endif %}>
+  {% if logo_link != blank %}<a href="{{ logo_link }}">{% endif %}
+  {% if logo_image != blank %}
+    {{ logo_image | image_url: width: 220 | image_tag: alt: logo_alt, loading: 'lazy' }}
+  {% elsif fallback_logo != blank %}
+    <img src="{{ fallback_logo | asset_url }}" alt="{{ logo_alt | escape }}">
+  {% endif %}
+  {% if logo_link != blank %}</a>{% endif %}
+</li>

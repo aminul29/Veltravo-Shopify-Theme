@@ -1,107 +1,90 @@
-﻿    <!-- Featured Categories -->
-    <section class="light-gry-bg padding-top-60 padding-bottom-30">
-      <div class="container"> 
-        
-        <!-- heading -->
-        <div class="heading">
-          <h2>Featured Categories</h2>
-          <hr>
-        </div>
-        <div class="row"> 
-          
-          <!-- TV & Audios -->
-          <div class="col-md-4">
-            <div class="some-cate"> <img src="{{ 'feture-item-1.png' | asset_url }}" alt="">
-              <h5>TV & Audios</h5>
-              <ul>
-                <li><a href="#."> Smart Television</a></li>
-                <li><a href="#."> QLED TV</a></li>
-                <li><a href="#."> Audios</a></li>
-                <li><a href="#."> Headphones</a></li>
-                <li><a href="#."> View all <i class="fa fa-angle-double-right"></i></a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <!-- SmartPhones -->
-          <div class="col-md-4">
-            <div class="some-cate"> <img src="{{ 'feture-item-2.png' | asset_url }}" alt="">
-              <h5>SmartPhones</h5>
-              <ul>
-                <li><a href="#."> Smart Television</a></li>
-                <li><a href="#."> QLED TV</a></li>
-                <li><a href="#."> Audios</a></li>
-                <li><a href="#."> Headphones</a></li>
-                <li><a href="#."> View all <i class="fa fa-angle-double-right"></i></a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <!-- Game Console -->
-          <div class="col-md-4">
-            <div class="some-cate"> <img src="{{ 'feture-item-3.png' | asset_url }}" alt="">
-              <h5>Game Console</h5>
-              <ul>
-                <li><a href="#."> Smart Television</a></li>
-                <li><a href="#."> QLED TV</a></li>
-                <li><a href="#."> Audios</a></li>
-                <li><a href="#."> Headphones</a></li>
-                <li><a href="#."> View all <i class="fa fa-angle-double-right"></i></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="row"> 
-          
-          <!-- Desktop & Laptop -->
-          <div class="col-md-4">
-            <div class="some-cate"> <img src="{{ 'feture-item-4.png' | asset_url }}" alt="">
-              <h5>Desktop & Laptop</h5>
-              <ul>
-                <li><a href="#."> Smart Television</a></li>
-                <li><a href="#."> QLED TV</a></li>
-                <li><a href="#."> Audios</a></li>
-                <li><a href="#."> Headphones</a></li>
-                <li><a href="#."> View all <i class="fa fa-angle-double-right"></i></a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <!-- Watches -->
-          <div class="col-md-4">
-            <div class="some-cate"> <img src="{{ 'feture-item-5.png' | asset_url }}" alt="">
-              <h5>Watches</h5>
-              <ul>
-                <li><a href="#."> Smart Television</a></li>
-                <li><a href="#."> QLED TV</a></li>
-                <li><a href="#."> Audios</a></li>
-                <li><a href="#."> Headphones</a></li>
-                <li><a href="#."> View all <i class="fa fa-angle-double-right"></i></a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <!-- Accessories -->
-          <div class="col-md-4">
-            <div class="some-cate"> <img src="{{ 'feture-item-6.png' | asset_url }}" alt="">
-              <h5>Accessories</h5>
-              <ul>
-                <li><a href="#."> Smart Television</a></li>
-                <li><a href="#."> QLED TV</a></li>
-                <li><a href="#."> Audios</a></li>
-                <li><a href="#."> Headphones</a></li>
-                <li><a href="#."> View all <i class="fa fa-angle-double-right"></i></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
+<!-- Featured Categories -->
+<section class="light-gry-bg padding-top-60 padding-bottom-30">
+  <div class="container">
+    <div class="heading">
+      <h2>{{ section.settings.heading }}</h2>
+      <hr>
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="row">
+        {% for block in section.blocks %}
+          {%- liquid
+            assign fallback_image = 'feture-item-1.png'
+            case forloop.index
+              when 2
+                assign fallback_image = 'feture-item-2.png'
+              when 3
+                assign fallback_image = 'feture-item-3.png'
+              when 4
+                assign fallback_image = 'feture-item-4.png'
+              when 5
+                assign fallback_image = 'feture-item-5.png'
+              when 6
+                assign fallback_image = 'feture-item-6.png'
+            endcase
+          -%}
+          {% render 'featured-category-card', block: block, fallback_image: fallback_image %}
+        {% endfor %}
       </div>
-    </section>
-    
+    {% else %}
+      <div class="row">
+        {% render 'featured-category-card', fallback_image: 'feture-item-1.png', fallback_title: 'TV & Audios' %}
+        {% render 'featured-category-card', fallback_image: 'feture-item-2.png', fallback_title: 'SmartPhones' %}
+        {% render 'featured-category-card', fallback_image: 'feture-item-3.png', fallback_title: 'Game Console' %}
+        {% render 'featured-category-card', fallback_image: 'feture-item-4.png', fallback_title: 'Desktop & Laptop' %}
+        {% render 'featured-category-card', fallback_image: 'feture-item-5.png', fallback_title: 'Watches' %}
+        {% render 'featured-category-card', fallback_image: 'feture-item-6.png', fallback_title: 'Accessories' %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
 {% schema %}
 {
   "name": "Featured Categories Grid",
-  "settings": [],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Featured Categories"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Category links menu"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Category image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "View all link override"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
   "presets": [
     {
       "name": "Featured Categories Grid"

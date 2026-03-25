@@ -117,305 +117,370 @@ $('#pie-4').pieChart({
 /*-----------------------------------------------------------------------------------*/
 /*    Parallax
 /*-----------------------------------------------------------------------------------*/
-jQuery.stellar({
+jQuery.stellar && jQuery.stellar({
    horizontalScrolling: false,
    scrollProperty: 'scroll',
    positionProperty: 'position',
 });
-/*-----------------------------------------------------------------------------------*/
-/* 	SLIDER REVOLUTION
-/*-----------------------------------------------------------------------------------*/
-jQuery(".tp-banner").revolution({
-	sliderType:"standard",
-	sliderLayout:"auto",
-	delay:9000,
-	minHeight:500,
-	gridwidth:0,
-	navigationType:"bullet",
-	navigationArrows:"solo",
-	navigationStyle:"preview4",
-	gridheight:500		
-});		
-/*-----------------------------------------------------------------------------------*/
-/* 	SLIDER REVOLUTION
-/*-----------------------------------------------------------------------------------*/
-jQuery('.tp-banner-full').show().revolution({
-	dottedOverlay:"none",
-	delay:7000,
-	startwidth:1200,
-	startheight:500,
-	navigationType:"bullet",
-	navigationArrows:"solo",
-	navigationStyle:"preview4",
-	parallax:"mouse",
-	parallaxBgFreeze:"on",
-	parallaxLevels:[7,4,3,2,5,4,3,2,1,0],												
-	keyboardNavigation:"on",						
-	shadow:0,
-	fullWidth:"on",
-	fullScreen:"off",
-	shuffle:"off",						
-	autoHeight:"off",						
-	forceFullWidth:"on",	
-	fullScreenOffsetContainer:""	
-});
-/*-----------------------------------------------------------------------------------*/
-/* 	TESTIMONIAL SLIDER
-/*-----------------------------------------------------------------------------------*/
-$("#testi-slide").owlCarousel({ 
-    items : 1,
-	autoplay:true,
-	loop:true,
-	autoplayTimeout:5000,
-	autoplayHoverPause:true,
-    navigation : true,
-	nav: true,
-	navText: ["<i class='lnr lnr-arrow-left'></i>","<i class='lnr lnr-arrow-right'></i>"],
-	pagination : true,
-	singleItem	: true
-});
-/*-----------------------------------------------------------------------------------*/
-/* 	Single SLIDER
-/*-----------------------------------------------------------------------------------*/
-$(".singl-slide").owlCarousel({ 
-    items : 1,
-	autoplay:true,
-	loop:true,
-	autoplayTimeout:5000,
-	autoplayHoverPause:true,
-    navigation : true,
-	nav: true,
-	navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
-	pagination : true,
-	singleItem	: true
-});
-/*-----------------------------------------------------------------------------------*/
-/* 	TESTIMONIAL SLIDER
-/*-----------------------------------------------------------------------------------*/
-$(".deal-slide").owlCarousel({ 
-    items : 1,
-	autoplay:true,
-	loop:true,
-	autoplayTimeout:5000,
-	autoplayHoverPause:true,
-    navigation : true,
-	nav: true,
-	navText: ["<span>Previous Deal</span>","<span>Next Deal</span>"],
-	pagination : true,
-	lazyLoad:true,
-	nav: true,
-	singleItem	: true
-});
-/*-----------------------------------------------------------------------------------*/
-/* 	TESTIMONIAL SLIDER
-/*-----------------------------------------------------------------------------------*/
-$(".item-slide-5").owlCarousel({ 
-    items : 5,
-	autoplay:true,
-	loop:true,
-	margin: 30,
-	autoplayTimeout:5000,
-	autoplayHoverPause:true,
-	navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
-	lazyLoad:true,
-	nav: true,
-	responsive:{
-        0:{
-            items:1,
-        },
-        600:{
-            items:3,
-        },
-        1000:{
-            items:4,
-        },
-		1200:{
-            items:5,
-        }
-    },
-	animateOut: 'fadeOut'		
-});
-/*-----------------------------------------------------------------------------------*/
-/* 	TESTIMONIAL SLIDER
-/*-----------------------------------------------------------------------------------*/
-$(".item-slide-4").owlCarousel({ 
-    items : 4,
-	autoplay:true,
-	loop:false,
-	margin: 30,
-	autoplayTimeout:5000,
-	autoplayHoverPause:true,
-	navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
-	lazyLoad:true,
-	nav: true,
-	responsive:{
-        0:{
-            items:1,
-        },
-        600:{
-            items:2,
-        },
-        1000:{
-            items:4,
-        }
-    },
-	animateOut: 'fadeOut'		
-});
-/*-----------------------------------------------------------------------------------*/
-/* 	CASE SLIDER
-/*-----------------------------------------------------------------------------------*/
-$(".item-slide-3").owlCarousel({ 
-    items : 3,
-	autoplay:true,
-	loop:false,
-	margin: 30,
-	autoplayTimeout:5000,
-	autoplayHoverPause:true,
-	navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
-	lazyLoad:true,
-	nav: true,
-	responsive:{
-        0:{
-            items:1,
-        },
-        800:{
-            items:2,
-        },
-		1000:{
-            items:3,
-        },
-    },
-	animateOut: 'fadeOut'		
-});
-/*-----------------------------------------------------------------------------------*/
-/* 	CASE SLIDER
-/*-----------------------------------------------------------------------------------*/
-$(".item-slide-2").owlCarousel({ 
-    items : 2,
-	autoplay:true,
-	loop:false,
-	margin: 30,
-	autoplayTimeout:5000,
-	autoplayHoverPause:true,
-	navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
-	lazyLoad:true,
-	nav: true,
-	responsive:{
-        0:{
-            items:1,
-        },
-        800:{
-            items:2,
-        },
-		1000:{
-            items:2,
-        },
-    },
-	animateOut: 'fadeOut'
-		
-});
-/*-----------------------------------------------------------------------------------*/
-/* 	CASE SLIDER
-/*-----------------------------------------------------------------------------------*/
-$("#blog-slide").owlCarousel({ 
-    items : 3,
-	autoplay:true,
-	loop:false,
-	margin: 30,
-	autoplayTimeout:5000,
-	autoplayHoverPause:true,
-	navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
-	lazyLoad:true,
-	nav: true,
-	responsive:{
-        0:{
-            items:1,
-        },
-        600:{
-            items:2,
-        },
-		1000:{
-            items:3,
-        },
-    },
-	animateOut: 'fadeOut'		
-});
-/*-----------------------------------------------------------------------------------*/
-/* 	CASE SLIDER
-/*-----------------------------------------------------------------------------------*/
-$("#blog-slide-2").owlCarousel({ 
-    items : 2,
-	autoplay:true,
-	loop:false,
-	margin: 30,
-	autoplayTimeout:5000,
-	autoplayHoverPause:true,
-	navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
-	lazyLoad:true,
-	nav: true,
-	responsive:{
-        0:{
-            items:1,
-        },
-        800:{
-            items:2,
-        },
-		1000:{
-            items:2,
-        },
-    },
-	animateOut: 'fadeOut'
-		
-});
-/*-----------------------------------------------------------------------------------*/
-/* 	CASE SLIDER
-/*-----------------------------------------------------------------------------------*/
-$("#client-slide-1").owlCarousel({ 
-    items : 4,
-	autoplay:true,
-	loop:true,
-	margin: 30,
-	autoplayTimeout:5000,
-	autoplayHoverPause:true,
-	navText: ["<i class='lnr lnr-arrow-left'></i>","<i class='lnr lnr-arrow-right'></i>"],
-	lazyLoad:true,
-	nav: true,
-	responsive:{
-        0:{
-            items:1,
-        },
-        800:{
-            items:2,
-        },
-		1000:{
-            items:4,
-        },
-    },
-	animateOut: 'fadeOut'
-		
-});
+
+var initRevolutionSlider = function (selector, options, shouldShow) {
+	if (typeof $.fn.revolution !== "function") {
+		return;
+	}
+	$(selector).each(function () {
+		var $slider = $(this);
+		if ($slider.data("rev-initialized") || $slider.hasClass("revslider-initialised")) {
+			return;
+		}
+		if (shouldShow) {
+			$slider.show();
+		}
+		$slider.revolution(options);
+		$slider.data("rev-initialized", true);
+	});
+};
+
+var initOwlSlider = function (selector, options) {
+	if (typeof $.fn.owlCarousel !== "function") {
+		return;
+	}
+	$(selector).each(function () {
+		var $carousel = $(this);
+		if ($carousel.hasClass("owl-loaded")) {
+			return;
+		}
+		$carousel.owlCarousel(options);
+	});
+};
+
+var initFlexSlider = function (selector, options) {
+	if (typeof $.fn.flexslider !== "function") {
+		return;
+	}
+	$(selector).each(function () {
+		var $slider = $(this);
+		if ($slider.data("flexslider")) {
+			return;
+		}
+		$slider.flexslider(options);
+	});
+};
+
+var initCarousels = function () {
+	/*-----------------------------------------------------------------------------------*/
+	/* 	SLIDER REVOLUTION
+	/*-----------------------------------------------------------------------------------*/
+	initRevolutionSlider(".tp-banner", {
+		sliderType:"standard",
+		sliderLayout:"auto",
+		delay:9000,
+		minHeight:500,
+		gridwidth:0,
+		navigationType:"bullet",
+		navigationArrows:"solo",
+		navigationStyle:"preview4",
+		gridheight:500
+	});
+
+	/*-----------------------------------------------------------------------------------*/
+	/* 	SLIDER REVOLUTION
+	/*-----------------------------------------------------------------------------------*/
+	initRevolutionSlider('.tp-banner-full', {
+		dottedOverlay:"none",
+		delay:7000,
+		startwidth:1200,
+		startheight:500,
+		navigationType:"bullet",
+		navigationArrows:"solo",
+		navigationStyle:"preview4",
+		parallax:"mouse",
+		parallaxBgFreeze:"on",
+		parallaxLevels:[7,4,3,2,5,4,3,2,1,0],
+		keyboardNavigation:"on",
+		shadow:0,
+		fullWidth:"on",
+		fullScreen:"off",
+		shuffle:"off",
+		autoHeight:"off",
+		forceFullWidth:"on",
+		fullScreenOffsetContainer:""
+	}, true);
+
+	/*-----------------------------------------------------------------------------------*/
+	/* 	TESTIMONIAL SLIDER
+	/*-----------------------------------------------------------------------------------*/
+	initOwlSlider("#testi-slide", {
+		items : 1,
+		autoplay:true,
+		loop:true,
+		autoplayTimeout:5000,
+		autoplayHoverPause:true,
+		navigation : true,
+		nav: true,
+		navText: ["<i class='lnr lnr-arrow-left'></i>","<i class='lnr lnr-arrow-right'></i>"],
+		pagination : true,
+		singleItem	: true
+	});
+
+	/*-----------------------------------------------------------------------------------*/
+	/* 	Single SLIDER
+	/*-----------------------------------------------------------------------------------*/
+	initOwlSlider(".singl-slide", {
+		items : 1,
+		autoplay:true,
+		loop:true,
+		autoplayTimeout:5000,
+		autoplayHoverPause:true,
+		navigation : true,
+		nav: true,
+		navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+		pagination : true,
+		singleItem	: true
+	});
+
+	/*-----------------------------------------------------------------------------------*/
+	/* 	TESTIMONIAL SLIDER
+	/*-----------------------------------------------------------------------------------*/
+	initOwlSlider(".deal-slide", {
+		items : 1,
+		autoplay:true,
+		loop:true,
+		autoplayTimeout:5000,
+		autoplayHoverPause:true,
+		navigation : true,
+		nav: true,
+		navText: ["<span>Previous Deal</span>","<span>Next Deal</span>"],
+		pagination : true,
+		lazyLoad:true,
+		nav: true,
+		singleItem	: true
+	});
+
+	/*-----------------------------------------------------------------------------------*/
+	/* 	TESTIMONIAL SLIDER
+	/*-----------------------------------------------------------------------------------*/
+	initOwlSlider(".item-slide-5", {
+		items : 5,
+		autoplay:true,
+		loop:true,
+		margin: 30,
+		autoplayTimeout:5000,
+		autoplayHoverPause:true,
+		navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+		lazyLoad:true,
+		nav: true,
+		responsive:{
+			0:{
+				items:1,
+			},
+			600:{
+				items:3,
+			},
+			1000:{
+				items:4,
+			},
+			1200:{
+				items:5,
+			}
+		},
+		animateOut: 'fadeOut'
+	});
+
+	/*-----------------------------------------------------------------------------------*/
+	/* 	TESTIMONIAL SLIDER
+	/*-----------------------------------------------------------------------------------*/
+	initOwlSlider(".item-slide-4", {
+		items : 4,
+		autoplay:true,
+		loop:false,
+		margin: 30,
+		autoplayTimeout:5000,
+		autoplayHoverPause:true,
+		navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+		lazyLoad:true,
+		nav: true,
+		responsive:{
+			0:{
+				items:1,
+			},
+			600:{
+				items:2,
+			},
+			1000:{
+				items:4,
+			}
+		},
+		animateOut: 'fadeOut'
+	});
+
+	/*-----------------------------------------------------------------------------------*/
+	/* 	CASE SLIDER
+	/*-----------------------------------------------------------------------------------*/
+	initOwlSlider(".item-slide-3", {
+		items : 3,
+		autoplay:true,
+		loop:false,
+		margin: 30,
+		autoplayTimeout:5000,
+		autoplayHoverPause:true,
+		navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+		lazyLoad:true,
+		nav: true,
+		responsive:{
+			0:{
+				items:1,
+			},
+			800:{
+				items:2,
+			},
+			1000:{
+				items:3,
+			},
+		},
+		animateOut: 'fadeOut'
+	});
+
+	/*-----------------------------------------------------------------------------------*/
+	/* 	CASE SLIDER
+	/*-----------------------------------------------------------------------------------*/
+	initOwlSlider(".item-slide-2", {
+		items : 2,
+		autoplay:true,
+		loop:false,
+		margin: 30,
+		autoplayTimeout:5000,
+		autoplayHoverPause:true,
+		navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+		lazyLoad:true,
+		nav: true,
+		responsive:{
+			0:{
+				items:1,
+			},
+			800:{
+				items:2,
+			},
+			1000:{
+				items:2,
+			},
+		},
+		animateOut: 'fadeOut'
+
+	});
+
+	/*-----------------------------------------------------------------------------------*/
+	/* 	CASE SLIDER
+	/*-----------------------------------------------------------------------------------*/
+	initOwlSlider("#blog-slide", {
+		items : 3,
+		autoplay:true,
+		loop:false,
+		margin: 30,
+		autoplayTimeout:5000,
+		autoplayHoverPause:true,
+		navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+		lazyLoad:true,
+		nav: true,
+		responsive:{
+			0:{
+				items:1,
+			},
+			600:{
+				items:2,
+			},
+			1000:{
+				items:3,
+			},
+		},
+		animateOut: 'fadeOut'
+	});
+
+	/*-----------------------------------------------------------------------------------*/
+	/* 	CASE SLIDER
+	/*-----------------------------------------------------------------------------------*/
+	initOwlSlider("#blog-slide-2", {
+		items : 2,
+		autoplay:true,
+		loop:false,
+		margin: 30,
+		autoplayTimeout:5000,
+		autoplayHoverPause:true,
+		navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+		lazyLoad:true,
+		nav: true,
+		responsive:{
+			0:{
+				items:1,
+			},
+			800:{
+				items:2,
+			},
+			1000:{
+				items:2,
+			},
+		},
+		animateOut: 'fadeOut'
+
+	});
+
+	/*-----------------------------------------------------------------------------------*/
+	/* 	CASE SLIDER
+	/*-----------------------------------------------------------------------------------*/
+	initOwlSlider("#client-slide-1", {
+		items : 4,
+		autoplay:true,
+		loop:true,
+		margin: 30,
+		autoplayTimeout:5000,
+		autoplayHoverPause:true,
+		navText: ["<i class='lnr lnr-arrow-left'></i>","<i class='lnr lnr-arrow-right'></i>"],
+		lazyLoad:true,
+		nav: true,
+		responsive:{
+			0:{
+				items:1,
+			},
+			800:{
+				items:2,
+			},
+			1000:{
+				items:4,
+			},
+		},
+		animateOut: 'fadeOut'
+
+	});
+
+	/*-----------------------------------------------------------------------------------
+		TESTNMONIALS STYLE 1
+	/*-----------------------------------------------------------------------------------*/
+	initFlexSlider('.free-slide', {
+		mode: 'fade',
+		animation: "fade",
+		auto: true
+	});
+
+	/*-----------------------------------------------------------------------------------*/
+	/* 	Thumb Slider
+	/*-----------------------------------------------------------------------------------*/
+	initFlexSlider('.thumb-slider', {
+		animation: "slide",
+		controlNav: "thumbnails"
+	});
+};
+
+initCarousels();
+$(document).on('shopify:section:load shopify:section:reorder', initCarousels);
+$(document).on('shown.bs.tab', 'a[data-toggle="tab"]', initCarousels);
 /*-----------------------------------------------------------------------------------*/
 /* 	COUNTER
 /*-----------------------------------------------------------------------------------*/
-$('.counter').counterUp({
-    delay: 10,
-    time: 300
-});
-/*-----------------------------------------------------------------------------------
-    TESTNMONIALS STYLE 1
-/*-----------------------------------------------------------------------------------*/
-$('.free-slide').flexslider({
-	mode: 'fade',
-	animation: "fade",
-	auto: true
-});
-/*-----------------------------------------------------------------------------------*/
-/* 	Thumb Slider
-/*-----------------------------------------------------------------------------------*/
-$('.thumb-slider').flexslider({
-    animation: "slide",
-    controlNav: "thumbnails"
-});
+if (typeof $.fn.counterUp === "function") {
+	$('.counter').counterUp({
+		delay: 10,
+		time: 300
+	});
+}
 /*-----------------------------------------------------------------------------------*/
 /* 	ANIMATION
 /*-----------------------------------------------------------------------------------*/
