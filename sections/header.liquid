@@ -6,303 +6,938 @@
   assign tel_href = settings.hotline_text | remove: ' ' | remove: '(' | remove: ')' | remove: '-'
 -%}
 
-<header class="site-header{% if section.settings.sticky_header %} site-header--sticky{% endif %}">
-  <div class="page-width site-header__inner">
-    <div class="site-header__top">
-      <div class="site-header__brand">
-        <a class="site-header__logo" href="{{ routes.root_url }}" style="--logo-width: {{ section.settings.logo_width }}px;">
-          {% if settings.logo != blank %}
-            {{ settings.logo | image_url: width: section.settings.logo_width | image_tag: widths: '120, 180, 240', alt: shop.name | escape }}
-          {% else %}
-            <span>{{ shop.name }}</span>
-          {% endif %}
-        </a>
-        <div class="site-header__hotline">
-          {% if settings.hotline_label != blank %}
-            <span>{{ settings.hotline_label | escape }}</span>
-          {% else %}
-            <span>{{ 'general.header.hotline' | t }}</span>
-          {% endif %}
-          {% if settings.hotline_text != blank %}
-            <a href="tel:{{ tel_href }}">{{ settings.hotline_text | escape }}</a>
-          {% endif %}
-        </div>
-      </div>
-      <div class="site-header__actions">
-        {% if section.settings.show_search %}
-          <details class="site-header__search">
-            <summary class="button button--ghost">{{ 'general.header.search' | t }}</summary>
-            <div class="site-header__search-panel card-surface">
-              <form action="{{ routes.search_url }}" method="get" role="search" class="site-header__search-form">
-                <label class="visually-hidden" for="SearchInput-{{ section.id }}">{{ 'general.header.search' | t }}</label>
-                <input
-                  id="SearchInput-{{ section.id }}"
-                  class="field"
-                  type="search"
-                  name="q"
-                  value="{{ search.terms | escape }}"
-                  placeholder="{{ 'general.header.search_placeholder' | t }}"
-                >
-                <button class="button" type="submit">{{ 'general.header.search' | t }}</button>
-              </form>
-            </div>
-          </details>
-        {% endif %}
+<div class="top-bar">
+  <div class="container">
+    <p>Welcome to SmartTech center!</p>
+    <div class="right-sec">
+      <ul>
         {% if section.settings.show_account %}
-          <a class="button button--ghost" href="{{ account_url }}">{{ 'general.header.account' | t }}</a>
+          <li><a href="{{ account_url }}">Login/Register </a></li>
         {% endif %}
-        {% if section.settings.show_cart %}
-          <a class="button" href="{{ routes.cart_url }}">
-            {{ 'general.header.cart' | t }}{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}
-          </a>
+        <li><a href="/pages/store-location">Store Location </a></li>
+        <li><a href="/pages/faq">FAQ </a></li>
+        <li><a href="/pages/newsletter">Newsletter </a></li>
+        {% if section.settings.enable_localization and localization.available_languages.size > 1 %}
+          <li>
+            {% form 'localization', id: 'TopLanguageForm-' | append: section.id %}
+              <select class="selectpicker" name="locale_code" onchange="this.form.submit()">
+                {% for language in localization.available_languages %}
+                  <option value="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}selected{% endif %}>
+                    {{ language.endonym_name | capitalize }}
+                  </option>
+                {% endfor %}
+              </select>
+            {% endform %}
+          </li>
+        {% else %}
+          <li>
+            <select class="selectpicker">
+              <option>French</option>
+              <option>German</option>
+              <option>Italian</option>
+              <option>Japanese</option>
+            </select>
+          </li>
         {% endif %}
-        {% if section.settings.enable_localization %}
-          <div class="site-header__localization">
-            {% if localization.available_countries.size > 1 %}
-              {% form 'localization', id: 'HeaderCountryForm-' | append: section.id %}
-                <label class="visually-hidden" for="HeaderCountry-{{ section.id }}">{{ 'general.localization.country' | t }}</label>
-                <select id="HeaderCountry-{{ section.id }}" name="country_code" class="field" onchange="this.form.submit()">
-                  {% for country in localization.available_countries %}
-                    <option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>
-                      {{ country.name }} ({{ country.currency.iso_code }})
-                    </option>
-                  {% endfor %}
-                </select>
-              {% endform %}
-            {% endif %}
-            {% if localization.available_languages.size > 1 %}
-              {% form 'localization', id: 'HeaderLanguageForm-' | append: section.id %}
-                <label class="visually-hidden" for="HeaderLanguage-{{ section.id }}">{{ 'general.localization.language' | t }}</label>
-                <select id="HeaderLanguage-{{ section.id }}" name="locale_code" class="field" onchange="this.form.submit()">
-                  {% for language in localization.available_languages %}
-                    <option value="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}selected{% endif %}>
-                      {{ language.endonym_name | capitalize }}
-                    </option>
-                  {% endfor %}
-                </select>
-              {% endform %}
-            {% endif %}
-          </div>
+        {% if section.settings.enable_localization and localization.available_countries.size > 1 %}
+          <li>
+            {% form 'localization', id: 'TopCountryForm-' | append: section.id %}
+              <select class="selectpicker" name="country_code" onchange="this.form.submit()">
+                {% for country in localization.available_countries %}
+                  <option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>
+                    ({{ country.currency.iso_code }}){{ country.currency.name }}
+                  </option>
+                {% endfor %}
+              </select>
+            {% endform %}
+          </li>
+        {% else %}
+          <li>
+            <select class="selectpicker">
+              <option>(USD)Dollar</option>
+              <option>GBP</option>
+              <option>Euro</option>
+              <option>JPY</option>
+            </select>
+          </li>
         {% endif %}
-      </div>
+      </ul>
     </div>
+  </div>
+</div>
 
-    <details class="site-header__mobile-nav">
-      <summary class="button button--ghost">{{ 'general.header.menu' | t }}</summary>
-      <div class="site-header__drawer card-surface">
-        {% if section.settings.main_menu != blank %}
-          <ul class="list-reset site-header__drawer-list">
-            {% for link in section.settings.main_menu.links %}
-              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
-            {% endfor %}
-          </ul>
+<header class="header-style-5{% if section.settings.sticky_header %} header-style-5--sticky{% endif %}">
+  <div class="container">
+    <div class="logo">
+      <a href="{{ routes.root_url }}" style="--logo-width: {{ section.settings.logo_width }}px;">
+        {% if settings.logo != blank %}
+          {{ settings.logo | image_url: width: section.settings.logo_width | image_tag: widths: '120, 180, 240, 320', alt: shop.name | escape }}
         {% else %}
-          <p>{{ 'general.empty.menu' | t }}</p>
+          <span>{{ shop.name }}</span>
         {% endif %}
-        {% if section.settings.category_menu != blank %}
-          <div class="site-header__drawer-divider"></div>
-          <ul class="list-reset site-header__drawer-list">
-            {% for link in section.settings.category_menu.links %}
-              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
-            {% endfor %}
-          </ul>
+      </a>
+    </div>
+    <div class="go-right">
+      <span class="call-mun">
+        <i class="fa fa-phone" aria-hidden="true"></i>
+        <strong>{{ settings.hotline_label | default: 'Hotline:' | escape }}</strong><br>
+        {% if settings.hotline_text != blank %}
+          <a href="tel:{{ tel_href }}">{{ settings.hotline_text | escape }}</a>
+        {% else %}
+          <a href="tel:+1001234567890">(+100) 123 456 7890</a>
         {% endif %}
-      </div>
-    </details>
+      </span>
 
-    <div class="site-header__nav-row">
-      <nav class="site-header__main-nav" aria-label="{{ 'general.header.menu' | t }}">
-        {% if section.settings.main_menu != blank %}
-          <ul class="list-reset site-header__main-nav-list">
-            {% for link in section.settings.main_menu.links %}
-              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
-            {% endfor %}
-          </ul>
-        {% else %}
-          <p>{{ 'general.empty.menu' | t }}</p>
-        {% endif %}
-      </nav>
-      {% if section.settings.category_menu != blank %}
-        <nav class="site-header__categories" aria-label="{{ 'general.header.categories' | t }}">
-          <ul class="list-reset site-header__category-list">
-            {% for link in section.settings.category_menu.links %}
-              <li><a class="pill" href="{{ link.url }}">{{ link.title | escape }}</a></li>
-            {% endfor %}
-          </ul>
-        </nav>
+      {% if section.settings.show_search %}
+        <form action="{{ routes.search_url }}" method="get" role="search" class="search-cate">
+          <select class="selectpicker" name="type">
+            <option value="product">All Categories</option>
+            <option value="product">Home Audio & Theater</option>
+            <option value="product">TV & Video</option>
+            <option value="product">Camera, Photo & Video</option>
+            <option value="product">Cell Phones & Accessories</option>
+            <option value="product">Headphones</option>
+            <option value="product">Video Games</option>
+            <option value="product">Bluetooth & Wireless</option>
+            <option value="product">Gaming Console</option>
+            <option value="product">Computers & Tablets</option>
+            <option value="product">Monitors</option>
+          </select>
+          <label class="visually-hidden" for="SearchInput-{{ section.id }}">{{ 'general.header.search' | t }}</label>
+          <input
+            id="SearchInput-{{ section.id }}"
+            type="search"
+            name="q"
+            value="{{ search.terms | escape }}"
+            placeholder="Search entire store here..."
+          >
+          <button class="submit" type="submit">
+            <i class="icon-magnifier" aria-hidden="true"></i>
+            <span class="visually-hidden">{{ 'general.header.search' | t }}</span>
+          </button>
+        </form>
+      {% endif %}
+
+      {% if section.settings.show_cart %}
+        <ul class="nav navbar-right cart-pop">
+          <li class="dropdown">
+            <a
+              href="{{ routes.cart_url }}"
+              class="dropdown-toggle"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <span class="itm-cont">{{ cart.item_count }}</span>
+              <i class="flaticon-shopping-bag" aria-hidden="true"></i>
+              <strong>My Cart</strong>
+              <br>
+              <span>{{ cart.item_count }} item(s) - {{ cart.total_price | money }}</span>
+            </a>
+            <ul class="dropdown-menu">
+              {% if cart.item_count > 0 %}
+                {% for line_item in cart.items limit: 2 %}
+                  <li>
+                    <div class="media-left">
+                      <a href="{{ line_item.url }}" class="thumb">
+                        {% if line_item.image %}
+                          {{ line_item.image | image_url: width: 140 | image_tag: alt: line_item.title | escape }}
+                        {% endif %}
+                      </a>
+                    </div>
+                    <div class="media-body">
+                      <a href="{{ line_item.url }}" class="tittle">{{ line_item.title | escape }}</a>
+                      <span>{{ line_item.quantity }} x {{ line_item.final_price | money }}</span>
+                    </div>
+                  </li>
+                {% endfor %}
+                <li class="btn-cart"><a href="{{ routes.cart_url }}" class="btn-round">View Cart</a></li>
+              {% else %}
+                <li>
+                  <div class="media-body">
+                    <a href="{{ routes.cart_url }}" class="tittle">Your cart is empty.</a>
+                  </div>
+                </li>
+              {% endif %}
+            </ul>
+          </li>
+        </ul>
       {% endif %}
     </div>
   </div>
+
+  <nav class="navbar ownmenu">
+    <div class="container">
+      <div class="cate-lst">
+        <a class="cate-style" href="#cater-{{ section.id }}"><i class="fa fa-list-ul" aria-hidden="true"></i> Our Categories </a>
+        <div class="cate-bar-in">
+          <div id="cater-{{ section.id }}" class="collapse">
+            <ul>
+              {% if section.settings.category_menu != blank %}
+                {% for link in section.settings.category_menu.links %}
+                  <li{% if link.links != blank %} class="sub-menu"{% endif %}>
+                    <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                    {% if link.links != blank %}
+                      <ul>
+                        {% for child_link in link.links %}
+                          <li><a href="{{ child_link.url }}">{{ child_link.title | escape }}</a></li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              {% else %}
+                <li><a href="#."> Home Audio & Theater</a></li>
+                <li><a href="#."> TV & Video</a></li>
+                <li><a href="#."> Camera, Photo & Video</a></li>
+                <li><a href="#."> Cell Phones & Accessories</a></li>
+                <li><a href="#."> Headphones</a></li>
+                <li><a href="#."> Video Games</a></li>
+                <li><a href="#."> Bluetooth & Wireless Speakers</a></li>
+                <li><a href="#."> Gaming Console</a></li>
+                <li><a href="#."> Computers & Tablets</a></li>
+                <li><a href="#."> Monitors</a></li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <input id="nav-open-toggle-{{ section.id }}" class="nav-open-toggle" type="checkbox">
+      <div class="navbar-header">
+        <label class="navbar-toggle collapsed" for="nav-open-toggle-{{ section.id }}">
+          <span><i class="fa fa-navicon" aria-hidden="true"></i></span>
+        </label>
+      </div>
+
+      <div class="collapse navbar-collapse" id="nav-open-btn">
+        <ul class="nav">
+          {% if section.settings.main_menu != blank %}
+            {% for link in section.settings.main_menu.links %}
+              <li class="{% if link.links != blank %}dropdown{% endif %}{% if forloop.first %} active{% endif %}">
+                <a href="{{ link.url }}" {% if link.links != blank %}class="dropdown-toggle"{% endif %}>{{ link.title | escape }} </a>
+                {% if link.links != blank %}
+                  <ul class="dropdown-menu multi-level animated-2s fadeInUpHalf">
+                    {% for child_link in link.links %}
+                      <li{% if child_link.links != blank %} class="dropdown-submenu"{% endif %}>
+                        <a href="{{ child_link.url }}">{{ child_link.title | escape }} </a>
+                        {% if child_link.links != blank %}
+                          <ul class="dropdown-menu animated-2s fadeInRight">
+                            {% for grandchild_link in child_link.links %}
+                              <li><a href="{{ grandchild_link.url }}">{{ grandchild_link.title | escape }}</a></li>
+                            {% endfor %}
+                          </ul>
+                        {% endif %}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            {% endfor %}
+          {% else %}
+            <li class="active"><a href="{{ routes.root_url }}">Home </a></li>
+            <li><a href="/collections/all">Shop </a></li>
+            <li><a href="/blogs/news">Blog </a></li>
+            <li><a href="/pages/contact">Contact </a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <div class="nav-right"></div>
+    </div>
+  </nav>
 </header>
 
 {% stylesheet %}
-  .site-header {
-    position: relative;
-    z-index: 20;
-    background: var(--color-surface);
-    border-bottom: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+  .container {
+    width: min(calc(100% - 2rem), var(--container-width));
+    margin: 0 auto;
   }
 
-  .site-header--sticky {
+  .top-bar {
+    min-height: 35px;
+    background: #f8f8f8;
+    border-bottom: 1px solid #ebebeb;
+  }
+
+  .top-bar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .top-bar p {
+    line-height: 35px;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 400;
+    display: inline-block;
+  }
+
+  .top-bar .right-sec ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .top-bar .right-sec li {
+    border-right: 1px solid #dddddd;
+    margin-right: 10px;
+    margin-top: 7px;
+    line-height: 14px;
+    padding-right: 10px;
+  }
+
+  .top-bar .right-sec li:last-child {
+    border-right: 0;
+    margin-right: 0;
+    padding-right: 0;
+  }
+
+  .top-bar .right-sec li a,
+  .top-bar .right-sec select {
+    font-size: 13px;
+    color: #555555;
+    border: 0;
+    background: transparent;
+    padding: 0;
+  }
+
+  .header-style-5 {
+    width: 100%;
+    z-index: 40;
+    background: #ffffff;
+    padding: 20px 0 0;
+    position: relative;
+  }
+
+  .header-style-5--sticky {
     position: sticky;
     top: 0;
   }
 
-  .site-header__inner {
-    display: grid;
-    gap: 1rem;
-    padding-block: 1rem;
+  .header-style-5 .container {
+    position: relative;
   }
 
-  .site-header__top,
-  .site-header__brand,
-  .site-header__actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  .header-style-5 .logo {
+    float: left;
   }
 
-  .site-header__top {
-    justify-content: space-between;
-  }
-
-  .site-header__logo {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2.5rem;
-    font-size: 1.3rem;
-    font-weight: 800;
-  }
-
-  .site-header__logo img {
+  .header-style-5 .logo img {
     width: min(100%, var(--logo-width));
     height: auto;
   }
 
-  .site-header__hotline {
-    display: grid;
-    gap: 0.15rem;
-    color: color-mix(in srgb, var(--color-text) 72%, transparent);
-    font-size: 0.9rem;
+  .header-style-5 .logo span {
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #222222;
   }
 
-  .site-header__hotline a {
-    color: var(--color-text);
+  .header-style-5 .go-right {
+    float: right;
+    width: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding-bottom: 20px;
+  }
+
+  .call-mun {
+    line-height: 18px;
+    display: inline-block;
+    min-width: 175px;
+    margin-top: 5px;
+    color: #555555;
+    font-size: 14px;
+  }
+
+  .call-mun strong {
+    font-size: 16px;
+  }
+
+  .call-mun i {
+    float: left;
+    font-size: 30px;
+    margin-top: 5px;
+    margin-right: 10px;
+    font-style: normal;
     font-weight: 700;
   }
 
-  .site-header__actions {
-    flex-wrap: wrap;
-    justify-content: flex-end;
+  .call-mun .fa-phone::before {
+    content: "Tel";
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    color: #888888;
   }
 
-  .site-header__search,
-  .site-header__mobile-nav {
+  .call-mun a {
+    color: #555555;
+  }
+
+  .header-style-5 .search-cate {
+    min-width: 450px;
+    display: inline-flex;
+    align-items: center;
+    height: 50px;
+    border: 2px solid #22c961;
+    border-radius: 50px;
+    padding-left: 20px;
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-style-5 .search-cate select {
+    min-width: 170px;
+    border: 0;
+    background: transparent;
+    color: #555555;
+    height: 45px;
+  }
+
+  .header-style-5 .search-cate input {
+    border: 0;
+    height: 45px;
+    line-height: 45px;
+    width: 100%;
+    margin-top: 1px;
+    padding: 0 20px;
+    border-left: 1px solid #ededed;
+    outline: none;
+  }
+
+  .header-style-5 .search-cate .submit {
+    height: 38px;
+    width: 38px;
+    margin-right: 5px;
+    margin-top: 3px;
+    border: 0;
+    border-radius: 50%;
+    background: #eeeeee;
+    color: #555555;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header-style-5 .search-cate .icon-magnifier::before {
+    content: "Go";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .cart-pop {
+    min-width: 175px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
     position: relative;
   }
 
-  .site-header__search summary,
-  .site-header__mobile-nav summary {
-    list-style: none;
+  .cart-pop .dropdown > .dropdown-toggle {
+    display: inline-block;
+    color: #555555;
+    line-height: 1.35;
+    position: relative;
+    padding-left: 60px;
+    min-height: 50px;
   }
 
-  .site-header__search summary::-webkit-details-marker,
-  .site-header__mobile-nav summary::-webkit-details-marker {
+  .cart-pop .flaticon-shopping-bag {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    line-height: 50px;
+    color: #686868;
+    background: #eeeeee;
+    text-align: center;
+    font-size: 26px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-style: normal;
+  }
+
+  .cart-pop .flaticon-shopping-bag::before {
+    content: "Bag";
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .cart-pop .itm-cont {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    background: #22c961;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 50%;
+    color: #ffffff;
+    left: 35px;
+    top: -4px;
+    font-size: 12px;
+    z-index: 1;
+  }
+
+  .cart-pop .dropdown-menu {
     display: none;
-  }
-
-  .site-header__search-panel,
-  .site-header__drawer {
     position: absolute;
     right: 0;
-    top: calc(100% + 0.75rem);
-    min-width: min(32rem, calc(100vw - 2rem));
-    padding: 1rem;
+    margin-top: 10px;
+    min-width: 246px;
+    padding: 15px;
+    border-radius: 0;
+    border: 1px solid #eeeeee;
+    background: #ffffff;
+    list-style: none;
+    z-index: 20;
   }
 
-  .site-header__search-form {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 0.75rem;
+  .cart-pop .dropdown:hover .dropdown-menu,
+  .cart-pop .dropdown:focus-within .dropdown-menu {
+    display: block;
   }
 
-  .site-header__localization {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  .cart-pop .dropdown-menu li {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    display: flow-root;
   }
 
-  .site-header__localization form {
+  .cart-pop .dropdown-menu li:last-child {
+    margin-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .cart-pop .thumb {
+    float: left;
+    width: 70px;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .cart-pop .media-body {
+    margin-left: 84px;
+  }
+
+  .cart-pop .media-body .tittle {
+    display: inline-block;
+    font-size: 13px;
+    color: #222222;
+  }
+
+  .cart-pop .media-body span {
+    display: inline-block;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #555555;
+  }
+
+  .cart-pop li.btn-cart {
+    text-align: center;
+    padding: 0;
+    border: 0;
     margin: 0;
   }
 
-  .site-header__nav-row {
-    display: grid;
-    gap: 0.85rem;
+  .btn-round {
+    display: inline-block;
+    border-radius: 999px;
+    background: #22c961;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 10px 18px;
   }
 
-  .site-header__main-nav-list,
-  .site-header__category-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem 1rem;
-    align-items: center;
+  .header-style-5::after {
+    content: "";
+    display: block;
+    clear: both;
   }
 
-  .site-header__main-nav a {
-    font-weight: 600;
+  header.header-style-5 nav {
+    background: #ebebeb;
+    clear: both;
   }
 
-  .site-header__mobile-nav {
+  header .navbar {
+    border: 0;
+    margin: 0;
+    position: relative;
+    border-radius: 0;
+    width: 100%;
+    float: left;
+  }
+
+  .nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cate-lst {
+    position: relative;
+    width: 270px;
+    float: left;
+  }
+
+  .cate-style {
+    float: left;
+    display: inline-block;
+    color: #ffffff;
+    background: #22c961;
+    padding: 15px 20px;
+    font-size: 17px;
+    font-weight: 700;
+    text-align: left;
+    min-width: 270px;
+  }
+
+  .cate-style i {
+    margin-right: 10px;
+    font-style: normal;
+  }
+
+  .cate-style .fa-list-ul::before {
+    content: "|||";
+    letter-spacing: -2px;
+  }
+
+  .cate-bar-in {
+    width: 270px;
+    background: #ffffff;
+    position: absolute;
+    top: 100%;
+    left: 0;
     display: none;
+    z-index: 30;
   }
 
-  .site-header__drawer-list {
-    display: grid;
-    gap: 0.75rem;
+  .cate-lst:hover .cate-bar-in,
+  .cate-lst:focus-within .cate-bar-in {
+    display: block;
   }
 
-  .site-header__drawer-divider {
-    height: 1px;
-    margin-block: 1rem;
-    background: color-mix(in srgb, var(--color-text) 12%, transparent);
+  .cate-bar-in ul {
+    margin: 0;
+    padding: 10px 0 9px;
+    display: inline-block;
+    width: 100%;
+    border: 1px solid #eeeeee;
+    border-top: 0;
+    list-style: none;
+  }
+
+  .cate-bar-in ul li {
+    width: 100%;
+    position: relative;
+    text-align: left;
+  }
+
+  .cate-bar-in a {
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-block;
+    width: 100%;
+    line-height: 40px;
+    color: #555555;
+  }
+
+  .cate-bar-in li a:hover {
+    background: #f8f8f8;
+  }
+
+  .cate-bar-in ul li.sub-menu > ul {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    display: none;
+    background: #ffffff;
+    z-index: 31;
+  }
+
+  .cate-bar-in ul li.sub-menu:hover > ul {
+    display: block;
+  }
+
+  .nav-open-toggle {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .navbar-header {
+    display: none;
+    float: right;
+  }
+
+  .navbar-toggle {
+    height: 42px;
+    width: 42px;
+    padding: 0;
+    margin: 6px 0;
+    color: #000000;
+    background: #ffffff;
+    border: 0;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .navbar-toggle .fa-navicon::before {
+    content: "Menu";
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .navbar-collapse {
+    float: left;
+  }
+
+  .ownmenu .nav > li {
+    display: inline-block;
+    position: relative;
+  }
+
+  header.header-style-5 .navbar li a {
+    color: #222222;
+    font-weight: 600;
+    padding: 16px 15px;
+    display: inline-block;
+    font-size: 16px;
+  }
+
+  .ownmenu .dropdown-menu {
+    display: none;
+    list-style: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    min-width: 250px;
+    margin: 0;
+    padding: 10px 0;
+    border: 1px solid #eeeeee;
+    border-radius: 0;
+    background: #ffffff;
+    z-index: 25;
+  }
+
+  .ownmenu li:hover > .dropdown-menu,
+  .ownmenu li:focus-within > .dropdown-menu {
+    display: block;
+  }
+
+  .ownmenu .dropdown-menu li {
+    width: 100%;
+    margin: 0;
+    position: relative;
+  }
+
+  .ownmenu .dropdown-menu li a {
+    padding: 0 25px;
+    font-size: 14px;
+    line-height: 34px;
+    color: #555555;
+    width: 100%;
+  }
+
+  .ownmenu .dropdown-submenu > .dropdown-menu {
+    left: 100%;
+    top: 0;
+  }
+
+  .nav-right {
+    float: right;
+    min-height: 1px;
+    width: 10px;
+  }
+
+  @media screen and (max-width: 1199px) {
+    .header-style-5 .search-cate {
+      min-width: 360px;
+    }
+
+    .header-style-5 .go-right {
+      width: 72%;
+    }
   }
 
   @media screen and (max-width: 989px) {
-    .site-header__top {
-      align-items: flex-start;
-      flex-direction: column;
+    .top-bar {
+      height: auto;
+      text-align: center;
     }
 
-    .site-header__actions {
-      justify-content: flex-start;
+    .top-bar .container {
+      display: block;
+    }
+
+    .top-bar p {
+      display: none;
+    }
+
+    .top-bar .right-sec ul {
+      justify-content: center;
+      padding: 8px 0;
+    }
+
+    .header-style-5 {
+      padding-top: 20px;
+    }
+
+    .header-style-5 .logo {
+      float: none;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header-style-5 .go-right {
+      width: 100%;
+      float: none;
+      display: grid;
+      gap: 1rem;
+      justify-content: normal;
+      padding-bottom: 20px;
+    }
+
+    .call-mun {
+      min-width: 0;
+    }
+
+    .header-style-5 .search-cate {
+      min-width: 0;
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .header-style-5 .search-cate select {
+      min-width: 140px;
+    }
+
+    .cart-pop {
+      min-width: 0;
+      width: 100%;
+    }
+
+    .cart-pop .dropdown > .dropdown-toggle {
+      width: 100%;
+    }
+
+    .cate-lst {
+      display: none;
+    }
+
+    .navbar-header {
+      display: block;
+      width: 100%;
+      text-align: right;
+    }
+
+    .navbar-collapse {
+      display: none;
+      width: 100%;
+      float: none;
+      border-top: 1px solid #d9d9d9;
+      margin-top: 10px;
+      padding-top: 6px;
+      clear: both;
+    }
+
+    .nav-open-toggle:checked ~ .navbar-collapse {
+      display: block;
+    }
+
+    .ownmenu .nav > li {
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+
+    header.header-style-5 .navbar li a {
+      padding: 10px 0;
+      width: 100%;
+    }
+
+    .ownmenu .dropdown-menu {
+      position: static;
+      display: none;
+      min-width: 0;
+      border: 0;
+      border-left: 1px solid #e5e5e5;
+      margin-left: 12px;
+      padding: 4px 0 4px 8px;
+      box-shadow: none;
+    }
+
+    .ownmenu .dropdown-menu li a {
+      line-height: 30px;
+      padding: 0 10px;
+    }
+
+    .nav-right {
+      display: none;
     }
   }
 
   @media screen and (max-width: 749px) {
-    .site-header__hotline,
-    .site-header__main-nav,
-    .site-header__categories {
-      display: none;
+    .top-bar .right-sec li {
+      border-right: 0;
+      margin-top: 3px;
+      margin-right: 8px;
+      padding-right: 0;
     }
 
-    .site-header__mobile-nav {
-      display: block;
-    }
-
-    .site-header__drawer {
-      left: 0;
-      right: auto;
-      width: 100%;
-    }
-
-    .site-header__search-panel {
-      left: 0;
-      min-width: 100%;
-    }
-
-    .site-header__search-form {
+    .header-style-5 .search-cate {
+      height: auto;
+      border-radius: 18px;
+      padding: 10px;
+      display: grid;
       grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .header-style-5 .search-cate select,
+    .header-style-5 .search-cate input {
+      border: 1px solid #e2e2e2;
+      border-radius: 10px;
+      height: 42px;
+      margin: 0;
+    }
+
+    .header-style-5 .search-cate input {
+      border-left: 1px solid #e2e2e2;
+    }
+
+    .header-style-5 .search-cate .submit {
+      width: 100%;
+      border-radius: 10px;
+      height: 40px;
+      margin: 0;
+    }
+
+    .cart-pop .dropdown-menu {
+      position: static;
+      width: 100%;
+      margin-top: 10px;
     }
   }
 {% endstylesheet %}
