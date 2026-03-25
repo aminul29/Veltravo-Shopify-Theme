@@ -1,345 +1,56 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "hero": {
+    "slid_sec": {
       "type": "home-hero-merchandising",
-      "blocks": {
-        "slideone": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/10e82f99-1254-4173-8085-085eb6ac5647.jpg",
-            "eyebrow": "New arrivals",
-            "heading": "Shape the homepage around your best products",
-            "text": "Use flexible sections for promotions, featured collections, and conversion-focused merchandising.",
-            "button_label": "Shop now",
-            "button_link": "",
-            "accent_color": "#1f6df0",
-            "background_color": "#eef4ff"
-          }
-        },
-        "slidetwo": {
-          "type": "slide",
-          "settings": {
-            "eyebrow": "Editor ready",
-            "heading": "Merchants can swap sections without touching code",
-            "text": "The homepage is built with JSON templates and reusable sections that work cleanly in the Shopify theme editor.",
-            "button_label": "Explore collections",
-            "button_link": "",
-            "accent_color": "#0f766e",
-            "background_color": "#ecfeff"
-          }
-        }
-      },
-      "block_order": [
-        "slideone",
-        "slidetwo"
-      ],
-      "settings": {
-        "category_menu": "",
-        "auto_rotate": true,
-        "rotation_seconds": 5
-      }
-    },
-    "promo_tiles": {
-      "type": "promo-tile-row",
-      "blocks": {
-        "tileone": {
-          "type": "tile",
-          "settings": {
-            "heading": "Collection launch",
-            "text": "Highlight limited drops, seasonal edits, or top campaigns.",
-            "button_label": "",
-            "link": ""
-          }
-        },
-        "tiletwo": {
-          "type": "tile",
-          "settings": {
-            "heading": "Bundle offers",
-            "text": "Use editorial promo cards to point customers at high-intent offers.",
-            "button_label": "",
-            "link": ""
-          }
-        },
-        "tilethree": {
-          "type": "tile",
-          "settings": {
-            "heading": "Top categories",
-            "text": "Bridge customers from the hero straight into browsable shopping paths.",
-            "button_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "tileone",
-        "tiletwo",
-        "tilethree"
-      ],
       "settings": {}
     },
-    "featured_tabs": {
-      "type": "featured-collection-tabs",
-      "blocks": {
-        "tabone": {
-          "type": "collection_tab",
-          "settings": {
-            "collection": "",
-            "label": "Featured",
-            "product_limit": 4
-          }
-        },
-        "tabtwo": {
-          "type": "collection_tab",
-          "settings": {
-            "collection": "",
-            "label": "New",
-            "product_limit": 4
-          }
-        },
-        "tabthree": {
-          "type": "collection_tab",
-          "settings": {
-            "collection": "",
-            "label": "Top selling",
-            "product_limit": 4
-          }
-        }
-      },
-      "block_order": [
-        "tabone",
-        "tabtwo",
-        "tabthree"
-      ],
-      "settings": {
-        "heading": "",
-        "subheading": "",
-        "show_vendor": false
-      }
+    "banner": {
+      "type": "promo-tile-row",
+      "settings": {}
     },
-    "deal": {
+    "hot_deal": {
       "type": "deal-spotlight",
-      "settings": {
-        "heading": "",
-        "subheading": "",
-        "product": "",
-        "collection": "",
-        "end_datetime": ""
-      }
+      "settings": {}
     },
-    "categories": {
+    "tab_section": {
+      "type": "featured-collection-tabs",
+      "settings": {}
+    },
+    "featured_categories": {
       "type": "featured-categories-grid",
-      "blocks": {
-        "catone": {
-          "type": "category_card",
-          "settings": {
-            "collection": "",
-            "link": "",
-            "title_override": "Audio",
-            "description": ""
-          }
-        },
-        "cattwo": {
-          "type": "category_card",
-          "settings": {
-            "collection": "",
-            "link": "",
-            "title_override": "Wearables",
-            "description": ""
-          }
-        },
-        "catthree": {
-          "type": "category_card",
-          "settings": {
-            "collection": "",
-            "link": "",
-            "title_override": "Gaming",
-            "description": ""
-          }
-        },
-        "catfour": {
-          "type": "category_card",
-          "settings": {
-            "collection": "",
-            "link": "",
-            "title_override": "Computing",
-            "description": ""
-          }
-        },
-        "catfive": {
-          "type": "category_card",
-          "settings": {
-            "collection": "",
-            "link": "",
-            "title_override": "Home tech",
-            "description": ""
-          }
-        },
-        "catsix": {
-          "type": "category_card",
-          "settings": {
-            "collection": "",
-            "link": "",
-            "title_override": "Accessories",
-            "description": ""
-          }
-        }
-      },
-      "block_order": [
-        "catone",
-        "cattwo",
-        "catthree",
-        "catfour",
-        "catfive",
-        "catsix"
-      ],
-      "settings": {
-        "heading": "",
-        "subheading": ""
-      }
+      "settings": {}
     },
-    "top_selling": {
+    "top_selling_week": {
       "type": "top-selling-showcase",
-      "settings": {
-        "heading": "",
-        "subheading": "",
-        "collection": "",
-        "featured_product": "",
-        "product_limit": 4,
-        "show_vendor": false
-      }
+      "settings": {}
     },
-    "logos": {
+    "clients_img": {
       "type": "logo-list",
-      "blocks": {
-        "logoone": {
-          "type": "logo",
-          "settings": {
-            "title": "Brand one",
-            "link": ""
-          }
-        },
-        "logotwo": {
-          "type": "logo",
-          "settings": {
-            "title": "Brand two",
-            "link": ""
-          }
-        },
-        "logothree": {
-          "type": "logo",
-          "settings": {
-            "title": "Brand three",
-            "link": ""
-          }
-        },
-        "logofour": {
-          "type": "logo",
-          "settings": {
-            "title": "Brand four",
-            "link": ""
-          }
-        },
-        "logofive": {
-          "type": "logo",
-          "settings": {
-            "title": "Brand five",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "logoone",
-        "logotwo",
-        "logothree",
-        "logofour",
-        "logofive"
-      ],
-      "settings": {
-        "heading": ""
-      }
+      "settings": {}
     },
     "blog": {
       "type": "featured-blog",
-      "settings": {
-        "heading": "",
-        "subheading": "",
-        "blog": "",
-        "article_limit": 3
-      }
+      "settings": {}
     },
-    "benefits": {
+    "shipping_info": {
       "type": "store-benefits",
-      "blocks": {
-        "benefitone": {
-          "type": "benefit",
-          "settings": {
-            "icon_label": "01",
-            "title": "Free shipping",
-            "text": "Use a clear threshold to lift average order value."
-          }
-        },
-        "benefittwo": {
-          "type": "benefit",
-          "settings": {
-            "icon_label": "02",
-            "title": "Flexible returns",
-            "text": "Reassure customers with simple post-purchase policies."
-          }
-        },
-        "benefitthree": {
-          "type": "benefit",
-          "settings": {
-            "icon_label": "03",
-            "title": "Fast support",
-            "text": "Publish response expectations and contact options."
-          }
-        },
-        "benefitfour": {
-          "type": "benefit",
-          "settings": {
-            "icon_label": "04",
-            "title": "Secure checkout",
-            "text": "Use proof points that reinforce trust at every step."
-          }
-        }
-      },
-      "block_order": [
-        "benefitone",
-        "benefittwo",
-        "benefitthree",
-        "benefitfour"
-      ],
-      "settings": {
-        "heading": ""
-      }
+      "settings": {}
     },
-    "newsletter": {
+    "newslatter": {
       "type": "newsletter-signup",
-      "settings": {
-        "heading": "",
-        "text": ""
-      }
+      "settings": {}
     }
   },
   "order": [
-    "hero",
-    "promo_tiles",
-    "featured_tabs",
-    "deal",
-    "categories",
-    "top_selling",
-    "logos",
+    "slid_sec",
+    "banner",
+    "hot_deal",
+    "tab_section",
+    "featured_categories",
+    "top_selling_week",
+    "clients_img",
     "blog",
-    "benefits",
-    "newsletter"
+    "shipping_info",
+    "newslatter"
   ]
 }

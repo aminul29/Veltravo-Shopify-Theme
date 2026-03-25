@@ -1,178 +1,395 @@
-<footer class="site-footer">
-  <div class="page-width site-footer__inner">
-    <div class="site-footer__grid">
-      <div class="site-footer__brand">
-        <a class="site-footer__logo" href="{{ routes.root_url }}">
-          {% if settings.logo != blank %}
-            {{ settings.logo | image_url: width: 180 | image_tag: widths: '120, 180, 240', alt: shop.name | escape }}
-          {% else %}
-            <span>{{ shop.name }}</span>
-          {% endif %}
-        </a>
-        {% if section.settings.contact_text != blank %}
-          <div class="site-footer__richtext rte">{{ section.settings.contact_text }}</div>
+{%- liquid
+  assign top_links_menu = section.settings.top_links_menu
+  assign categories_menu = section.settings.categories_menu
+  assign services_menu = section.settings.services_menu
+  assign information_menu = section.settings.information_menu
+  assign contact_phone = section.settings.contact_phone
+  assign contact_email = section.settings.contact_email
+  assign contact_text = section.settings.contact_text
+  assign footer_text = section.settings.footer_text
+  if contact_phone == blank and settings.hotline_text != blank
+    assign contact_phone = settings.hotline_text
+  endif
+-%}
+
+<footer>
+  <div class="container">
+    <div class="foot-link">
+      <ul>
+        {% if top_links_menu != blank and top_links_menu.links.size > 0 %}
+          {% for link in top_links_menu.links %}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+          {% endfor %}
+        {% else %}
+          <li><a href="#."> About us </a></li>
+          <li><a href="#."> Customer Service </a></li>
+          <li><a href="#."> Privacy Policy </a></li>
+          <li><a href="#."> Site Map </a></li>
+          <li><a href="#."> Search Terms </a></li>
+          <li><a href="#."> Advanced Search </a></li>
+          <li><a href="#."> Orders and Returns </a></li>
+          <li><a href="#."> Contact Us</a></li>
         {% endif %}
-        <ul class="list-reset site-footer__socials">
-          {% if settings.social_facebook != blank %}
-            <li><a href="{{ settings.social_facebook }}">Facebook</a></li>
-          {% endif %}
-          {% if settings.social_instagram != blank %}
-            <li><a href="{{ settings.social_instagram }}">Instagram</a></li>
-          {% endif %}
-          {% if settings.social_x != blank %}
-            <li><a href="{{ settings.social_x }}">X</a></li>
-          {% endif %}
-          {% if settings.social_youtube != blank %}
-            <li><a href="{{ settings.social_youtube }}">YouTube</a></li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <h4>Contact SmartTech!</h4>
+        {% if contact_text != blank %}
+          <div class="contact-copy rte">{{ contact_text }}</div>
+        {% else %}
+          <p>Address: 45 Grand Central Terminal New York, NY 1017 United State USA</p>
+        {% endif %}
+        <p>Phone: {{ contact_phone | default: '(+100) 123 456 7890' | escape }}</p>
+        <p>Email: {{ contact_email | default: 'Support@smarttech.com' | escape }}</p>
+        <div class="social-links">
+          <a href="{{ settings.social_facebook | default: '#' }}" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+          <a href="{{ settings.social_x | default: '#' }}" aria-label="X"><i class="fa fa-twitter"></i></a>
+          <a href="{{ settings.social_linkedin | default: '#' }}" aria-label="LinkedIn"><i class="fa fa-linkedin"></i></a>
+          <a href="{{ settings.social_pinterest | default: '#' }}" aria-label="Pinterest"><i class="fa fa-pinterest"></i></a>
+          <a href="{{ settings.social_instagram | default: '#' }}" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
+          <a href="{{ settings.social_google | default: '#' }}" aria-label="Google"><i class="fa fa-google"></i></a>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <h4>Categories</h4>
+        <ul class="links-footer">
+          {% if categories_menu != blank and categories_menu.links.size > 0 %}
+            {% for link in categories_menu.links %}
+              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {% endfor %}
+          {% else %}
+            <li><a href="#.">Home Audio & Theater</a></li>
+            <li><a href="#."> TV & Video</a></li>
+            <li><a href="#."> Camera, Photo & Video</a></li>
+            <li><a href="#."> Cell Phones & Accessories</a></li>
+            <li><a href="#."> Headphones</a></li>
+            <li><a href="#."> Video Games</a></li>
+            <li><a href="#."> Bluetooth & Wireless</a></li>
           {% endif %}
         </ul>
       </div>
 
-      {% assign menu_one = section.settings.menu_one %}
-      {% assign menu_two = section.settings.menu_two %}
-      {% assign menu_three = section.settings.menu_three %}
-
-      {% if menu_one != blank %}
-        <nav class="site-footer__menu" aria-label="{{ menu_one.title | escape }}">
-          <h2>{{ menu_one.title | escape }}</h2>
-          <ul class="list-reset">
-            {% for link in menu_one.links %}
+      <div class="col-md-3">
+        <h4>Customer Services</h4>
+        <ul class="links-footer">
+          {% if services_menu != blank and services_menu.links.size > 0 %}
+            {% for link in services_menu.links %}
               <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
             {% endfor %}
-          </ul>
-        </nav>
-      {% endif %}
-
-      {% if menu_two != blank %}
-        <nav class="site-footer__menu" aria-label="{{ menu_two.title | escape }}">
-          <h2>{{ menu_two.title | escape }}</h2>
-          <ul class="list-reset">
-            {% for link in menu_two.links %}
-              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
-            {% endfor %}
-          </ul>
-        </nav>
-      {% endif %}
-
-      {% if menu_three != blank %}
-        <nav class="site-footer__menu" aria-label="{{ menu_three.title | escape }}">
-          <h2>{{ menu_three.title | escape }}</h2>
-          <ul class="list-reset">
-            {% for link in menu_three.links %}
-              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
-            {% endfor %}
-          </ul>
-        </nav>
-      {% endif %}
-    </div>
-
-    <div class="site-footer__bottom">
-      {% if section.settings.footer_text != blank %}
-        <div class="rte">{{ section.settings.footer_text }}</div>
-      {% endif %}
-      {% if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 %}
-        <ul class="list-reset site-footer__payments">
-          {% for type in shop.enabled_payment_types %}
-            <li>{{ type | payment_type_svg_tag }}</li>
-          {% endfor %}
+          {% else %}
+            <li><a href="#.">Shipping & Returns</a></li>
+            <li><a href="#."> Secure Shopping</a></li>
+            <li><a href="#."> International Shipping</a></li>
+            <li><a href="#."> Affiliates</a></li>
+            <li><a href="#."> Contact </a></li>
+          {% endif %}
         </ul>
-      {% endif %}
+      </div>
+
+      <div class="col-md-2">
+        <h4>Information</h4>
+        <ul class="links-footer">
+          {% if information_menu != blank and information_menu.links.size > 0 %}
+            {% for link in information_menu.links %}
+              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {% endfor %}
+          {% else %}
+            <li><a href="#.">Our Blog</a></li>
+            <li><a href="#."> About Our Shop</a></li>
+            <li><a href="#."> Secure Shopping</a></li>
+            <li><a href="#."> Delivery infomation</a></li>
+            <li><a href="#."> Store Locations</a></li>
+            <li><a href="#."> FAQs</a></li>
+          {% endif %}
+        </ul>
+      </div>
     </div>
   </div>
 </footer>
 
+<div class="rights">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        {% if footer_text != blank %}
+          <p>{{ footer_text }}</p>
+        {% else %}
+          <p>Copyright &copy; 2017 <a href="{{ routes.root_url }}" class="ri-li">SmartTech</a>HTML5 template. All rights reserved</p>
+        {% endif %}
+      </div>
+      <div class="col-sm-6 text-right">
+        {% if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 %}
+          <div class="rights__payments" aria-label="Payment methods">
+            {% for type in shop.enabled_payment_types %}
+              {{ type | payment_type_svg_tag }}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="#" class="cd-top" aria-label="Back to top"><i class="fa fa-angle-up"></i></a>
+
 {% stylesheet %}
-  .site-footer {
-    margin-top: 3rem;
-    background: #0f172a;
-    color: #ffffff;
+  footer {
+    padding: 0 0 50px;
+    background: #ffffff;
+    position: relative;
   }
 
-  .site-footer__inner {
-    display: grid;
-    gap: 2rem;
-    padding-block: 3rem 2rem;
+  footer .container,
+  .rights .container {
+    width: min(calc(100% - 2rem), var(--container-width));
+    margin: 0 auto;
   }
 
-  .site-footer__grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
-    gap: 1.5rem;
+  footer h4 {
+    font-size: 20px;
+    margin: 0 0 20px;
+    font-weight: 500;
   }
 
-  .site-footer__logo {
-    display: inline-flex;
-    margin-bottom: 1rem;
-    font-size: 1.4rem;
-    font-weight: 800;
-  }
-
-  .site-footer__logo img {
-    max-width: 180px;
-  }
-
-  .site-footer__richtext > *:first-child,
-  .site-footer__bottom .rte > *:first-child {
+  footer p {
+    color: #555555;
     margin-top: 0;
   }
 
-  .site-footer__socials,
-  .site-footer__menu ul {
-    display: grid;
-    gap: 0.7rem;
+  .foot-link {
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 60px;
   }
 
-  .site-footer__socials {
-    grid-template-columns: repeat(auto-fit, minmax(100px, max-content));
-    margin-top: 1rem;
+  .foot-link ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
-  .site-footer__menu h2 {
-    margin: 0 0 0.85rem;
-    font-size: 1rem;
+  .foot-link li {
+    display: inline-block;
+    margin-right: 20px;
   }
 
-  .site-footer__menu a,
-  .site-footer__socials a {
-    color: color-mix(in srgb, #ffffff 86%, transparent);
+  .foot-link li a {
+    font-size: 14px;
+    display: inline-block;
+    padding: 15px 0;
+    color: #555555;
   }
 
-  .site-footer__bottom {
+  .row {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin-left: -15px;
+    margin-right: -15px;
   }
 
-  .site-footer__payments {
-    display: flex;
+  [class*="col-md-"],
+  [class*="col-sm-"] {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .col-md-4 {
+    width: 33.333333%;
+  }
+
+  .col-md-3 {
+    width: 25%;
+  }
+
+  .col-md-2 {
+    width: 16.666667%;
+  }
+
+  .col-sm-6 {
+    width: 50%;
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  .social-links {
+    margin-top: 30px;
+  }
+
+  .social-links a {
+    margin-right: 20px;
+    font-size: 18px;
+    color: #333333;
+  }
+
+  .links-footer {
+    margin: 0;
+    padding: 0;
+  }
+
+  .links-footer li {
+    list-style: none;
+  }
+
+  .links-footer li a {
+    line-height: 30px;
+    display: inline-block;
+    width: 100%;
+    color: #555555;
+    font-weight: 500;
+  }
+
+  .links-footer li a:hover {
+    padding-left: 5px;
+  }
+
+  .contact-copy > *:first-child {
+    margin-top: 0;
+  }
+
+  .rights {
+    background: #f7f7f7;
+    padding: 20px 0 15px;
+  }
+
+  .rights p {
+    margin-bottom: 0;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .rights ul {
+    text-align: right;
+    margin-bottom: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .rights__payments {
+    display: inline-flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
     align-items: center;
+    justify-content: flex-end;
+    gap: 0.4rem;
   }
 
-  .site-footer__payments svg {
-    width: 2.5rem;
+  .rights__payments svg {
+    width: 42px;
     height: auto;
   }
 
+  .rights .text-right img {
+    display: inline-block;
+    max-width: 100%;
+  }
+
+  .ri-li {
+    color: #555555;
+  }
+
+  .cd-top {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    z-index: 9;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    color: #000000;
+    border-radius: 50%;
+    font-size: 26px;
+    text-align: center;
+    line-height: 32px;
+    border: 2px solid #000000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    white-space: nowrap;
+    background: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .cd-top.cd-is-visible,
+  .cd-top.cd-fade-out,
+  .no-touch .cd-top:hover {
+    transition: opacity 0.3s 0s, visibility 0s 0s;
+  }
+
+  .cd-top.cd-is-visible {
+    visibility: visible;
+    opacity: 0.5;
+  }
+
+  .cd-top.cd-fade-out {
+    opacity: 0.5;
+  }
+
+  .no-touch .cd-top:hover {
+    background-color: #000000;
+    color: #ffffff;
+  }
+
   @media screen and (max-width: 989px) {
-    .site-footer__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .col-md-4,
+    .col-md-3,
+    .col-md-2 {
+      width: 50%;
+    }
+
+    footer h4 {
+      display: inline-block;
+      width: 100%;
     }
   }
 
-  @media screen and (max-width: 749px) {
-    .site-footer__grid {
-      grid-template-columns: 1fr;
+  @media screen and (max-width: 767px) {
+    .foot-link {
+      margin-bottom: 30px;
     }
 
-    .site-footer__bottom {
-      align-items: flex-start;
+    .foot-link li {
+      margin-right: 12px;
+    }
+
+    .row {
+      margin-left: -10px;
+      margin-right: -10px;
+    }
+
+    .col-md-4,
+    .col-md-3,
+    .col-md-2,
+    .col-sm-6 {
+      width: 100%;
+      float: none;
+    }
+
+    footer h4 {
+      margin-top: 20px;
+      margin-bottom: 0;
+    }
+
+    .rights {
+      text-align: center;
+    }
+
+    .rights .text-right {
+      margin-top: 20px;
+      text-align: center !important;
+    }
+
+    .rights .row {
       flex-direction: column;
+    }
+
+    .rights ul {
+      text-align: center;
     }
   }
 {% endstylesheet %}
@@ -184,30 +401,47 @@
   "settings": [
     {
       "type": "link_list",
-      "id": "menu_one",
+      "id": "top_links_menu",
       "label": "t:labels.menu"
     },
     {
       "type": "link_list",
-      "id": "menu_two",
+      "id": "categories_menu",
+      "label": "t:labels.category_menu"
+    },
+    {
+      "type": "link_list",
+      "id": "services_menu",
       "label": "t:labels.menu"
     },
     {
       "type": "link_list",
-      "id": "menu_three",
+      "id": "information_menu",
       "label": "t:labels.menu"
     },
     {
       "type": "richtext",
       "id": "contact_text",
       "label": "t:labels.contact_text",
-      "default": "<p>Share your store address, phone number, or customer care details here.</p>"
+      "default": "<p>Address: 45 Grand Central Terminal New York, NY 1017 United State USA</p>"
     },
     {
-      "type": "richtext",
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Phone",
+      "default": "(+100) 123 456 7890"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Email",
+      "default": "Support@smarttech.com"
+    },
+    {
+      "type": "text",
       "id": "footer_text",
       "label": "t:labels.footer_text",
-      "default": "<p>Built for high-conviction merchandising and modern Shopify content management.</p>"
+      "default": "Copyright &copy; 2017 SmartTech HTML5 template. All rights reserved"
     },
     {
       "type": "checkbox",

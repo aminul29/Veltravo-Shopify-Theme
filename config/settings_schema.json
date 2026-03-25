@@ -119,6 +119,21 @@
       },
       {
         "type": "url",
+        "id": "social_linkedin",
+        "label": "LinkedIn"
+      },
+      {
+        "type": "url",
+        "id": "social_pinterest",
+        "label": "Pinterest"
+      },
+      {
+        "type": "url",
+        "id": "social_google",
+        "label": "Google"
+      },
+      {
+        "type": "url",
         "id": "social_youtube",
         "label": "t:settings_schema.contact.settings.social_youtube.label"
       }

@@ -1,129 +1,52 @@
-<section class="promo-tiles section-shell">
-  <div class="page-width">
-    <div class="promo-tiles__grid">
-      {% for block in section.blocks %}
-        <article class="promo-tiles__card card-surface" {{ block.shopify_attributes }}>
-          <div class="promo-tiles__media">
-            {% if block.settings.image != blank %}
-              {{ block.settings.image | image_url: width: 720 | image_tag: loading: 'lazy', widths: '320, 520, 720', alt: block.settings.heading | escape }}
-            {% else %}
-              {{ 'collection-2' | placeholder_svg_tag: 'promo-tiles__placeholder' }}
-            {% endif %}
+﻿    <!-- Banner -->
+    <section class="disply-sec slid-sec margin-bottom-0">
+      <div class="container">
+        <div class="row"> 
+          
+          <!-- Smartphone -->
+          <div class="col-md-4">
+            <div class="product">
+              <div class="like-bnr">
+                <div class="position-center-center">
+                  <h5>New line required</h5>
+                  <h4>Z68 Web Camera</h4>
+                  <span class="price">$85.00</span> </div>
+              </div>
+            </div>
           </div>
-          <div class="promo-tiles__copy">
-            {% if block.settings.heading != blank %}
-              <h2>{{ block.settings.heading | escape }}</h2>
-            {% endif %}
-            {% if block.settings.text != blank %}
-              <p>{{ block.settings.text | escape }}</p>
-            {% endif %}
-            {% if block.settings.link != blank and block.settings.button_label != blank %}
-              <a class="button button--secondary" href="{{ block.settings.link }}">{{ block.settings.button_label | escape }}</a>
-            {% endif %}
+          
+          <!-- Sport -->
+          <div class="col-md-4">
+            <div class="product">
+              <div class="like-bnr watch">
+                <div class="position-center-center">
+                  <h5>No restocking fee<br>
+                    ($35 savings)</h5>
+                  <h4>SmartPhone</h4>
+                  <span class="price">$450.00</span> </div>
+              </div>
+            </div>
           </div>
-        </article>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
-{% stylesheet %}
-  .promo-tiles__grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-  }
-
-  .promo-tiles__card {
-    overflow: hidden;
-  }
-
-  .promo-tiles__media {
-    aspect-ratio: 16 / 10;
-    background: linear-gradient(135deg, rgba(31, 109, 240, 0.08), rgba(17, 24, 39, 0.04));
-  }
-
-  .promo-tiles__media img,
-  .promo-tiles__placeholder {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .promo-tiles__placeholder {
-    padding: 2rem;
-  }
-
-  .promo-tiles__copy {
-    display: grid;
-    gap: 0.75rem;
-    padding: 1.25rem;
-  }
-
-  .promo-tiles__copy h2,
-  .promo-tiles__copy p {
-    margin: 0;
-  }
-
-  @media screen and (max-width: 989px) {
-    .promo-tiles__grid {
-      grid-template-columns: 1fr;
-    }
-  }
-{% endstylesheet %}
-
+          
+          <!-- Saving up -->
+          <div class="col-md-4">
+            <div class="week-sale-bnr">
+              <h4>Huge <span>Sale!</span></h4>
+              <p>Saving up to 50% off all online
+                store items this week.</p>
+              <a href="#." class="btn-round">Shop now</a> </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
 {% schema %}
 {
-  "name": "t:sections.promo_tile_row.name",
-  "class": "section-promo-tile-row",
-  "blocks": [
-    {
-      "type": "tile",
-      "name": "t:sections.promo_tile_row.name",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "t:labels.image"
-        },
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "t:labels.heading"
-        },
-        {
-          "type": "textarea",
-          "id": "text",
-          "label": "t:labels.text"
-        },
-        {
-          "type": "text",
-          "id": "button_label",
-          "label": "t:labels.button_label"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "t:labels.link"
-        }
-      ]
-    }
-  ],
-  "max_blocks": 3,
+  "name": "Promo Tile Row",
+  "settings": [],
   "presets": [
     {
-      "name": "t:sections.promo_tile_row.name",
-      "blocks": [
-        {
-          "type": "tile"
-        },
-        {
-          "type": "tile"
-        },
-        {
-          "type": "tile"
-        }
-      ]
+      "name": "Promo Tile Row"
     }
   ]
 }

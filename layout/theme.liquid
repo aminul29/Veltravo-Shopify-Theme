@@ -1,8 +1,10 @@
 <!doctype html>
-<html lang="{{ request.locale.iso_code }}">
+<html class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="author" content="M_Adnan">
     <meta name="theme-color" content="{{ settings.color_accent }}">
     {%- if page_description -%}
       <meta name="description" content="{{ page_description | escape }}">
@@ -20,7 +22,19 @@
       {%- endunless -%}
     </title>
     {{ content_for_header }}
-    {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
+    <link href="https://fonts.googleapis.com/css?family=Lato:100i,300,400,700,900" rel="stylesheet">
+    {{ 'template-rs-settings.css' | asset_url | stylesheet_tag }}
+    {{ 'template-ionicons.css' | asset_url | stylesheet_tag }}
+    {{ 'template-bootstrap.css' | asset_url | stylesheet_tag }}
+    {{ 'template-font-awesome.css' | asset_url | stylesheet_tag }}
+    {{ 'template-main.css' | asset_url | stylesheet_tag }}
+    {{ 'template-style.css' | asset_url | stylesheet_tag }}
+    {{ 'template-responsive.css' | asset_url | stylesheet_tag }}
+    {{ 'template-modernizr.js' | asset_url | script_tag }}
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
     {% style %}
       :root {
         --container-width: {{ settings.container_width | default: 1280 }}px;
@@ -32,12 +46,20 @@
       }
     {% endstyle %}
   </head>
-  <body class="template-{{ template.name | handleize }}">
-    <a class="skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
-    {% sections 'header-group' %}
-    <main id="MainContent" role="main">
+  <body>
+    <div id="wrap" class="layout-9">
+      {% sections 'header-group' %}
       {{ content_for_layout }}
-    </main>
-    {% sections 'footer-group' %}
+      {% sections 'footer-group' %}
+    </div>
+    {{ 'template-jquery.min.js' | asset_url | script_tag }}
+    {{ 'template-wow.min.js' | asset_url | script_tag }}
+    {{ 'template-bootstrap.min.js' | asset_url | script_tag }}
+    {{ 'template-own-menu.js' | asset_url | script_tag }}
+    {{ 'template-jquery.sticky.js' | asset_url | script_tag }}
+    {{ 'template-owl.carousel.min.js' | asset_url | script_tag }}
+    {{ 'template-jquery.tp.t.min.js' | asset_url | script_tag }}
+    {{ 'template-jquery.tp.min.js' | asset_url | script_tag }}
+    {{ 'template-main.js' | asset_url | script_tag }}
   </body>
 </html>

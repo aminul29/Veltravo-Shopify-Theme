@@ -11,41 +11,12 @@
   "type": "header",
   "name": "Header group",
   "sections": {
-    "announcementbar": {
-      "type": "announcement-bar",
-      "blocks": {
-        "message1": {
-          "type": "announcement",
-          "settings": {
-            "text": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "message1"
-      ],
-      "settings": {
-        "auto_rotate": true,
-        "rotation_seconds": 5
-      }
-    },
     "header": {
       "type": "header",
-      "settings": {
-        "main_menu": "main-menu",
-        "category_menu": "main-menu",
-        "show_search": true,
-        "show_account": true,
-        "show_cart": true,
-        "enable_localization": true,
-        "sticky_header": true,
-        "logo_width": 144
-      }
+      "settings": {}
     }
   },
   "order": [
-    "announcementbar",
     "header"
   ]
 }

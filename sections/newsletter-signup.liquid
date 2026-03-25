@@ -1,102 +1,26 @@
-<section class="newsletter-signup section-shell">
-  <div class="page-width">
-    <div class="newsletter-signup__card card-surface">
-      <div class="newsletter-signup__copy">
-        <p class="section-heading__eyebrow">{{ 'general.newsletter.subheading' | t }}</p>
-        <h2>
-          {% if section.settings.heading != blank %}
-            {{ section.settings.heading | escape }}
-          {% else %}
-            {{ 'sections.newsletter_signup.default_heading' | t }}
-          {% endif %}
-        </h2>
-        <p>
-          {% if section.settings.text != blank %}
-            {{ section.settings.text | escape }}
-          {% else %}
-            {{ 'sections.newsletter_signup.default_text' | t }}
-          {% endif %}
-        </p>
-      </div>
-      <div class="newsletter-signup__form">
-        {% form 'customer', id: 'NewsletterForm-' | append: section.id %}
-          <input type="hidden" name="contact[tags]" value="newsletter">
-          {% if form.posted_successfully? %}
-            <div class="message message--success">{{ 'general.newsletter.success' | t }}</div>
-          {% endif %}
-          {{ form.errors | default_errors }}
-          <label class="visually-hidden" for="NewsletterEmail-{{ section.id }}">{{ 'general.newsletter.email_placeholder' | t }}</label>
-          <div class="newsletter-signup__fields">
-            <input
-              id="NewsletterEmail-{{ section.id }}"
-              class="field"
-              type="email"
-              name="contact[email]"
-              value="{% if customer %}{{ customer.email }}{% endif %}"
-              placeholder="{{ 'general.newsletter.email_placeholder' | t }}"
-              autocorrect="off"
-              autocapitalize="off"
-              required
-            >
-            <button class="button" type="submit">{{ 'general.newsletter.submit' | t }}</button>
+﻿    <!-- Newslatter -->
+    <section class="newslatter">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Subscribe our Newsletter <span>Get <strong>25% Off</strong> first purchase!</span></h3>
           </div>
-        {% endform %}
+          <div class="col-md-6">
+            <form>
+              <input type="email" placeholder="Your email address here...">
+              <button type="submit">Subscribe!</button>
+            </form>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
-
-{% stylesheet %}
-  .newsletter-signup__card {
-    display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-    gap: 1.5rem;
-    padding: 1.5rem;
-  }
-
-  .newsletter-signup__copy {
-    display: grid;
-    gap: 0.85rem;
-  }
-
-  .newsletter-signup__copy h2,
-  .newsletter-signup__copy p {
-    margin: 0;
-  }
-
-  .newsletter-signup__fields {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 0.75rem;
-  }
-
-  @media screen and (max-width: 749px) {
-    .newsletter-signup__card,
-    .newsletter-signup__fields {
-      grid-template-columns: 1fr;
-    }
-  }
-{% endstylesheet %}
-
+    </section>
 {% schema %}
 {
-  "name": "t:sections.newsletter_signup.name",
-  "class": "section-newsletter-signup",
-  "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "t:labels.heading"
-    },
-    {
-      "type": "textarea",
-      "id": "text",
-      "label": "t:labels.text"
-    }
-  ],
+  "name": "Newsletter Signup",
+  "settings": [],
   "presets": [
     {
-      "name": "t:sections.newsletter_signup.name"
+      "name": "Newsletter Signup"
     }
   ]
 }
