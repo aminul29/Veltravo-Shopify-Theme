@@ -11,76 +11,160 @@
 <section class="featur-tabs padding-top-20 padding-bottom-60">
   <div class="container">
     <ul class="nav nav-tabs nav-bars margin-bottom-40" role="tablist">
-      <li role="presentation" class="active"><a href="#{{ featured_tab_id }}" aria-controls="{{ featured_tab_id }}" role="tab" data-toggle="tab">{{ section.settings.featured_tab_label }}</a></li>
-      <li role="presentation"><a href="#{{ special_tab_id }}" aria-controls="{{ special_tab_id }}" role="tab" data-toggle="tab">{{ section.settings.special_tab_label }}</a></li>
-      <li role="presentation"><a href="#{{ onsale_tab_id }}" aria-controls="{{ onsale_tab_id }}" role="tab" data-toggle="tab">{{ section.settings.onsale_tab_label }}</a></li>
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          {%- liquid
+            assign block_tab_id = 'tab-' | append: section.id | append: '-' | append: block.id
+          -%}
+          <li role="presentation" class="{% if forloop.first %}active{% endif %}">
+            <a href="#{{ block_tab_id }}" aria-controls="{{ block_tab_id }}" role="tab" data-toggle="tab">{{ block.settings.tab_label }}</a>
+          </li>
+        {% endfor %}
+      {% else %}
+        <li role="presentation" class="active"><a href="#{{ featured_tab_id }}" aria-controls="{{ featured_tab_id }}" role="tab" data-toggle="tab">{{ section.settings.featured_tab_label }}</a></li>
+        <li role="presentation"><a href="#{{ special_tab_id }}" aria-controls="{{ special_tab_id }}" role="tab" data-toggle="tab">{{ section.settings.special_tab_label }}</a></li>
+        <li role="presentation"><a href="#{{ onsale_tab_id }}" aria-controls="{{ onsale_tab_id }}" role="tab" data-toggle="tab">{{ section.settings.onsale_tab_label }}</a></li>
+      {% endif %}
     </ul>
 
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active fade in" id="{{ featured_tab_id }}">
-        <div class="item-slide-4 with-nav">
-          {% if featured_collection != blank and featured_collection.products_count > 0 %}
-            {% for product in featured_collection.products limit: section.settings.featured_products_limit %}
-              {% render 'product-card', product: product %}
-            {% endfor %}
-          {% else %}
-            {% render 'product-card', fallback_image: 'item-img-1-1.jpg', fallback_tag: 'Latop', fallback_title: 'Laptop Alienware 15 i7 Perfect For Playing Game', fallback_price: '$350.00' %}
-            {% render 'product-card', fallback_image: 'item-img-1-2.jpg', fallback_tag: 'Tablets', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00', fallback_compare_price: '$200.00' %}
-            {% render 'product-card', fallback_image: 'item-img-1-3.jpg', fallback_tag: 'Appliances', fallback_title: 'Reloj Inteligente Smart Watch M26 Touch Bluetooh', fallback_price: '$350.00' %}
-            {% render 'product-card', fallback_image: 'item-img-1-4.jpg', fallback_tag: 'Accessories', fallback_title: 'Teclado Inalambrico Bluetooth Con Air Mouse', fallback_price: '$350.00' %}
-            {% render 'product-card', fallback_image: 'item-img-1-5.jpg', fallback_tag: 'Appliances', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00' %}
-            {% render 'product-card', fallback_image: 'item-img-1-6.jpg', fallback_tag: 'Tablets', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00', fallback_compare_price: '$200.00' %}
-            {% render 'product-card', fallback_image: 'item-img-1-7.jpg', fallback_tag: 'Appliances', fallback_title: 'Reloj Inteligente Smart Watch M26 Touch Bluetooh', fallback_price: '$350.00' %}
-            {% render 'product-card', fallback_image: 'item-img-1-8.jpg', fallback_tag: 'Accessories', fallback_title: 'Teclado Inalambrico Bluetooth Con Air Mouse', fallback_price: '$350.00' %}
-          {% endif %}
-        </div>
-      </div>
-
-      <div role="tabpanel" class="tab-pane fade" id="{{ special_tab_id }}">
-        <div class="item-col-4">
-          {% if special_collection != blank and special_collection.products_count > 0 %}
-            {% for product in special_collection.products limit: section.settings.special_products_limit %}
-              {% render 'product-card', product: product %}
-            {% endfor %}
-          {% else %}
-            {% render 'product-card', fallback_image: 'item-img-1-9.jpg', fallback_tag: 'Tablets', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00', fallback_compare_price: '$200.00' %}
-            {% render 'product-card', fallback_image: 'item-img-1-8.jpg', fallback_tag: 'Appliances', fallback_title: 'Reloj Inteligente Smart Watch M26 Touch Bluetooh', fallback_price: '$350.00' %}
-            {% render 'product-card', fallback_image: 'item-img-1-7.jpg', fallback_tag: 'Accessories', fallback_title: 'Teclado Inalambrico Bluetooth Con Air Mouse', fallback_price: '$350.00' %}
-            {% render 'product-card', fallback_image: 'item-img-1-6.jpg', fallback_tag: 'Appliances', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00' %}
-          {% endif %}
-        </div>
-      </div>
-
-      <div role="tabpanel" class="tab-pane fade" id="{{ onsale_tab_id }}">
-        <div class="item-col-4">
-          {% if onsale_collection != blank and onsale_collection.products_count > 0 %}
-            {%- liquid
-              assign onsale_count = 0
-            -%}
-            {% for product in onsale_collection.products %}
-              {% if product.compare_at_price > product.price %}
-                {% render 'product-card', product: product %}
-                {%- liquid
-                  assign onsale_count = onsale_count | plus: 1
-                -%}
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          {%- liquid
+            assign block_tab_id = 'tab-' | append: section.id | append: '-' | append: block.id
+            assign tab_collection = block.settings.collection
+            assign products_limit = block.settings.products_limit
+            if products_limit == blank
+              assign products_limit = 8
+            endif
+            assign tab_wrapper_class = 'item-col-4'
+            if block.type == 'featured_tab'
+              assign tab_wrapper_class = 'item-slide-4 with-nav'
+            endif
+            assign is_onsale = false
+            if block.type == 'onsale_tab'
+              assign is_onsale = true
+            endif
+          -%}
+          <div role="tabpanel" class="tab-pane fade{% if forloop.first %} active in{% endif %}" id="{{ block_tab_id }}" {{ block.shopify_attributes }}>
+            <div class="{{ tab_wrapper_class }}">
+              {% if tab_collection != blank and tab_collection.products_count > 0 %}
+                {% if is_onsale %}
+                  {%- liquid
+                    assign onsale_count = 0
+                  -%}
+                  {% for product in tab_collection.products %}
+                    {% if product.compare_at_price > product.price %}
+                      {% render 'product-card', product: product %}
+                      {%- liquid
+                        assign onsale_count = onsale_count | plus: 1
+                      -%}
+                    {% endif %}
+                    {% if onsale_count >= products_limit %}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+                  {% if onsale_count == 0 %}
+                    {% for product in tab_collection.products limit: products_limit %}
+                      {% render 'product-card', product: product %}
+                    {% endfor %}
+                  {% endif %}
+                {% else %}
+                  {% for product in tab_collection.products limit: products_limit %}
+                    {% render 'product-card', product: product %}
+                  {% endfor %}
+                {% endif %}
+              {% else %}
+                {% if block.type == 'featured_tab' %}
+                  {% render 'product-card', fallback_image: 'item-img-1-1.jpg', fallback_tag: 'Latop', fallback_title: 'Laptop Alienware 15 i7 Perfect For Playing Game', fallback_price: '$350.00' %}
+                  {% render 'product-card', fallback_image: 'item-img-1-2.jpg', fallback_tag: 'Tablets', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00', fallback_compare_price: '$200.00' %}
+                  {% render 'product-card', fallback_image: 'item-img-1-3.jpg', fallback_tag: 'Appliances', fallback_title: 'Reloj Inteligente Smart Watch M26 Touch Bluetooh', fallback_price: '$350.00' %}
+                  {% render 'product-card', fallback_image: 'item-img-1-4.jpg', fallback_tag: 'Accessories', fallback_title: 'Teclado Inalambrico Bluetooth Con Air Mouse', fallback_price: '$350.00' %}
+                  {% render 'product-card', fallback_image: 'item-img-1-5.jpg', fallback_tag: 'Appliances', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00' %}
+                  {% render 'product-card', fallback_image: 'item-img-1-6.jpg', fallback_tag: 'Tablets', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00', fallback_compare_price: '$200.00' %}
+                  {% render 'product-card', fallback_image: 'item-img-1-7.jpg', fallback_tag: 'Appliances', fallback_title: 'Reloj Inteligente Smart Watch M26 Touch Bluetooh', fallback_price: '$350.00' %}
+                  {% render 'product-card', fallback_image: 'item-img-1-8.jpg', fallback_tag: 'Accessories', fallback_title: 'Teclado Inalambrico Bluetooth Con Air Mouse', fallback_price: '$350.00' %}
+                {% elsif block.type == 'special_tab' %}
+                  {% render 'product-card', fallback_image: 'item-img-1-9.jpg', fallback_tag: 'Tablets', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00', fallback_compare_price: '$200.00' %}
+                  {% render 'product-card', fallback_image: 'item-img-1-8.jpg', fallback_tag: 'Appliances', fallback_title: 'Reloj Inteligente Smart Watch M26 Touch Bluetooh', fallback_price: '$350.00' %}
+                  {% render 'product-card', fallback_image: 'item-img-1-7.jpg', fallback_tag: 'Accessories', fallback_title: 'Teclado Inalambrico Bluetooth Con Air Mouse', fallback_price: '$350.00' %}
+                  {% render 'product-card', fallback_image: 'item-img-1-6.jpg', fallback_tag: 'Appliances', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00' %}
+                {% else %}
+                  {% render 'product-card', fallback_image: 'item-img-1-1.jpg', fallback_tag: 'Tablets', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00', fallback_compare_price: '$200.00' %}
+                  {% render 'product-card', fallback_image: 'item-img-1-2.jpg', fallback_tag: 'Appliances', fallback_title: 'Reloj Inteligente Smart Watch M26 Touch Bluetooh', fallback_price: '$350.00' %}
+                  {% render 'product-card', fallback_image: 'item-img-1-5.jpg', fallback_tag: 'Accessories', fallback_title: 'Teclado Inalambrico Bluetooth Con Air Mouse', fallback_price: '$350.00' %}
+                  {% render 'product-card', fallback_image: 'item-img-1-4.jpg', fallback_tag: 'Appliances', fallback_title: 'Funda Para Ebook 7\" 128GB full HD', fallback_price: '$350.00' %}
+                {% endif %}
               {% endif %}
-              {% if onsale_count >= section.settings.onsale_products_limit %}
-                {% break %}
-              {% endif %}
-            {% endfor %}
-            {% if onsale_count == 0 %}
-              {% for product in onsale_collection.products limit: section.settings.onsale_products_limit %}
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div role="tabpanel" class="tab-pane active fade in" id="{{ featured_tab_id }}">
+          <div class="item-slide-4 with-nav">
+            {% if featured_collection != blank and featured_collection.products_count > 0 %}
+              {% for product in featured_collection.products limit: section.settings.featured_products_limit %}
                 {% render 'product-card', product: product %}
               {% endfor %}
+            {% else %}
+              {% render 'product-card', fallback_image: 'item-img-1-1.jpg', fallback_tag: 'Latop', fallback_title: 'Laptop Alienware 15 i7 Perfect For Playing Game', fallback_price: '$350.00' %}
+              {% render 'product-card', fallback_image: 'item-img-1-2.jpg', fallback_tag: 'Tablets', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00', fallback_compare_price: '$200.00' %}
+              {% render 'product-card', fallback_image: 'item-img-1-3.jpg', fallback_tag: 'Appliances', fallback_title: 'Reloj Inteligente Smart Watch M26 Touch Bluetooh', fallback_price: '$350.00' %}
+              {% render 'product-card', fallback_image: 'item-img-1-4.jpg', fallback_tag: 'Accessories', fallback_title: 'Teclado Inalambrico Bluetooth Con Air Mouse', fallback_price: '$350.00' %}
+              {% render 'product-card', fallback_image: 'item-img-1-5.jpg', fallback_tag: 'Appliances', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00' %}
+              {% render 'product-card', fallback_image: 'item-img-1-6.jpg', fallback_tag: 'Tablets', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00', fallback_compare_price: '$200.00' %}
+              {% render 'product-card', fallback_image: 'item-img-1-7.jpg', fallback_tag: 'Appliances', fallback_title: 'Reloj Inteligente Smart Watch M26 Touch Bluetooh', fallback_price: '$350.00' %}
+              {% render 'product-card', fallback_image: 'item-img-1-8.jpg', fallback_tag: 'Accessories', fallback_title: 'Teclado Inalambrico Bluetooth Con Air Mouse', fallback_price: '$350.00' %}
             {% endif %}
-          {% else %}
-            {% render 'product-card', fallback_image: 'item-img-1-1.jpg', fallback_tag: 'Tablets', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00', fallback_compare_price: '$200.00' %}
-            {% render 'product-card', fallback_image: 'item-img-1-2.jpg', fallback_tag: 'Appliances', fallback_title: 'Reloj Inteligente Smart Watch M26 Touch Bluetooh', fallback_price: '$350.00' %}
-            {% render 'product-card', fallback_image: 'item-img-1-5.jpg', fallback_tag: 'Accessories', fallback_title: 'Teclado Inalambrico Bluetooth Con Air Mouse', fallback_price: '$350.00' %}
-            {% render 'product-card', fallback_image: 'item-img-1-4.jpg', fallback_tag: 'Appliances', fallback_title: 'Funda Para Ebook 7\" 128GB full HD', fallback_price: '$350.00' %}
-          {% endif %}
+          </div>
         </div>
-      </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="{{ special_tab_id }}">
+          <div class="item-col-4">
+            {% if special_collection != blank and special_collection.products_count > 0 %}
+              {% for product in special_collection.products limit: section.settings.special_products_limit %}
+                {% render 'product-card', product: product %}
+              {% endfor %}
+            {% else %}
+              {% render 'product-card', fallback_image: 'item-img-1-9.jpg', fallback_tag: 'Tablets', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00', fallback_compare_price: '$200.00' %}
+              {% render 'product-card', fallback_image: 'item-img-1-8.jpg', fallback_tag: 'Appliances', fallback_title: 'Reloj Inteligente Smart Watch M26 Touch Bluetooh', fallback_price: '$350.00' %}
+              {% render 'product-card', fallback_image: 'item-img-1-7.jpg', fallback_tag: 'Accessories', fallback_title: 'Teclado Inalambrico Bluetooth Con Air Mouse', fallback_price: '$350.00' %}
+              {% render 'product-card', fallback_image: 'item-img-1-6.jpg', fallback_tag: 'Appliances', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00' %}
+            {% endif %}
+          </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="{{ onsale_tab_id }}">
+          <div class="item-col-4">
+            {% if onsale_collection != blank and onsale_collection.products_count > 0 %}
+              {%- liquid
+                assign onsale_count = 0
+              -%}
+              {% for product in onsale_collection.products %}
+                {% if product.compare_at_price > product.price %}
+                  {% render 'product-card', product: product %}
+                  {%- liquid
+                    assign onsale_count = onsale_count | plus: 1
+                  -%}
+                {% endif %}
+                {% if onsale_count >= section.settings.onsale_products_limit %}
+                  {% break %}
+                {% endif %}
+              {% endfor %}
+              {% if onsale_count == 0 %}
+                {% for product in onsale_collection.products limit: section.settings.onsale_products_limit %}
+                  {% render 'product-card', product: product %}
+                {% endfor %}
+              {% endif %}
+            {% else %}
+              {% render 'product-card', fallback_image: 'item-img-1-1.jpg', fallback_tag: 'Tablets', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00', fallback_compare_price: '$200.00' %}
+              {% render 'product-card', fallback_image: 'item-img-1-2.jpg', fallback_tag: 'Appliances', fallback_title: 'Reloj Inteligente Smart Watch M26 Touch Bluetooh', fallback_price: '$350.00' %}
+              {% render 'product-card', fallback_image: 'item-img-1-5.jpg', fallback_tag: 'Accessories', fallback_title: 'Teclado Inalambrico Bluetooth Con Air Mouse', fallback_price: '$350.00' %}
+              {% render 'product-card', fallback_image: 'item-img-1-4.jpg', fallback_tag: 'Appliances', fallback_title: 'Funda Para Ebook 7\" 128GB full HD', fallback_price: '$350.00' %}
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
     </div>
   </div>
 </section>
@@ -150,9 +234,101 @@
       "default": 4
     }
   ],
+  "blocks": [
+    {
+      "type": "featured_tab",
+      "name": "Featured tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab label",
+          "default": "Featured"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "range",
+          "id": "products_limit",
+          "label": "Products to show",
+          "min": 2,
+          "max": 12,
+          "step": 1,
+          "default": 8
+        }
+      ]
+    },
+    {
+      "type": "special_tab",
+      "name": "Special tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab label",
+          "default": "Special"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "range",
+          "id": "products_limit",
+          "label": "Products to show",
+          "min": 2,
+          "max": 12,
+          "step": 1,
+          "default": 4
+        }
+      ]
+    },
+    {
+      "type": "onsale_tab",
+      "name": "On sale tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab label",
+          "default": "Onsale"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "range",
+          "id": "products_limit",
+          "label": "Products to show",
+          "min": 2,
+          "max": 12,
+          "step": 1,
+          "default": 4
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
   "presets": [
     {
-      "name": "Featured Collection Tabs"
+      "name": "Featured Collection Tabs",
+      "blocks": [
+        {
+          "type": "featured_tab"
+        },
+        {
+          "type": "special_tab"
+        },
+        {
+          "type": "onsale_tab"
+        }
+      ]
     }
   ]
 }

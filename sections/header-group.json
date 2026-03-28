@@ -13,6 +13,40 @@
   "sections": {
     "header": {
       "type": "header",
+      "blocks": {
+        "top_message_block": {
+          "type": "top_message",
+          "settings": {}
+        },
+        "logo_block": {
+          "type": "logo",
+          "settings": {}
+        },
+        "hotline_block": {
+          "type": "hotline",
+          "settings": {}
+        },
+        "search_block": {
+          "type": "search",
+          "settings": {}
+        },
+        "cart_block": {
+          "type": "cart",
+          "settings": {}
+        },
+        "categories_block": {
+          "type": "categories_trigger",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "top_message_block",
+        "logo_block",
+        "hotline_block",
+        "search_block",
+        "cart_block",
+        "categories_block"
+      ],
       "settings": {}
     }
   },

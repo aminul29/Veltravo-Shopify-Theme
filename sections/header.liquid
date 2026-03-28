@@ -2,12 +2,67 @@
   assign top_links_menu = section.settings.top_links_menu
   assign categories_menu = section.settings.categories_menu
   assign main_menu = section.settings.main_menu
+  assign header_top_message = section.settings.top_message
+  assign header_logo = section.settings.header_logo
+  if header_logo == blank
+    assign header_logo = settings.logo
+  endif
+  assign header_logo_width = section.settings.logo_width | default: 320
+  assign header_logo_alt = section.settings.logo_alt_text | strip
+  if header_logo_alt == blank
+    assign header_logo_alt = shop.name
+  endif
+  assign header_hotline_label = settings.hotline_label | default: 'Hotline'
+  assign header_hotline_text = settings.hotline_text | default: '(+100) 123 456 7890'
+  assign header_search_placeholder = section.settings.search_placeholder
+  assign header_cart_label = section.settings.cart_label
+  assign header_categories_label = section.settings.categories_label
+
+  assign top_message_block = blank
+  assign logo_block = blank
+  assign hotline_block = blank
+  assign search_block = blank
+  assign cart_block = blank
+  assign categories_block = blank
+
+  for block in section.blocks
+    case block.type
+      when 'top_message'
+        assign top_message_block = block
+        assign header_top_message = block.settings.text | default: header_top_message
+      when 'logo'
+        assign logo_block = block
+        if block.settings.image != blank
+          assign header_logo = block.settings.image
+        endif
+        if block.settings.logo_width != blank
+          assign header_logo_width = block.settings.logo_width
+        endif
+        assign logo_block_alt = block.settings.alt_text | strip
+        if logo_block_alt != blank
+          assign header_logo_alt = logo_block_alt
+        endif
+      when 'hotline'
+        assign hotline_block = block
+        assign header_hotline_label = block.settings.label | default: header_hotline_label
+        assign header_hotline_text = block.settings.text | default: header_hotline_text
+      when 'search'
+        assign search_block = block
+        assign header_search_placeholder = block.settings.placeholder | default: header_search_placeholder
+      when 'cart'
+        assign cart_block = block
+        assign header_cart_label = block.settings.label | default: header_cart_label
+      when 'categories_trigger'
+        assign categories_block = block
+        assign header_categories_label = block.settings.label | default: header_categories_label
+    endcase
+  endfor
 -%}
 
 <!-- Top bar -->
 <div class="top-bar">
   <div class="container">
-    <p>{{ section.settings.top_message }}</p>
+    <p{% if top_message_block != blank %} {{ top_message_block.shopify_attributes }}{% endif %}>{{ header_top_message }}</p>
     <div class="right-sec">
       <ul>
         {% if top_links_menu != blank and top_links_menu.links.size > 0 %}
@@ -39,21 +94,21 @@
 <!-- Header -->
 <header class="header-style-5">
   <div class="container">
-    <div class="logo">
+    <div class="logo"{% if logo_block != blank %} {{ logo_block.shopify_attributes }}{% endif %}>
       <a href="{{ routes.root_url }}">
-        {% if settings.logo != blank %}
-          {{ settings.logo | image_url: width: 320 | image_tag: alt: shop.name, loading: 'eager' }}
+        {% if header_logo != blank %}
+          {{ header_logo | image_url: width: header_logo_width | image_tag: alt: header_logo_alt, loading: 'eager', widths: '120,180,240,320,400,480', sizes: '(max-width: 767px) 180px, 320px' }}
         {% else %}
-          <img src="{{ 'logo-9.png' | asset_url }}" alt="{{ shop.name | escape }}">
+          <span class="header-logo-text">{{ shop.name }}</span>
         {% endif %}
       </a>
     </div>
     <div class="go-right">
-      <span class="call-mun"><i class="fa fa-phone"></i> <strong>{{ settings.hotline_label | default: 'Hotline' }}:</strong><br>
-      {{ settings.hotline_text | default: '(+100) 123 456 7890' }}</span>
+      <span class="call-mun"{% if hotline_block != blank %} {{ hotline_block.shopify_attributes }}{% endif %}><i class="fa fa-phone"></i> <strong>{{ header_hotline_label }}:</strong><br>
+      {{ header_hotline_text }}</span>
 
       <!-- search -->
-      <div class="search-cate">
+      <div class="search-cate"{% if search_block != blank %} {{ search_block.shopify_attributes }}{% endif %}>
         <form action="{{ routes.search_url }}" method="get" role="search">
           <select class="selectpicker" aria-label="Search category">
             <option> All Categories</option>
@@ -63,15 +118,15 @@
               {% endfor %}
             {% endif %}
           </select>
-          <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.search_placeholder }}">
+          <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ header_search_placeholder }}">
           <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
         </form>
       </div>
 
       <!-- Cart Part -->
       <ul class="nav navbar-right cart-pop">
-        <li class="dropdown">
-          <a href="{{ routes.cart_url }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="itm-cont">{{ cart.item_count }}</span> <i class="flaticon-shopping-bag"></i> <strong>{{ section.settings.cart_label }}</strong> <br>
+        <li class="dropdown"{% if cart_block != blank %} {{ cart_block.shopify_attributes }}{% endif %}>
+          <a href="{{ routes.cart_url }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="itm-cont">{{ cart.item_count }}</span> <i class="flaticon-shopping-bag"></i> <strong>{{ header_cart_label }}</strong> <br>
             <span>{{ cart.item_count }} item(s) - {{ cart.total_price | money }}</span></a>
           <ul class="dropdown-menu">
             {% if cart.item_count > 0 %}
@@ -110,7 +165,7 @@
   <nav class="navbar ownmenu">
     <div class="container">
       <!-- Categories -->
-      <div class="cate-lst"> <a data-toggle="collapse" class="cate-style" href="#cater-{{ section.id }}"><i class="fa fa-list-ul"></i> {{ section.settings.categories_label }} </a>
+      <div class="cate-lst"{% if categories_block != blank %} {{ categories_block.shopify_attributes }}{% endif %}> <a data-toggle="collapse" class="cate-style" href="#cater-{{ section.id }}"><i class="fa fa-list-ul"></i> {{ header_categories_label }} </a>
         <div class="cate-bar-in">
           <div id="cater-{{ section.id }}" class="collapse">
             <ul>
@@ -177,6 +232,18 @@
   </nav>
 </header>
 
+{% stylesheet %}
+  .header-logo-text {
+    display: inline-block;
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 800;
+    color: #111111;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+{% endstylesheet %}
+
 {% schema %}
 {
   "name": "Header",
@@ -186,6 +253,27 @@
       "id": "top_message",
       "label": "Top message",
       "default": "Welcome to SmartTech center!"
+    },
+    {
+      "type": "image_picker",
+      "id": "header_logo",
+      "label": "Header logo override"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width",
+      "min": 120,
+      "max": 480,
+      "step": 10,
+      "unit": "px",
+      "default": 320
+    },
+    {
+      "type": "text",
+      "id": "logo_alt_text",
+      "label": "Logo alt text",
+      "default": "Store logo"
     },
     {
       "type": "link_list",
@@ -221,9 +309,131 @@
       "default": "My Cart"
     }
   ],
+  "blocks": [
+    {
+      "type": "top_message",
+      "name": "Top message",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Welcome to SmartTech center!"
+        }
+      ]
+    },
+    {
+      "type": "logo",
+      "name": "Logo",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Logo image"
+        },
+        {
+          "type": "range",
+          "id": "logo_width",
+          "label": "Logo width",
+          "min": 120,
+          "max": 480,
+          "step": 10,
+          "unit": "px",
+          "default": 320
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Logo alt text",
+          "default": "Store logo"
+        }
+      ]
+    },
+    {
+      "type": "hotline",
+      "name": "Hotline",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Hotline"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "(+100) 123 456 7890"
+        }
+      ]
+    },
+    {
+      "type": "search",
+      "name": "Search",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Placeholder",
+          "default": "Search entire store here..."
+        }
+      ]
+    },
+    {
+      "type": "cart",
+      "name": "Cart",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "My Cart"
+        }
+      ]
+    },
+    {
+      "type": "categories_trigger",
+      "name": "Categories trigger",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Our Categories"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
   "presets": [
     {
-      "name": "Header"
+      "name": "Header",
+      "blocks": [
+        {
+          "type": "top_message"
+        },
+        {
+          "type": "logo"
+        },
+        {
+          "type": "hotline"
+        },
+        {
+          "type": "search"
+        },
+        {
+          "type": "cart"
+        },
+        {
+          "type": "categories_trigger"
+        }
+      ]
     }
   ]
 }

@@ -1,8 +1,30 @@
 {%- liquid
   assign showcase_collection = section.settings.collection
   assign featured_product = section.settings.featured_product
+  assign featured_block = blank
+  assign has_manual_products = false
+
+  if section.blocks.size > 0
+    for block in section.blocks
+      if block.type == 'featured_panel' and featured_block == blank
+        assign featured_block = block
+      elsif block.type == 'manual_product'
+        assign has_manual_products = true
+      endif
+    endfor
+  endif
+
+  if featured_block != blank and featured_block.settings.product != blank
+    assign featured_product = featured_block.settings.product
+  endif
+
   if featured_product == blank and showcase_collection != blank and showcase_collection.products_count > 0
     assign featured_product = showcase_collection.products.first
+  endif
+
+  assign featured_media_limit = section.settings.featured_media_limit
+  if featured_block != blank and featured_block.settings.featured_media_limit != blank
+    assign featured_media_limit = featured_block.settings.featured_media_limit
   endif
 -%}
 
@@ -16,7 +38,33 @@
     <div class="row">
       <div class="col-md-6">
         <div class="item-col-2">
-          {% if showcase_collection != blank and showcase_collection.products_count > 0 %}
+          {% if has_manual_products %}
+            {%- liquid
+              assign manual_count = 0
+            -%}
+            {% for block in section.blocks %}
+              {% if block.type != 'manual_product' %}
+                {% continue %}
+              {% endif %}
+              {% if block.settings.product != blank %}
+                {% render 'product-card', block: block, product: block.settings.product %}
+              {% else %}
+                {% render 'product-card', block: block, fallback_image: block.settings.fallback_image, fallback_tag: block.settings.fallback_tag, fallback_title: block.settings.fallback_title, fallback_price: block.settings.fallback_price, fallback_compare_price: block.settings.fallback_compare_price %}
+              {% endif %}
+              {%- liquid
+                assign manual_count = manual_count | plus: 1
+              -%}
+              {% if manual_count >= section.settings.products_limit %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            {% if manual_count == 0 %}
+              {% render 'product-card', fallback_image: 'item-img-1-6.jpg', fallback_tag: 'Tablets', fallback_title: 'Mp3 Sumergible Deportivo Slim Con 8GB', fallback_price: '$350.00', fallback_compare_price: '$200.00' %}
+              {% render 'product-card', fallback_image: 'item-img-1-7.jpg', fallback_tag: 'Appliances', fallback_title: 'Reloj Inteligente Smart Watch M26 Touch Bluetooh', fallback_price: '$350.00' %}
+              {% render 'product-card', fallback_image: 'item-img-1-8.jpg', fallback_tag: 'Accessories', fallback_title: 'Teclado Inalambrico Bluetooth Con Air Mouse', fallback_price: '$350.00' %}
+              {% render 'product-card', fallback_image: 'item-img-1-10.jpg', fallback_tag: 'Appliances', fallback_title: 'Reloj Inteligente Smart Watch M26 Touch Bluetooh', fallback_price: '$350.00' %}
+            {% endif %}
+          {% elsif showcase_collection != blank and showcase_collection.products_count > 0 %}
             {%- liquid
               assign rendered_count = 0
             -%}
@@ -48,7 +96,7 @@
       </div>
 
       <div class="col-md-6">
-        <div class="product">
+        <div class="product"{% if featured_block != blank %} {{ featured_block.shopify_attributes }}{% endif %}>
           <article>
             <div class="thumb-slider">
               <ul class="slides">
@@ -63,7 +111,7 @@
                         assign media_count = media_count | plus: 1
                       -%}
                     {% endif %}
-                    {% if media_count >= section.settings.featured_media_limit %}
+                    {% if media_count >= featured_media_limit %}
                       {% break %}
                     {% endif %}
                   {% endfor %}
@@ -144,9 +192,118 @@
       "default": 4
     }
   ],
+  "blocks": [
+    {
+      "type": "featured_panel",
+      "name": "Featured panel",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Featured product override"
+        },
+        {
+          "type": "range",
+          "id": "featured_media_limit",
+          "label": "Featured media thumbnails",
+          "min": 1,
+          "max": 6,
+          "step": 1,
+          "default": 4
+        }
+      ]
+    },
+    {
+      "type": "manual_product",
+      "name": "Manual product card",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "fallback_image",
+          "label": "Fallback image asset",
+          "default": "item-img-1-6.jpg"
+        },
+        {
+          "type": "text",
+          "id": "fallback_tag",
+          "label": "Fallback tag",
+          "default": "Tablets"
+        },
+        {
+          "type": "text",
+          "id": "fallback_title",
+          "label": "Fallback title",
+          "default": "Mp3 Sumergible Deportivo Slim Con 8GB"
+        },
+        {
+          "type": "text",
+          "id": "fallback_price",
+          "label": "Fallback price",
+          "default": "$350.00"
+        },
+        {
+          "type": "text",
+          "id": "fallback_compare_price",
+          "label": "Fallback compare price",
+          "default": "$200.00"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Top Selling Showcase"
+      "name": "Top Selling Showcase",
+      "blocks": [
+        {
+          "type": "featured_panel"
+        },
+        {
+          "type": "manual_product",
+          "settings": {
+            "fallback_image": "item-img-1-6.jpg",
+            "fallback_tag": "Tablets",
+            "fallback_title": "Mp3 Sumergible Deportivo Slim Con 8GB",
+            "fallback_price": "$350.00",
+            "fallback_compare_price": "$200.00"
+          }
+        },
+        {
+          "type": "manual_product",
+          "settings": {
+            "fallback_image": "item-img-1-7.jpg",
+            "fallback_tag": "Appliances",
+            "fallback_title": "Reloj Inteligente Smart Watch M26 Touch Bluetooh",
+            "fallback_price": "$350.00",
+            "fallback_compare_price": ""
+          }
+        },
+        {
+          "type": "manual_product",
+          "settings": {
+            "fallback_image": "item-img-1-8.jpg",
+            "fallback_tag": "Accessories",
+            "fallback_title": "Teclado Inalambrico Bluetooth Con Air Mouse",
+            "fallback_price": "$350.00",
+            "fallback_compare_price": ""
+          }
+        },
+        {
+          "type": "manual_product",
+          "settings": {
+            "fallback_image": "item-img-1-10.jpg",
+            "fallback_tag": "Appliances",
+            "fallback_title": "Reloj Inteligente Smart Watch M26 Touch Bluetooh",
+            "fallback_price": "$350.00",
+            "fallback_compare_price": ""
+          }
+        }
+      ]
     }
   ]
 }

@@ -36,57 +36,93 @@
           <div class="tp-banner-container">
             <div class="tp-banner with-bg-slide-all">
               <ul>
-                {% if section.blocks.size > 0 %}
+                {% assign product_slides_count = 0 %}
+                {% for block in section.blocks %}
+                  {% if block.settings.product != blank %}
+                    {% assign product_slides_count = product_slides_count | plus: 1 %}
+                  {% endif %}
+                {% endfor %}
+
+                {% if product_slides_count > 0 %}
                   {% for block in section.blocks %}
                     {%- liquid
+                      assign slide_product = block.settings.product
+                      if slide_product == blank
+                        continue
+                      endif
+
                       assign layer_image = block.settings.foreground_image
                       if layer_image == blank
-                        if forloop.index == 2
-                          assign layer_image = 'slide-item-9-1.png'
+                        if slide_product.featured_image != blank
+                          assign layer_image = slide_product.featured_image | image_url: width: 900
                         else
-                          assign layer_image = 'slide-item-7-2.png'
+                          if forloop.index == 2
+                            assign layer_image = 'slide-item-9-1.png'
+                          else
+                            assign layer_image = 'slide-item-7-2.png'
+                          endif
                         endif
+                      endif
+
+                      assign slide_pretitle = slide_product.vendor | default: slide_product.type
+                      if block.settings.pretitle != blank
+                        assign slide_pretitle = block.settings.pretitle
+                      endif
+
+                      assign slide_title = slide_product.title
+                      if block.settings.title != blank
+                        assign slide_title = block.settings.title
+                      endif
+
+                      assign slide_price_text = slide_product.selected_or_first_available_variant.price | money
+                      if block.settings.price_text != blank
+                        assign slide_price_text = block.settings.price_text
+                      endif
+
+                      assign slide_button_link = block.settings.button_link
+                      if slide_button_link == blank
+                        assign slide_button_link = slide_product.url
                       endif
                     -%}
                     <li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off" {{ block.shopify_attributes }}>
                       {% if block.settings.background_image != blank %}
-                        <img src="{{ block.settings.background_image | image_url: width: 1600 }}" alt="{{ block.settings.title | escape }}" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
+                        <img src="{{ block.settings.background_image | image_url: width: 1600 }}" alt="{{ slide_title | escape }}" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
                       {% else %}
                         <img src="{{ 'trans-bg.png' | asset_url }}" alt="slider" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
                       {% endif %}
 
-                      <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-80" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:26px; font-weight:500; color:#888888;  max-width: auto; max-height: auto; white-space: nowrap;">{{ block.settings.pretitle }}</div>
-                      <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; font-size:36px; color:#22c961; font-weight:800; white-space: nowrap;">{{ block.settings.title }}</div>
-                      <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="10" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:36px; font-weight:800; color:#000;  max-width: auto; max-height: auto; white-space: nowrap;">{{ block.settings.price_text }}</div>
-                      <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="{{ block.settings.image_offset }}" data-y="center" data-voffset="0" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 1;"><img src="{% if block.settings.foreground_image != blank %}{{ block.settings.foreground_image | image_url: width: 900 }}{% else %}{{ layer_image | asset_url }}{% endif %}" alt=""></div>
-                      <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="{{ block.settings.button_link | default: '#.' }}" class="btn-round big">{{ block.settings.button_label }}</a></div>
+                      <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-80" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:26px; font-weight:500; color:#888888;  max-width: auto; max-height: auto; white-space: nowrap;">{{ slide_pretitle }}</div>
+                      <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; font-size:36px; color:#22c961; font-weight:800; white-space: nowrap;">{{ slide_title }}</div>
+                      <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="10" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:36px; font-weight:800; color:#000;  max-width: auto; max-height: auto; white-space: nowrap;">{{ slide_price_text }}</div>
+                      <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="{{ block.settings.image_offset }}" data-y="center" data-voffset="0" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 1;"><img src="{% if block.settings.foreground_image != blank %}{{ block.settings.foreground_image | image_url: width: 900 }}{% else %}{% if slide_product.featured_image != blank %}{{ layer_image }}{% else %}{{ layer_image | asset_url }}{% endif %}{% endif %}" alt="{{ slide_title | escape }}"></div>
+                      <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="{{ slide_button_link | default: '#.' }}" class="btn-round big">{{ block.settings.button_label }}</a></div>
                     </li>
                   {% endfor %}
                 {% else %}
-                  <li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
-                    <img src="{{ 'trans-bg.png' | asset_url }}" alt="slider" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
-                    <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-80" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:26px; font-weight:500; color:#888888;  max-width: auto; max-height: auto; white-space: nowrap;">Go Portable, Get Productive </div>
-                    <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; font-size:36px; color:#22c961; font-weight:800; white-space: nowrap;">M75 Sport Watch</div>
-                    <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="10" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:36px; font-weight:800; color:#000;  max-width: auto; max-height: auto; white-space: nowrap;">$550.00 </div>
-                    <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="50" data-y="center" data-voffset="0" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 1;"><img src="{{ 'slide-item-7-2.png' | asset_url }}" alt=""> </div>
-                    <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="#." class="btn-round big">Shop Now</a> </div>
-                  </li>
-                  <li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
-                    <img src="{{ 'trans-bg.png' | asset_url }}" alt="slider" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
-                    <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-90" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:24px; font-weight:500; color:#888888;  max-width: auto; max-height: auto; white-space: nowrap;">High Quality VR Glasses </div>
-                    <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; font-size:36px; color:#22c961; font-weight:800; white-space: nowrap;">3D Daydream View</div>
-                    <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="20" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:36px; font-weight:800; color:#000;  max-width: auto; max-height: auto; white-space: nowrap;">$550.00 </div>
-                    <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="80" data-y="center" data-voffset="30" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 1;"><img src="{{ 'slide-item-9-1.png' | asset_url }}" alt=""> </div>
-                    <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="#." class="btn-round big">Shop Now</a> </div>
-                  </li>
-                  <li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
-                    <img src="{{ 'trans-bg.png' | asset_url }}" alt="slider" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
-                    <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-90" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:24px; font-weight:500; color:#888888;  max-width: auto; max-height: auto; white-space: nowrap;">No restocking fee</div>
-                    <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; font-size:36px; color:#22c961; font-weight:800; white-space: nowrap;">M75 Sport Watch</div>
-                    <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="20" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:36px; font-weight:800; color:#000;  max-width: auto; max-height: auto; white-space: nowrap;">$320.00 </div>
-                    <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="50" data-y="center" data-voffset="0" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 1;"><img src="{{ 'slide-item-7-2.png' | asset_url }}" alt=""> </div>
-                    <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="120" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="#." class="btn-round big">Shop Now</a> </div>
-                  </li>
+                  {% assign fallback_collection = collections['all'] %}
+                  {% if fallback_collection != blank and fallback_collection.products_count > 0 %}
+                    {% for fallback_product in fallback_collection.products limit: 3 %}
+                      {%- liquid
+                        if fallback_product.featured_image != blank
+                          assign fallback_layer_image = fallback_product.featured_image | image_url: width: 900
+                        else
+                          if forloop.index == 2
+                            assign fallback_layer_image = 'slide-item-9-1.png' | asset_url
+                          else
+                            assign fallback_layer_image = 'slide-item-7-2.png' | asset_url
+                          endif
+                        endif
+                      -%}
+                      <li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+                        <img src="{{ 'trans-bg.png' | asset_url }}" alt="{{ fallback_product.title | escape }}" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
+                        <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-80" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:26px; font-weight:500; color:#888888;  max-width: auto; max-height: auto; white-space: nowrap;">{{ fallback_product.vendor | default: fallback_product.type }}</div>
+                        <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; font-size:36px; color:#22c961; font-weight:800; white-space: nowrap;">{{ fallback_product.title }}</div>
+                        <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="10" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:36px; font-weight:800; color:#000;  max-width: auto; max-height: auto; white-space: nowrap;">{{ fallback_product.selected_or_first_available_variant.price | money }}</div>
+                        <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="50" data-y="center" data-voffset="0" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 1;"><img src="{{ fallback_layer_image }}" alt="{{ fallback_product.title | escape }}"> </div>
+                        <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="{{ fallback_product.url }}" class="btn-round big">Shop Now</a> </div>
+                      </li>
+                    {% endfor %}
+                  {% endif %}
                 {% endif %}
               </ul>
             </div>
@@ -113,22 +149,27 @@
       "name": "Slide",
       "settings": [
         {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
           "type": "text",
           "id": "pretitle",
-          "label": "Pretitle",
-          "default": "Go Portable, Get Productive"
+          "label": "Pretitle (optional override)",
+          "default": ""
         },
         {
           "type": "text",
           "id": "title",
-          "label": "Title",
-          "default": "M75 Sport Watch"
+          "label": "Title (optional override)",
+          "default": ""
         },
         {
           "type": "text",
           "id": "price_text",
-          "label": "Price text",
-          "default": "$550.00"
+          "label": "Price text (optional override)",
+          "default": ""
         },
         {
           "type": "image_picker",

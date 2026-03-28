@@ -2,6 +2,7 @@
   Template-style product card that mirrors html/index.html card markup.
 
   @param {object} [product] - Product object
+  @param {object} [block] - Section block object
   @param {string} [fallback_image] - Fallback asset filename
   @param {string} [fallback_title] - Fallback title
   @param {string} [fallback_tag] - Fallback tag
@@ -19,7 +20,7 @@
   assign card_compare_price = fallback_compare_price
 -%}
 
-<div class="product">
+<div class="product"{% if block != blank %} {{ block.shopify_attributes }}{% endif %}>
   <article>
     {% if card_product != blank %}
       {% if card_product.featured_image %}
