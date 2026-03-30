@@ -1,38 +1,9 @@
-{%- liquid
-  assign categories_menu = section.settings.categories_menu
--%}
-
 <!-- Slid Sec -->
 <section class="slid-sec">
   <div class="container">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-3 no-padding">
-          <div class="cate-bar-in relative margin-top-0">
-            <div id="cater">
-              <ul>
-                {% if categories_menu != blank and categories_menu.links.size > 0 %}
-                  {% for link in categories_menu.links %}
-                    {% if link.links != blank and link.links.size > 0 %}
-                      <li class="sub-menu">
-                        <a href="{{ link.url }}">{{ link.title | escape }}</a>
-                        <ul>
-                          {% for child_link in link.links %}
-                            <li><a href="{{ child_link.url }}">{{ child_link.title | escape }}</a></li>
-                          {% endfor %}
-                        </ul>
-                      </li>
-                    {% else %}
-                      <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
-                    {% endif %}
-                  {% endfor %}
-                {% endif %}
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-9 no-padding">
+        <div class="col-md-12 no-padding">
           <div class="tp-banner-container">
             <div class="tp-banner with-bg-slide-all">
               <ul>
@@ -42,6 +13,8 @@
                   assign slide_button_label = section.settings.button_label | default: 'Shop Now'
                   assign slide_image_offset = section.settings.image_offset | default: 50
                   assign section_background_image = section.settings.background_image
+                  assign slide_overlay_color = section.settings.overlay_color | default: '#000000'
+                  assign slide_overlay_opacity = section.settings.overlay_opacity | default: 35 | divided_by: 100.0
 
                   if merchandising_collection == blank or merchandising_collection.products_count == 0
                     assign merchandising_collection = collections['all']
@@ -51,6 +24,14 @@
                 {% if merchandising_collection != blank and merchandising_collection.products_count > 0 %}
                   {% for slide_product in merchandising_collection.products limit: slides_limit %}
                     {%- liquid
+                      if slide_product.featured_image != blank
+                        assign slide_background_image = slide_product.featured_image | image_url: width: 2200
+                      elsif section_background_image != blank
+                        assign slide_background_image = section_background_image | image_url: width: 1600
+                      else
+                        assign slide_background_image = 'trans-bg.png' | asset_url
+                      endif
+
                       if slide_product.featured_image != blank
                         assign layer_image = slide_product.featured_image | image_url: width: 900
                       else
@@ -64,26 +45,24 @@
                       assign slide_pretitle = slide_product.vendor | default: slide_product.type
                       assign slide_price_text = slide_product.selected_or_first_available_variant.price | money
                     -%}
-                    <li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
-                      {% if section_background_image != blank %}
-                        <img src="{{ section_background_image | image_url: width: 1600 }}" alt="{{ slide_product.title | escape }}" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
-                      {% else %}
-                        <img src="{{ 'trans-bg.png' | asset_url }}" alt="slider" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
-                      {% endif %}
+                    <li class="home-hero-merchandising-slide" data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+                      <img src="{{ slide_background_image }}" alt="{{ slide_product.title | escape }}" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                      <div class="hero-slide-overlay" style="background-color: {{ slide_overlay_color }}; opacity: {{ slide_overlay_opacity }};"></div>
 
                       <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-80" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:26px; font-weight:500; color:#888888;  max-width: auto; max-height: auto; white-space: nowrap;">{{ slide_pretitle }}</div>
                       <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; font-size:36px; color:#22c961; font-weight:800; white-space: nowrap;">{{ slide_product.title }}</div>
                       <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="10" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:36px; font-weight:800; color:#000;  max-width: auto; max-height: auto; white-space: nowrap;">{{ slide_price_text }}</div>
-                      <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="{{ slide_image_offset }}" data-y="center" data-voffset="0" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 1;"><img src="{{ layer_image }}" alt="{{ slide_product.title | escape }}"></div>
+                      <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="{{ slide_image_offset }}" data-y="center" data-voffset="0" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 3;"><img src="{{ layer_image }}" alt="{{ slide_product.title | escape }}"></div>
                       <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="{{ slide_product.url }}" class="btn-round big">{{ slide_button_label }}</a></div>
                     </li>
                   {% endfor %}
                 {% else %}
-                  <li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
-                    <img src="{{ 'trans-bg.png' | asset_url }}" alt="slider" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
+                  <li class="home-hero-merchandising-slide" data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+                    <img src="{{ 'trans-bg.png' | asset_url }}" alt="slider" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                    <div class="hero-slide-overlay" style="background-color: {{ slide_overlay_color }}; opacity: {{ slide_overlay_opacity }};"></div>
                     <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-80" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:26px; font-weight:500; color:#888888;  max-width: auto; max-height: auto; white-space: nowrap;">Select a collection</div>
                     <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; font-size:36px; color:#22c961; font-weight:800; white-space: nowrap;">Home Hero Merchandising</div>
-                    <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="{{ slide_image_offset }}" data-y="center" data-voffset="0" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 1;"><img src="{{ 'slide-item-7-2.png' | asset_url }}" alt="Home Hero Merchandising"></div>
+                    <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="{{ slide_image_offset }}" data-y="center" data-voffset="0" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 3;"><img src="{{ 'slide-item-7-2.png' | asset_url }}" alt="Home Hero Merchandising"></div>
                     <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="{{ routes.collections_url }}" class="btn-round big">{{ slide_button_label }}</a></div>
                   </li>
                 {% endif %}
@@ -96,15 +75,26 @@
   </div>
 </section>
 
+{% style %}
+  #shopify-section-{{ section.id }} .home-hero-merchandising-slide {
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .home-hero-merchandising-slide .hero-slide-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+{% endstyle %}
+
 {% schema %}
 {
   "name": "Home Hero Merchandising",
   "settings": [
-    {
-      "type": "link_list",
-      "id": "categories_menu",
-      "label": "Categories menu"
-    },
     {
       "type": "collection",
       "id": "merch_collection",
@@ -123,6 +113,22 @@
       "type": "image_picker",
       "id": "background_image",
       "label": "Background image"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 35
     },
     {
       "type": "range",

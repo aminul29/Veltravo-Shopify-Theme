@@ -165,9 +165,9 @@
   <nav class="navbar ownmenu">
     <div class="container">
       <!-- Categories -->
-      <div class="cate-lst"{% if categories_block != blank %} {{ categories_block.shopify_attributes }}{% endif %}> <a data-toggle="collapse" class="cate-style" href="#cater-{{ section.id }}"><i class="fa fa-list-ul"></i> {{ header_categories_label }} </a>
+      <div class="cate-lst"{% if categories_block != blank %} {{ categories_block.shopify_attributes }}{% endif %}> <a data-toggle="collapse" class="cate-style" href="#cater-{{ section.id }}" aria-expanded="true"><i class="fa fa-list-ul"></i> {{ header_categories_label }} </a>
         <div class="cate-bar-in">
-          <div id="cater-{{ section.id }}" class="collapse">
+          <div id="cater-{{ section.id }}" class="collapse in" aria-expanded="true">
             <ul>
               {% if categories_menu != blank and categories_menu.links.size > 0 %}
                 {% for link in categories_menu.links %}
