@@ -42,37 +42,20 @@
             assign slider_height = section.settings.slider_height | default: 500
             assign slider_delay_ms = section.settings.slider_delay_seconds | default: 9 | times: 1000
 
-            if section.settings.show_bullets
-              assign slider_navigation_type = 'bullet'
-            else
-              assign slider_navigation_type = 'none'
-            endif
-
-            if section.settings.show_arrows
-              assign slider_navigation_arrows = 'solo'
-            else
-              assign slider_navigation_arrows = 'none'
-            endif
-
             if merchandising_collection == blank or merchandising_collection.products_count == 0
               assign merchandising_collection = collections['all']
             endif
           -%}
-          <div class="tp-banner-container">
+          <div class="hhm-swiper-wrap">
             <div
-              class="tp-banner with-bg-slide-all"
-              data-rev-delay="{{ slider_delay_ms }}"
-              data-rev-navigation-type="{{ slider_navigation_type }}"
-              data-rev-navigation-arrows="{{ slider_navigation_arrows }}"
-              data-rev-gridheight="{{ slider_height }}"
-              data-rev-min-height="{{ slider_height }}"
-              {% unless section.settings.slider_autoplay %}
-                data-rev-stop-loop="on"
-                data-rev-stop-at-slide="1"
-                data-rev-stop-after-loops="0"
-              {% endunless %}
+              id="hhm-swiper-{{ section.id }}"
+              class="swiper hhm-swiper"
+              data-autoplay="{{ section.settings.slider_autoplay }}"
+              data-delay="{{ slider_delay_ms }}"
+              data-show-arrows="{{ section.settings.show_arrows }}"
+              data-show-bullets="{{ section.settings.show_bullets }}"
             >
-              <ul>
+              <div class="swiper-wrapper">
                 {% if merchandising_collection != blank and merchandising_collection.products_count > 0 %}
                   {% for slide_product in merchandising_collection.products limit: slides_limit %}
                     {%- liquid
@@ -85,26 +68,41 @@
                       assign slide_pretitle = slide_product.vendor | default: slide_product.type
                       assign slide_price_text = slide_product.selected_or_first_available_variant.price | money
                     -%}
-                    <li class="home-hero-merchandising-slide" data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
-                      <img src="{{ slide_background_image }}" alt="{{ slide_product.title | escape }}" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                    <div
+                      class="swiper-slide home-hero-merchandising-slide"
+                      style="background-image: url('{{ slide_background_image }}');"
+                    >
                       <div class="hero-slide-overlay" style="background-color: {{ slide_overlay_color }}; opacity: {{ slide_overlay_opacity }};"></div>
-
-                      <div class="tp-caption sfl tp-resizeme hhm-pretitle" data-x="left" data-hoffset="550" data-y="center" data-voffset="-80" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; max-width: auto; max-height: auto; white-space: nowrap;">{{ slide_pretitle }}</div>
-                      <div class="tp-caption sfr tp-resizeme hhm-title" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; white-space: nowrap;">{{ slide_product.title }}</div>
-                      <div class="tp-caption sfr tp-resizeme hhm-price" data-x="left" data-hoffset="550" data-y="center" data-voffset="10" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; max-width: auto; max-height: auto; white-space: nowrap;">{{ slide_price_text }}</div>
-                      <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="{{ slide_product.url }}" class="btn-round big hhm-button">{{ slide_button_label }}</a></div>
-                    </li>
+                      <div class="hhm-slide-content">
+                        <div class="hhm-pretitle">{{ slide_pretitle }}</div>
+                        <h2 class="hhm-title">{{ slide_product.title }}</h2>
+                        <div class="hhm-price">{{ slide_price_text }}</div>
+                        <a href="{{ slide_product.url }}" class="btn-round big hhm-button">{{ slide_button_label }}</a>
+                      </div>
+                    </div>
                   {% endfor %}
                 {% else %}
-                  <li class="home-hero-merchandising-slide" data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
-                    <img src="{{ 'trans-bg.png' | asset_url }}" alt="slider" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                  <div
+                    class="swiper-slide home-hero-merchandising-slide"
+                    style="background-image: url('{{ 'trans-bg.png' | asset_url }}');"
+                  >
                     <div class="hero-slide-overlay" style="background-color: {{ slide_overlay_color }}; opacity: {{ slide_overlay_opacity }};"></div>
-                    <div class="tp-caption sfl tp-resizeme hhm-pretitle" data-x="left" data-hoffset="550" data-y="center" data-voffset="-80" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; max-width: auto; max-height: auto; white-space: nowrap;">Select a collection</div>
-                    <div class="tp-caption sfr tp-resizeme hhm-title" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; white-space: nowrap;">Home Hero Merchandising</div>
-                    <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="{{ routes.collections_url }}" class="btn-round big hhm-button">{{ slide_button_label }}</a></div>
-                  </li>
+                    <div class="hhm-slide-content">
+                      <div class="hhm-pretitle">Select a collection</div>
+                      <h2 class="hhm-title">Home Hero Merchandising</h2>
+                      <a href="{{ routes.collections_url }}" class="btn-round big hhm-button">{{ slide_button_label }}</a>
+                    </div>
+                  </div>
                 {% endif %}
-              </ul>
+              </div>
+
+              {% if section.settings.show_arrows %}
+                <div class="swiper-button-prev hhm-swiper-prev"></div>
+                <div class="swiper-button-next hhm-swiper-next"></div>
+              {% endif %}
+              {% if section.settings.show_bullets %}
+                <div class="swiper-pagination hhm-swiper-pagination"></div>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -114,8 +112,18 @@
 </section>
 
 {% style %}
+  #shopify-section-{{ section.id }} .hhm-swiper {
+    height: {{ slider_height }}px;
+  }
+
   #shopify-section-{{ section.id }} .home-hero-merchandising-slide {
     position: relative;
+    min-height: {{ slider_height }}px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
   }
 
   #shopify-section-{{ section.id }} .home-hero-merchandising-slide .hero-slide-overlay {
@@ -128,37 +136,42 @@
     pointer-events: none;
   }
 
-  #shopify-section-{{ section.id }} .tp-bgimg {
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-    background-position: center center !important;
+  #shopify-section-{{ section.id }} .hhm-slide-content {
+    position: relative;
+    z-index: 3;
+    max-width: 46%;
+    margin-left: auto;
+    margin-right: 48px;
+    padding-right: 24px;
   }
 
   #shopify-section-{{ section.id }} .hhm-pretitle {
     color: {{ section.settings.pretitle_color }};
     font-size: {{ section.settings.pretitle_size }}px;
     font-weight: 500;
+    margin-bottom: 10px;
   }
 
   #shopify-section-{{ section.id }} .hhm-title {
     color: {{ section.settings.title_color }};
     font-size: {{ section.settings.title_size }}px;
     font-weight: 800;
-    max-width: calc(100% - 600px);
-    padding-right: 24px;
-    white-space: nowrap !important;
-    overflow: hidden;
-    text-overflow: ellipsis;
     line-height: 1.15;
+    margin: 0 0 16px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
   }
 
   #shopify-section-{{ section.id }} .hhm-price {
     color: {{ section.settings.price_color }};
     font-size: {{ section.settings.price_size }}px;
     font-weight: 800;
+    margin-bottom: 24px;
   }
 
   #shopify-section-{{ section.id }} .hhm-button {
+    display: inline-block;
     color: {{ section.settings.button_text_color }};
     background: {{ section.settings.button_bg_color }};
     border-color: {{ section.settings.button_bg_color }};
@@ -171,7 +184,171 @@
     background: {{ section.settings.button_bg_hover_color }};
     border-color: {{ section.settings.button_bg_hover_color }};
   }
+
+  #shopify-section-{{ section.id }} .hhm-swiper .swiper-button-prev,
+  #shopify-section-{{ section.id }} .hhm-swiper .swiper-button-next {
+    color: #ffffff;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.35);
+  }
+
+  #shopify-section-{{ section.id }} .hhm-swiper .swiper-button-prev::after,
+  #shopify-section-{{ section.id }} .hhm-swiper .swiper-button-next::after {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .hhm-swiper .swiper-pagination-bullet {
+    background: #ffffff;
+    opacity: 0.6;
+  }
+
+  #shopify-section-{{ section.id }} .hhm-swiper .swiper-pagination-bullet-active {
+    opacity: 1;
+  }
+
+  @media (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .hhm-slide-content {
+      max-width: 52%;
+      margin-right: 32px;
+      padding-right: 0;
+    }
+  }
+
+  @media (max-width: 991px) {
+    #shopify-section-{{ section.id }} .hhm-swiper {
+      height: auto;
+      min-height: {{ slider_height }}px;
+    }
+
+    #shopify-section-{{ section.id }} .home-hero-merchandising-slide {
+      min-height: {{ slider_height }}px;
+      align-items: flex-end;
+    }
+
+    #shopify-section-{{ section.id }} .hhm-slide-content {
+      max-width: 100%;
+      margin: 0;
+      padding: 28px 22px;
+    }
+
+    #shopify-section-{{ section.id }} .hhm-title {
+      font-size: {{ section.settings.title_size | minus: 6 }}px;
+    }
+  }
+
+  @media (max-width: 575px) {
+    #shopify-section-{{ section.id }} .home-hero-merchandising-slide {
+      min-height: 360px;
+    }
+
+    #shopify-section-{{ section.id }} .hhm-title {
+      font-size: {{ section.settings.title_size | minus: 10 }}px;
+    }
+
+    #shopify-section-{{ section.id }} .hhm-pretitle {
+      font-size: {{ section.settings.pretitle_size | minus: 4 }}px;
+    }
+
+    #shopify-section-{{ section.id }} .hhm-price {
+      font-size: {{ section.settings.price_size | minus: 8 }}px;
+    }
+  }
 {% endstyle %}
+
+<script>
+  (function () {
+    var sectionId = '{{ section.id }}';
+    var sectionSelector = '#shopify-section-' + sectionId;
+    var sliderSelector = sectionSelector + ' .hhm-swiper';
+
+    function ensureSwiperAssets(callback) {
+      if (window.Swiper) {
+        callback();
+        return;
+      }
+
+      if (!document.getElementById('hhm-swiper-css')) {
+        var link = document.createElement('link');
+        link.id = 'hhm-swiper-css';
+        link.rel = 'stylesheet';
+        link.href = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css';
+        document.head.appendChild(link);
+      }
+
+      var existingScript = document.getElementById('hhm-swiper-js');
+      if (existingScript) {
+        existingScript.addEventListener('load', callback, { once: true });
+        return;
+      }
+
+      var script = document.createElement('script');
+      script.id = 'hhm-swiper-js';
+      script.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
+      script.onload = callback;
+      document.body.appendChild(script);
+    }
+
+    function initSlider() {
+      var slider = document.querySelector(sliderSelector);
+      if (!slider || !window.Swiper) {
+        return;
+      }
+
+      if (slider.swiper) {
+        slider.swiper.destroy(true, true);
+      }
+
+      var delay = parseInt(slider.getAttribute('data-delay'), 10) || 9000;
+      var autoplayEnabled = slider.getAttribute('data-autoplay') === 'true';
+      var showArrows = slider.getAttribute('data-show-arrows') === 'true';
+      var showBullets = slider.getAttribute('data-show-bullets') === 'true';
+
+      new window.Swiper(slider, {
+        slidesPerView: 1,
+        loop: true,
+        speed: 700,
+        autoplay: autoplayEnabled
+          ? {
+              delay: delay,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true
+            }
+          : false,
+        navigation: showArrows
+          ? {
+              nextEl: sectionSelector + ' .hhm-swiper-next',
+              prevEl: sectionSelector + ' .hhm-swiper-prev'
+            }
+          : false,
+        pagination: showBullets
+          ? {
+              el: sectionSelector + ' .hhm-swiper-pagination',
+              clickable: true
+            }
+          : false
+      });
+    }
+
+    function initSection() {
+      ensureSwiperAssets(initSlider);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSection);
+    } else {
+      initSection();
+    }
+
+    document.addEventListener('shopify:section:load', function (event) {
+      if (event.detail && event.detail.sectionId === sectionId) {
+        initSection();
+      }
+    });
+  })();
+</script>
 
 {% schema %}
 {
