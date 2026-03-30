@@ -37,7 +37,6 @@
             assign merchandising_collection = section.settings.merch_collection
             assign slides_limit = section.settings.products_to_show | default: 3
             assign slide_button_label = section.settings.button_label | default: 'Shop Now'
-            assign section_background_image = section.settings.background_image
             assign slide_overlay_color = section.settings.overlay_color | default: '#000000'
             assign slide_overlay_opacity = section.settings.overlay_opacity | default: 35 | divided_by: 100.0
             assign slider_height = section.settings.slider_height | default: 500
@@ -79,8 +78,6 @@
                     {%- liquid
                       if slide_product.featured_image != blank
                         assign slide_background_image = slide_product.featured_image | image_url: width: 2200
-                      elsif section_background_image != blank
-                        assign slide_background_image = section_background_image | image_url: width: 1600
                       else
                         assign slide_background_image = 'trans-bg.png' | asset_url
                       endif
@@ -92,19 +89,19 @@
                       <img src="{{ slide_background_image }}" alt="{{ slide_product.title | escape }}" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
                       <div class="hero-slide-overlay" style="background-color: {{ slide_overlay_color }}; opacity: {{ slide_overlay_opacity }};"></div>
 
-                      <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-80" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:26px; font-weight:500; color:#888888;  max-width: auto; max-height: auto; white-space: nowrap;">{{ slide_pretitle }}</div>
-                      <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; font-size:36px; color:#22c961; font-weight:800; white-space: nowrap;">{{ slide_product.title }}</div>
-                      <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="10" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:36px; font-weight:800; color:#000;  max-width: auto; max-height: auto; white-space: nowrap;">{{ slide_price_text }}</div>
-                      <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="{{ slide_product.url }}" class="btn-round big">{{ slide_button_label }}</a></div>
+                      <div class="tp-caption sfl tp-resizeme hhm-pretitle" data-x="left" data-hoffset="550" data-y="center" data-voffset="-80" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; max-width: auto; max-height: auto; white-space: nowrap;">{{ slide_pretitle }}</div>
+                      <div class="tp-caption sfr tp-resizeme hhm-title" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; white-space: nowrap;">{{ slide_product.title }}</div>
+                      <div class="tp-caption sfr tp-resizeme hhm-price" data-x="left" data-hoffset="550" data-y="center" data-voffset="10" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; max-width: auto; max-height: auto; white-space: nowrap;">{{ slide_price_text }}</div>
+                      <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="{{ slide_product.url }}" class="btn-round big hhm-button">{{ slide_button_label }}</a></div>
                     </li>
                   {% endfor %}
                 {% else %}
                   <li class="home-hero-merchandising-slide" data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
                     <img src="{{ 'trans-bg.png' | asset_url }}" alt="slider" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
                     <div class="hero-slide-overlay" style="background-color: {{ slide_overlay_color }}; opacity: {{ slide_overlay_opacity }};"></div>
-                    <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-80" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:26px; font-weight:500; color:#888888;  max-width: auto; max-height: auto; white-space: nowrap;">Select a collection</div>
-                    <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; font-size:36px; color:#22c961; font-weight:800; white-space: nowrap;">Home Hero Merchandising</div>
-                    <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="{{ routes.collections_url }}" class="btn-round big">{{ slide_button_label }}</a></div>
+                    <div class="tp-caption sfl tp-resizeme hhm-pretitle" data-x="left" data-hoffset="550" data-y="center" data-voffset="-80" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; max-width: auto; max-height: auto; white-space: nowrap;">Select a collection</div>
+                    <div class="tp-caption sfr tp-resizeme hhm-title" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; white-space: nowrap;">Home Hero Merchandising</div>
+                    <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="{{ routes.collections_url }}" class="btn-round big hhm-button">{{ slide_button_label }}</a></div>
                   </li>
                 {% endif %}
               </ul>
@@ -135,6 +132,38 @@
     background-repeat: no-repeat !important;
     background-size: cover !important;
     background-position: center center !important;
+  }
+
+  #shopify-section-{{ section.id }} .hhm-pretitle {
+    color: {{ section.settings.pretitle_color }};
+    font-size: {{ section.settings.pretitle_size }}px;
+    font-weight: 500;
+  }
+
+  #shopify-section-{{ section.id }} .hhm-title {
+    color: {{ section.settings.title_color }};
+    font-size: {{ section.settings.title_size }}px;
+    font-weight: 800;
+  }
+
+  #shopify-section-{{ section.id }} .hhm-price {
+    color: {{ section.settings.price_color }};
+    font-size: {{ section.settings.price_size }}px;
+    font-weight: 800;
+  }
+
+  #shopify-section-{{ section.id }} .hhm-button {
+    color: {{ section.settings.button_text_color }};
+    background: {{ section.settings.button_bg_color }};
+    border-color: {{ section.settings.button_bg_color }};
+    border-radius: {{ section.settings.button_radius }}px;
+  }
+
+  #shopify-section-{{ section.id }} .hhm-button:hover,
+  #shopify-section-{{ section.id }} .hhm-button:focus {
+    color: {{ section.settings.button_text_hover_color }};
+    background: {{ section.settings.button_bg_hover_color }};
+    border-color: {{ section.settings.button_bg_hover_color }};
   }
 {% endstyle %}
 
@@ -200,11 +229,6 @@
       "default": 500
     },
     {
-      "type": "image_picker",
-      "id": "background_image",
-      "label": "Background image"
-    },
-    {
       "type": "color",
       "id": "overlay_color",
       "label": "Overlay color",
@@ -219,6 +243,88 @@
       "step": 5,
       "unit": "%",
       "default": 35
+    },
+    {
+      "type": "color",
+      "id": "pretitle_color",
+      "label": "Pretitle color",
+      "default": "#888888"
+    },
+    {
+      "type": "range",
+      "id": "pretitle_size",
+      "label": "Pretitle size",
+      "min": 14,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#22c961"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 20,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "price_size",
+      "label": "Price size",
+      "min": 20,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#22c961"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_hover_color",
+      "label": "Button hover background",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "button_text_hover_color",
+      "label": "Button hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 30
     },
     {
       "type": "text",
