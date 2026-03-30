@@ -37,7 +37,6 @@
             assign merchandising_collection = section.settings.merch_collection
             assign slides_limit = section.settings.products_to_show | default: 3
             assign slide_button_label = section.settings.button_label | default: 'Shop Now'
-            assign slide_image_offset = section.settings.image_offset | default: 50
             assign section_background_image = section.settings.background_image
             assign slide_overlay_color = section.settings.overlay_color | default: '#000000'
             assign slide_overlay_opacity = section.settings.overlay_opacity | default: 35 | divided_by: 100.0
@@ -86,16 +85,6 @@
                         assign slide_background_image = 'trans-bg.png' | asset_url
                       endif
 
-                      if slide_product.featured_image != blank
-                        assign layer_image = slide_product.featured_image | image_url: width: 900
-                      else
-                        if forloop.index == 2
-                          assign layer_image = 'slide-item-9-1.png' | asset_url
-                        else
-                          assign layer_image = 'slide-item-7-2.png' | asset_url
-                        endif
-                      endif
-
                       assign slide_pretitle = slide_product.vendor | default: slide_product.type
                       assign slide_price_text = slide_product.selected_or_first_available_variant.price | money
                     -%}
@@ -106,7 +95,6 @@
                       <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-80" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:26px; font-weight:500; color:#888888;  max-width: auto; max-height: auto; white-space: nowrap;">{{ slide_pretitle }}</div>
                       <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; font-size:36px; color:#22c961; font-weight:800; white-space: nowrap;">{{ slide_product.title }}</div>
                       <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="10" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:36px; font-weight:800; color:#000;  max-width: auto; max-height: auto; white-space: nowrap;">{{ slide_price_text }}</div>
-                      <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="{{ slide_image_offset }}" data-y="center" data-voffset="0" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 3;"><img src="{{ layer_image }}" alt="{{ slide_product.title | escape }}"></div>
                       <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="{{ slide_product.url }}" class="btn-round big">{{ slide_button_label }}</a></div>
                     </li>
                   {% endfor %}
@@ -116,7 +104,6 @@
                     <div class="hero-slide-overlay" style="background-color: {{ slide_overlay_color }}; opacity: {{ slide_overlay_opacity }};"></div>
                     <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-80" data-speed="800" data-start="800" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.4" data-endspeed="300" style="z-index: 5; font-size:26px; font-weight:500; color:#888888;  max-width: auto; max-height: auto; white-space: nowrap;">Select a collection</div>
                     <div class="tp-caption sfr tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="-40" data-speed="800" data-start="1000" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.03" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 6; font-size:36px; color:#22c961; font-weight:800; white-space: nowrap;">Home Hero Merchandising</div>
-                    <div class="tp-caption sfl tp-resizeme" data-x="left" data-hoffset="{{ slide_image_offset }}" data-y="center" data-voffset="0" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 3;"><img src="{{ 'slide-item-7-2.png' | asset_url }}" alt="Home Hero Merchandising"></div>
                     <div class="tp-caption lfb tp-resizeme" data-x="left" data-hoffset="550" data-y="center" data-voffset="100" data-speed="800" data-start="1300" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" data-scrolloffset="0" style="z-index: 8;"><a href="{{ routes.collections_url }}" class="btn-round big">{{ slide_button_label }}</a></div>
                   </li>
                 {% endif %}
@@ -232,15 +219,6 @@
       "step": 5,
       "unit": "%",
       "default": 35
-    },
-    {
-      "type": "range",
-      "id": "image_offset",
-      "label": "Foreground horizontal offset",
-      "min": 0,
-      "max": 300,
-      "step": 10,
-      "default": 50
     },
     {
       "type": "text",
