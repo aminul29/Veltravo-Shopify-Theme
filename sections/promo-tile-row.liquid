@@ -1,5 +1,5 @@
 <!-- Banner -->
-<section class="disply-sec slid-sec margin-bottom-0">
+<section class="disply-sec promo-tile-row-section margin-bottom-0">
   <div class="container">
     <div class="row">
       {% if section.blocks.size > 0 %}
@@ -14,6 +14,105 @@
     </div>
   </div>
 </section>
+
+{% style %}
+  #shopify-section-{{ section.id }} .promo-tile-row-section {
+    position: relative;
+    clear: both;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .promo-tile-row-section .container {
+    padding-top: 0;
+  }
+
+  #shopify-section-{{ section.id }} .promo-tile-row-section .product {
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .promo-tile-row-section .like-bnr {
+    display: block;
+    position: relative;
+    height: 250px;
+    min-height: 250px;
+    background: #f5f5f5 url({{ 'week-sale-bg-1-1.jpg' | asset_url }}) right top no-repeat;
+    background-size: cover;
+  }
+
+  #shopify-section-{{ section.id }} .promo-tile-row-section .like-bnr.watch {
+    background: #f5f5f5 url({{ 'week-sale-bg-1-2.jpg' | asset_url }}) right top no-repeat;
+    background-size: cover;
+  }
+
+  #shopify-section-{{ section.id }} .promo-tile-row-section .like-bnr .position-center-center {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    padding-left: 25px;
+  }
+
+  #shopify-section-{{ section.id }} .promo-tile-row-section .like-bnr h5 {
+    color: #888888;
+    margin: 0;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 400;
+  }
+
+  #shopify-section-{{ section.id }} .promo-tile-row-section .like-bnr h4 {
+    color: #22c961;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .promo-tile-row-section .like-bnr .price {
+    color: #222222;
+    font-size: 26px;
+    font-weight: 800;
+  }
+
+  #shopify-section-{{ section.id }} .promo-tile-row-section .week-sale-bnr {
+    height: 250px;
+    text-align: center;
+    padding: 50px 35px 0;
+    background: url({{ 'week-sale-bg-1.jpg' | asset_url }}) center center no-repeat;
+    background-size: cover;
+  }
+
+  #shopify-section-{{ section.id }} .promo-tile-row-section .week-sale-bnr h4 {
+    color: #ffffff;
+    font-size: 30px;
+    margin: 0 0 5px;
+  }
+
+  #shopify-section-{{ section.id }} .promo-tile-row-section .week-sale-bnr h4 span {
+    color: #000000;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .promo-tile-row-section .week-sale-bnr p {
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 20px;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 991px) {
+    #shopify-section-{{ section.id }} .promo-tile-row-section .col-md-4 {
+      margin-bottom: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .promo-tile-row-section .col-md-4:last-child {
+      margin-bottom: 0;
+    }
+  }
+{% endstyle %}
 
 {% schema %}
 {
