@@ -13,41 +13,18 @@
   "sections": {
     "header": {
       "type": "header",
-      "blocks": {
-        "top_message_block": {
-          "type": "top_message",
-          "settings": {}
-        },
-        "logo_block": {
-          "type": "logo",
-          "settings": {}
-        },
-        "hotline_block": {
-          "type": "hotline",
-          "settings": {}
-        },
-        "search_block": {
-          "type": "search",
-          "settings": {}
-        },
-        "cart_block": {
-          "type": "cart",
-          "settings": {}
-        },
-        "categories_block": {
-          "type": "categories_trigger",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "top_message_block",
-        "logo_block",
-        "hotline_block",
-        "search_block",
-        "cart_block",
-        "categories_block"
-      ],
-      "settings": {}
+      "settings": {
+        "top_message": "Welcome to SmartTech center!",
+        "header_logo": "shopify://shop_images/Veltravo_Logo.png",
+        "logo_width": 120,
+        "logo_alt_text": "Store logo",
+        "top_links_menu": "",
+        "categories_menu": "",
+        "main_menu": "",
+        "categories_label": "Our Categories",
+        "search_placeholder": "Search entire store here...",
+        "cart_label": "My Cart"
+      }
     }
   },
   "order": [
