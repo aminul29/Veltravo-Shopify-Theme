@@ -176,6 +176,70 @@
     },
     "featured_categories": {
       "type": "featured-categories-grid",
+      "blocks": {
+        "category_Xi7Kip": {
+          "type": "category",
+          "settings": {
+            "title": "",
+            "collection": "",
+            "menu": "",
+            "link": ""
+          }
+        },
+        "category_ghGnwr": {
+          "type": "category",
+          "settings": {
+            "title": "",
+            "collection": "",
+            "menu": "",
+            "link": ""
+          }
+        },
+        "category_AbtkHH": {
+          "type": "category",
+          "settings": {
+            "title": "",
+            "collection": "",
+            "menu": "",
+            "link": ""
+          }
+        },
+        "category_K74fPP": {
+          "type": "category",
+          "settings": {
+            "title": "",
+            "collection": "",
+            "menu": "",
+            "link": ""
+          }
+        },
+        "category_wkfYFU": {
+          "type": "category",
+          "settings": {
+            "title": "",
+            "collection": "",
+            "menu": "",
+            "link": ""
+          }
+        },
+        "category_hRNw3i": {
+          "type": "category",
+          "settings": {
+            "title": "",
+            "collection": "",
+            "menu": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_Xi7Kip",
+        "category_ghGnwr",
+        "category_AbtkHH",
+        "category_K74fPP",
+        "category_wkfYFU",
+        "category_hRNw3i"
+      ],
       "settings": {
         "heading": "Featured Categories"
       }
