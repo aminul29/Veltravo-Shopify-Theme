@@ -129,13 +129,49 @@ var initRevolutionSlider = function (selector, options, shouldShow) {
 	}
 	$(selector).each(function () {
 		var $slider = $(this);
+		var sliderOptions = $.extend({}, options);
+		var customDelay = parseInt($slider.attr("data-rev-delay"), 10);
+		var customGridHeight = parseInt($slider.attr("data-rev-gridheight"), 10);
+		var customMinHeight = parseInt($slider.attr("data-rev-min-height"), 10);
+		var customStopAtSlide = parseInt($slider.attr("data-rev-stop-at-slide"), 10);
+		var customStopAfterLoops = parseInt($slider.attr("data-rev-stop-after-loops"), 10);
+		var customNavigationType = $slider.attr("data-rev-navigation-type");
+		var customNavigationArrows = $slider.attr("data-rev-navigation-arrows");
+		var customStopLoop = $slider.attr("data-rev-stop-loop");
+
 		if ($slider.data("rev-initialized") || $slider.hasClass("revslider-initialised")) {
 			return;
 		}
+
+		if (!isNaN(customDelay) && customDelay > 0) {
+			sliderOptions.delay = customDelay;
+		}
+		if (!isNaN(customGridHeight) && customGridHeight > 0) {
+			sliderOptions.gridheight = customGridHeight;
+		}
+		if (!isNaN(customMinHeight) && customMinHeight > 0) {
+			sliderOptions.minHeight = customMinHeight;
+		}
+		if (customNavigationType) {
+			sliderOptions.navigationType = customNavigationType;
+		}
+		if (customNavigationArrows) {
+			sliderOptions.navigationArrows = customNavigationArrows;
+		}
+		if (customStopLoop) {
+			sliderOptions.stopLoop = customStopLoop;
+		}
+		if (!isNaN(customStopAtSlide) && customStopAtSlide > 0) {
+			sliderOptions.stopAtSlide = customStopAtSlide;
+		}
+		if (!isNaN(customStopAfterLoops) && customStopAfterLoops >= 0) {
+			sliderOptions.stopAfterLoops = customStopAfterLoops;
+		}
+
 		if (shouldShow) {
 			$slider.show();
 		}
-		$slider.revolution(options);
+		$slider.revolution(sliderOptions);
 		$slider.data("rev-initialized", true);
 	});
 };

@@ -33,23 +33,48 @@
         </div>
 
         <div class="col-md-9 no-padding">
+          {%- liquid
+            assign merchandising_collection = section.settings.merch_collection
+            assign slides_limit = section.settings.products_to_show | default: 3
+            assign slide_button_label = section.settings.button_label | default: 'Shop Now'
+            assign slide_image_offset = section.settings.image_offset | default: 50
+            assign section_background_image = section.settings.background_image
+            assign slide_overlay_color = section.settings.overlay_color | default: '#000000'
+            assign slide_overlay_opacity = section.settings.overlay_opacity | default: 35 | divided_by: 100.0
+            assign slider_height = section.settings.slider_height | default: 500
+            assign slider_delay_ms = section.settings.slider_delay_seconds | default: 9 | times: 1000
+
+            if section.settings.show_bullets
+              assign slider_navigation_type = 'bullet'
+            else
+              assign slider_navigation_type = 'none'
+            endif
+
+            if section.settings.show_arrows
+              assign slider_navigation_arrows = 'solo'
+            else
+              assign slider_navigation_arrows = 'none'
+            endif
+
+            if merchandising_collection == blank or merchandising_collection.products_count == 0
+              assign merchandising_collection = collections['all']
+            endif
+          -%}
           <div class="tp-banner-container">
-            <div class="tp-banner with-bg-slide-all">
+            <div
+              class="tp-banner with-bg-slide-all"
+              data-rev-delay="{{ slider_delay_ms }}"
+              data-rev-navigation-type="{{ slider_navigation_type }}"
+              data-rev-navigation-arrows="{{ slider_navigation_arrows }}"
+              data-rev-gridheight="{{ slider_height }}"
+              data-rev-min-height="{{ slider_height }}"
+              {% unless section.settings.slider_autoplay %}
+                data-rev-stop-loop="on"
+                data-rev-stop-at-slide="1"
+                data-rev-stop-after-loops="0"
+              {% endunless %}
+            >
               <ul>
-                {%- liquid
-                  assign merchandising_collection = section.settings.merch_collection
-                  assign slides_limit = section.settings.products_to_show | default: 3
-                  assign slide_button_label = section.settings.button_label | default: 'Shop Now'
-                  assign slide_image_offset = section.settings.image_offset | default: 50
-                  assign section_background_image = section.settings.background_image
-                  assign slide_overlay_color = section.settings.overlay_color | default: '#000000'
-                  assign slide_overlay_opacity = section.settings.overlay_opacity | default: 35 | divided_by: 100.0
-
-                  if merchandising_collection == blank or merchandising_collection.products_count == 0
-                    assign merchandising_collection = collections['all']
-                  endif
-                -%}
-
                 {% if merchandising_collection != blank and merchandising_collection.products_count > 0 %}
                   {% for slide_product in merchandising_collection.products limit: slides_limit %}
                     {%- liquid
@@ -118,6 +143,12 @@
     z-index: 2;
     pointer-events: none;
   }
+
+  #shopify-section-{{ section.id }} .tp-bgimg {
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: center center !important;
+  }
 {% endstyle %}
 
 {% schema %}
@@ -142,6 +173,44 @@
       "max": 6,
       "step": 1,
       "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "slider_autoplay",
+      "label": "Auto-rotate slides",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "slider_delay_seconds",
+      "label": "Slide rotation delay",
+      "min": 3,
+      "max": 15,
+      "step": 1,
+      "unit": "s",
+      "default": 9
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bullets",
+      "label": "Show bullets",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "slider_height",
+      "label": "Slider height",
+      "min": 380,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 500
     },
     {
       "type": "image_picker",
