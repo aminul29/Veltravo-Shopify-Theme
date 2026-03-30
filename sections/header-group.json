@@ -19,8 +19,8 @@
         "logo_width": 120,
         "logo_alt_text": "Store logo",
         "top_links_menu": "",
-        "categories_menu": "",
-        "main_menu": "",
+        "categories_menu": "category-menu",
+        "main_menu": "main-menu",
         "categories_label": "Our Categories",
         "search_placeholder": "Search entire store here...",
         "cart_label": "My Cart"
