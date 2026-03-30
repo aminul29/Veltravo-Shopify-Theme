@@ -22,6 +22,17 @@
         "slider_height": 500,
         "overlay_color": "#000000",
         "overlay_opacity": 55,
+        "pretitle_color": "#f5f5f5",
+        "pretitle_size": 26,
+        "title_color": "#22c961",
+        "title_size": 36,
+        "price_color": "#ffffff",
+        "price_size": 36,
+        "button_bg_color": "#22c961",
+        "button_text_color": "#ffffff",
+        "button_bg_hover_color": "#111111",
+        "button_text_hover_color": "#ffffff",
+        "button_radius": 30,
         "button_label": "Shop Now"
       }
     },
