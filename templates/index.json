@@ -14,6 +14,9 @@
       "settings": {
         "merch_collection": "best-sellers",
         "products_to_show": 3,
+        "background_image": "shopify://shop_images/ocean-water-with-swimmers.jpg",
+        "overlay_color": "#000000",
+        "overlay_opacity": 35,
         "image_offset": 0,
         "button_label": "Shop Now"
       }
