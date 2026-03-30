@@ -88,10 +88,74 @@
     },
     "hot_deal": {
       "type": "deal-spotlight",
+      "blocks": {
+        "deal_ih68fL": {
+          "type": "deal",
+          "settings": {
+            "product": "null-1774711325656",
+            "tag": "Desk & Laptop",
+            "fallback_title": "Laptop Alienware 15” i7 Perfect For Gamer",
+            "feature_1": "Screen: 1920 x 1080 pixels",
+            "feature_2": "Processor: 2.5 GHz None",
+            "feature_3": "RAM: 8 GB",
+            "feature_4": "Hard Drive: Flash memory solid state",
+            "feature_5": "Graphics : Intel HD Graphics 520 Integrated",
+            "button_label": "Add to Cart"
+          }
+        },
+        "deal_X7UxXc": {
+          "type": "deal",
+          "settings": {
+            "product": "null-1774567034919",
+            "tag": "Desk & Laptop",
+            "fallback_title": "Laptop Alienware 15” i7 Perfect For Gamer",
+            "feature_1": "Screen: 1920 x 1080 pixels",
+            "feature_2": "Processor: 2.5 GHz None",
+            "feature_3": "RAM: 8 GB",
+            "feature_4": "Hard Drive: Flash memory solid state",
+            "feature_5": "Graphics : Intel HD Graphics 520 Integrated",
+            "button_label": "Add to Cart"
+          }
+        },
+        "deal_JTDBrB": {
+          "type": "deal",
+          "settings": {
+            "product": "null-1774445536059",
+            "tag": "Desk & Laptop",
+            "fallback_title": "Laptop Alienware 15” i7 Perfect For Gamer",
+            "feature_1": "Screen: 1920 x 1080 pixels",
+            "feature_2": "Processor: 2.5 GHz None",
+            "feature_3": "RAM: 8 GB",
+            "feature_4": "Hard Drive: Flash memory solid state",
+            "feature_5": "Graphics : Intel HD Graphics 520 Integrated",
+            "button_label": "Add to Cart"
+          }
+        },
+        "deal_bzLpHB": {
+          "type": "deal",
+          "settings": {
+            "product": "null-1773091609385",
+            "tag": "Desk & Laptop",
+            "fallback_title": "Laptop Alienware 15” i7 Perfect For Gamer",
+            "feature_1": "Screen: 1920 x 1080 pixels",
+            "feature_2": "Processor: 2.5 GHz None",
+            "feature_3": "RAM: 8 GB",
+            "feature_4": "Hard Drive: Flash memory solid state",
+            "feature_5": "Graphics : Intel HD Graphics 520 Integrated",
+            "button_label": "Add to Cart"
+          }
+        }
+      },
+      "block_order": [
+        "deal_ih68fL",
+        "deal_X7UxXc",
+        "deal_JTDBrB",
+        "deal_bzLpHB"
+      ],
       "settings": {
         "popular_heading": "Popular items",
         "deal_heading": "Hot Deal Of the Week",
-        "popular_collection": "",
+        "popular_collection": "car-accessories-1",
         "popular_products_limit": 3,
         "view_more_label": "View more"
       }
