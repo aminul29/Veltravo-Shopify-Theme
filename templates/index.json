@@ -1,28 +1,84 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "slid_sec": {
       "type": "home-hero-merchandising",
-      "settings": {}
+      "settings": {
+        "merch_collection": "best-sellers",
+        "products_to_show": 3,
+        "image_offset": 0,
+        "button_label": "Shop Now"
+      }
     },
     "banner": {
       "type": "promo-tile-row",
+      "blocks": {
+        "promo_tile_nppffV": {
+          "type": "promo_tile",
+          "settings": {
+            "tile_variant": "regular",
+            "subtitle": "New line required",
+            "title": "Z68 Web Camera",
+            "price": "$85.00",
+            "highlight": "Sale!",
+            "body_text": "Saving up to 50% off all online store items this week.",
+            "button_label": "Shop now",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "promo_tile_nppffV"
+      ],
       "settings": {}
     },
     "hot_deal": {
       "type": "deal-spotlight",
-      "settings": {}
+      "settings": {
+        "popular_heading": "Popular items",
+        "deal_heading": "Hot Deal Of the Week",
+        "popular_collection": "",
+        "popular_products_limit": 3,
+        "view_more_label": "View more"
+      }
     },
     "tab_section": {
       "type": "featured-collection-tabs",
-      "settings": {}
+      "settings": {
+        "featured_tab_label": "Featured",
+        "special_tab_label": "Special",
+        "onsale_tab_label": "Onsale",
+        "featured_collection": "",
+        "special_collection": "",
+        "onsale_collection": "",
+        "featured_products_limit": 8,
+        "special_products_limit": 4,
+        "onsale_products_limit": 4
+      }
     },
     "featured_categories": {
       "type": "featured-categories-grid",
-      "settings": {}
+      "settings": {
+        "heading": "Featured Categories"
+      }
     },
     "top_selling_week": {
       "type": "top-selling-showcase",
-      "settings": {}
+      "settings": {
+        "heading": "Top Selling of the Week",
+        "collection": "",
+        "featured_product": "",
+        "products_limit": 4,
+        "featured_media_limit": 4
+      }
     },
     "clients_img": {
       "type": "logo-list",
@@ -30,7 +86,11 @@
     },
     "blog": {
       "type": "featured-blog",
-      "settings": {}
+      "settings": {
+        "heading": "From our Blog",
+        "blog": "",
+        "posts_to_show": 3
+      }
     },
     "shipping_info": {
       "type": "store-benefits",
@@ -38,7 +98,12 @@
     },
     "newslatter": {
       "type": "newsletter-signup",
-      "settings": {}
+      "settings": {
+        "heading": "Subscribe our Newsletter",
+        "subheading": "Get <strong>25% Off</strong> first purchase!",
+        "placeholder": "Your email address here...",
+        "button_label": "Subscribe!"
+      }
     }
   },
   "order": [
