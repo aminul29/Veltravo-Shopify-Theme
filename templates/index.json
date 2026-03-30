@@ -12,11 +12,17 @@
     "slid_sec": {
       "type": "home-hero-merchandising",
       "settings": {
+        "categories_menu": "",
         "merch_collection": "best-sellers",
         "products_to_show": 3,
+        "slider_autoplay": true,
+        "slider_delay_seconds": 9,
+        "show_arrows": true,
+        "show_bullets": true,
+        "slider_height": 500,
         "background_image": "shopify://shop_images/ocean-water-with-swimmers.jpg",
         "overlay_color": "#000000",
-        "overlay_opacity": 35,
+        "overlay_opacity": 55,
         "image_offset": 0,
         "button_label": "Shop Now"
       }
