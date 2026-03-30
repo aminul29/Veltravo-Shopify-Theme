@@ -21,6 +21,7 @@
   assign body_text = fallback_text
   assign button_label = fallback_button_label
   assign tile_link = fallback_link | default: '#.'
+  assign tile_background_image = blank
 
   if block != blank
     assign tile_variant = block.settings.tile_variant | default: 'regular'
@@ -31,12 +32,18 @@
     assign body_text = block.settings.body_text
     assign button_label = block.settings.button_label
     assign tile_link = block.settings.link | default: '#.'
+    assign tile_background_image = block.settings.tile_background_image
   endif
 -%}
 
 {% if tile_variant == 'sale' %}
   <div class="col-md-4" {% if block != blank %}{{ block.shopify_attributes }}{% endif %}>
-    <div class="week-sale-bnr">
+    <div
+      class="week-sale-bnr"
+      {% if tile_background_image != blank %}
+        style="background-image: url('{{ tile_background_image | image_url: width: 1800 }}'); background-size: cover; background-position: center center; background-repeat: no-repeat;"
+      {% endif %}
+    >
       <h4>{{ title }} <span>{{ highlight }}</span></h4>
       <p>{{ body_text }}</p>
       <a href="{{ tile_link }}" class="btn-round">{{ button_label }}</a>
@@ -45,7 +52,13 @@
 {% else %}
   <div class="col-md-4" {% if block != blank %}{{ block.shopify_attributes }}{% endif %}>
     <div class="product">
-      <a href="{{ tile_link }}" class="like-bnr{% if tile_variant == 'watch' %} watch{% endif %}">
+      <a
+        href="{{ tile_link }}"
+        class="like-bnr{% if tile_variant == 'watch' %} watch{% endif %}"
+        {% if tile_background_image != blank %}
+          style="background-image: url('{{ tile_background_image | image_url: width: 1800 }}'); background-size: cover; background-position: center center; background-repeat: no-repeat;"
+        {% endif %}
+      >
         <div class="position-center-center">
           <h5>{{ subtitle }}</h5>
           <h4>{{ title }}</h4>

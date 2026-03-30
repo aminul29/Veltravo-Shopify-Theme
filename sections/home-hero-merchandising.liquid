@@ -1,5 +1,9 @@
 {%- liquid
   assign categories_menu = section.settings.categories_menu
+  assign has_categories_menu = false
+  if categories_menu != blank and categories_menu.links.size > 0
+    assign has_categories_menu = true
+  endif
 -%}
 
 <!-- Slid Sec -->
@@ -7,11 +11,11 @@
   <div class="container">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-3 no-padding">
-          <div class="cate-bar-in relative margin-top-0">
-            <div id="cater">
-              <ul>
-                {% if categories_menu != blank and categories_menu.links.size > 0 %}
+        {% if has_categories_menu %}
+          <div class="col-md-3 no-padding">
+            <div class="cate-bar-in relative margin-top-0">
+              <div id="cater">
+                <ul>
                   {% for link in categories_menu.links %}
                     {% if link.links != blank and link.links.size > 0 %}
                       <li class="sub-menu">
@@ -26,13 +30,13 @@
                       <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
                     {% endif %}
                   {% endfor %}
-                {% endif %}
-              </ul>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
+        {% endif %}
 
-        <div class="col-md-9 no-padding">
+        <div class="col-md-{% if has_categories_menu %}9{% else %}12{% endif %} no-padding">
           {%- liquid
             assign merchandising_collection = section.settings.merch_collection
             assign slides_limit = section.settings.products_to_show | default: 3
