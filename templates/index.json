@@ -20,10 +20,8 @@
         "show_arrows": true,
         "show_bullets": true,
         "slider_height": 500,
-        "background_image": "shopify://shop_images/ocean-water-with-swimmers.jpg",
         "overlay_color": "#000000",
         "overlay_opacity": 55,
-        "image_offset": 0,
         "button_label": "Shop Now"
       }
     },
