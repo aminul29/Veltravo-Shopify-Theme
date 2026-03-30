@@ -39,7 +39,33 @@
     "banner": {
       "type": "promo-tile-row",
       "blocks": {
-        "promo_tile_nppffV": {
+        "promo_tile_k48JRU": {
+          "type": "promo_tile",
+          "settings": {
+            "tile_variant": "regular",
+            "subtitle": "New line required",
+            "title": "Z68 Web Camera",
+            "price": "$85.00",
+            "highlight": "Sale!",
+            "body_text": "Saving up to 50% off all online store items this week.",
+            "button_label": "Shop now",
+            "link": ""
+          }
+        },
+        "promo_tile_tTapLh": {
+          "type": "promo_tile",
+          "settings": {
+            "tile_variant": "regular",
+            "subtitle": "New line required",
+            "title": "Z68 Web Camera",
+            "price": "$85.00",
+            "highlight": "Sale!",
+            "body_text": "Saving up to 50% off all online store items this week.",
+            "button_label": "Shop now",
+            "link": ""
+          }
+        },
+        "promo_tile_xNFgbm": {
           "type": "promo_tile",
           "settings": {
             "tile_variant": "regular",
@@ -54,7 +80,9 @@
         }
       },
       "block_order": [
-        "promo_tile_nppffV"
+        "promo_tile_k48JRU",
+        "promo_tile_tTapLh",
+        "promo_tile_xNFgbm"
       ],
       "settings": {}
     },
