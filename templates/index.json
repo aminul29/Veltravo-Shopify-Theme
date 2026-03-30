@@ -15,7 +15,7 @@
         "categories_menu": "",
         "merch_collection": "best-sellers",
         "products_to_show": 3,
-        "slider_autoplay": true,
+        "slider_autoplay": false,
         "slider_delay_seconds": 9,
         "show_arrows": true,
         "show_bullets": true,
