@@ -1,9 +1,38 @@
+{%- liquid
+  assign categories_menu = section.settings.categories_menu
+-%}
+
 <!-- Slid Sec -->
 <section class="slid-sec">
   <div class="container">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12 no-padding">
+        <div class="col-md-3 no-padding">
+          <div class="cate-bar-in relative margin-top-0">
+            <div id="cater">
+              <ul>
+                {% if categories_menu != blank and categories_menu.links.size > 0 %}
+                  {% for link in categories_menu.links %}
+                    {% if link.links != blank and link.links.size > 0 %}
+                      <li class="sub-menu">
+                        <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                        <ul>
+                          {% for child_link in link.links %}
+                            <li><a href="{{ child_link.url }}">{{ child_link.title | escape }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      </li>
+                    {% else %}
+                      <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-9 no-padding">
           <div class="tp-banner-container">
             <div class="tp-banner with-bg-slide-all">
               <ul>
@@ -95,6 +124,11 @@
 {
   "name": "Home Hero Merchandising",
   "settings": [
+    {
+      "type": "link_list",
+      "id": "categories_menu",
+      "label": "Categories menu"
+    },
     {
       "type": "collection",
       "id": "merch_collection",
