@@ -1,0 +1,12 @@
+{{ gift_card.qr_identifier }}
+<div class="gift-card-template" style="padding: 40px 20px; text-align: center;">
+  <h1>{{ shop.name }}</h1>
+  <h2>Gift card</h2>
+  <p><strong>{{ gift_card.initial_value | money_with_currency }}</strong></p>
+  {% if gift_card.enabled %}
+    <p>Use code: <strong>{{ gift_card.code | format_code }}</strong></p>
+  {% else %}
+    <p>This gift card is disabled.</p>
+  {% endif %}
+  <p><a class="btn-round" href="{{ shop.url }}">Start shopping</a></p>
+</div>

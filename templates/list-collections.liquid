@@ -1,0 +1,17 @@
+<section class="padding-top-60 padding-bottom-60">
+  <div class="container">
+    <div class="heading"><h2>Collections</h2><hr></div>
+    <div class="row">
+      {% for collection in collections %}
+        <div class="col-md-3">
+          <h4><a href="{{ collection.url }}">{{ collection.title }}</a></h4>
+          {% if collection.featured_image %}
+            <a href="{{ collection.url }}">{{ collection.featured_image | image_url: width: 700 | image_tag: loading: 'lazy', alt: collection.title }}</a>
+          {% endif %}
+        </div>
+      {% else %}
+        <p>No collections found.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>

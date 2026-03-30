@@ -1,0 +1,12 @@
+<section class="padding-top-60 padding-bottom-60">
+  <div class="container">
+    <article class="rte">
+      <h1>{{ article.title }}</h1>
+      <p><small>{{ article.published_at | date: "%B %d, %Y" }}{% if article.author != blank %} | {{ article.author }}{% endif %}</small></p>
+      {% if article.image %}
+        <p>{{ article.image | image_url: width: 1600 | image_tag: loading: 'lazy', alt: article.title }}</p>
+      {% endif %}
+      {{ article.content }}
+    </article>
+  </div>
+</section>

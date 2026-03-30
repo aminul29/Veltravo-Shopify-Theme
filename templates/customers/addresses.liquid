@@ -1,0 +1,37 @@
+<section class="padding-top-60 padding-bottom-60">
+  <div class="container">
+    <h1>Addresses</h1>
+    <p><a href="{{ routes.account_url }}">Back to account</a></p>
+    {% paginate customer.addresses by 10 %}
+      {% for address in customer.addresses %}
+        <div>
+          <p>{{ address | format_address }}</p>
+          <p><a href="#" onclick="Shopify.CustomerAddress.toggleForm({{ address.id }}); return false;">Edit</a></p>
+          <div id="EditAddress_{{ address.id }}" style="display:none;">
+            {% form 'customer_address', address %}
+              <p><input type="text" name="address[first_name]" value="{{ form.first_name }}" placeholder="First name"></p>
+              <p><input type="text" name="address[last_name]" value="{{ form.last_name }}" placeholder="Last name"></p>
+              <p><input type="text" name="address[address1]" value="{{ form.address1 }}" placeholder="Address 1"></p>
+              <p><input type="text" name="address[city]" value="{{ form.city }}" placeholder="City"></p>
+              <p><input type="text" name="address[zip]" value="{{ form.zip }}" placeholder="ZIP"></p>
+              <button class="btn-round" type="submit">Update address</button>
+            {% endform %}
+          </div>
+        </div>
+      {% else %}
+        <p>No saved addresses.</p>
+      {% endfor %}
+      {{ paginate | default_pagination }}
+    {% endpaginate %}
+
+    <h3>Add new address</h3>
+    {% form 'customer_address', customer.new_address %}
+      <p><input type="text" name="address[first_name]" value="{{ form.first_name }}" placeholder="First name"></p>
+      <p><input type="text" name="address[last_name]" value="{{ form.last_name }}" placeholder="Last name"></p>
+      <p><input type="text" name="address[address1]" value="{{ form.address1 }}" placeholder="Address 1"></p>
+      <p><input type="text" name="address[city]" value="{{ form.city }}" placeholder="City"></p>
+      <p><input type="text" name="address[zip]" value="{{ form.zip }}" placeholder="ZIP"></p>
+      <button class="btn-round" type="submit">Add address</button>
+    {% endform %}
+  </div>
+</section>

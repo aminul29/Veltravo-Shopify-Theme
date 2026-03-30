@@ -1,0 +1,29 @@
+<section class="padding-top-60 padding-bottom-60">
+  <div class="container">
+    <div class="heading"><h2>Search</h2><hr></div>
+    <form action="{{ routes.search_url }}" method="get" role="search">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products, pages, and blogs">
+      <button class="btn-round" type="submit">Search</button>
+    </form>
+    {% if search.performed %}
+      <h4>Results for "{{ search.terms | escape }}"</h4>
+      {% paginate search.results by 24 %}
+        <div class="row">
+          {% for item in search.results %}
+            <div class="col-md-3">
+              {% if item.object_type == 'product' %}
+                {% render 'product-card', card_product: item %}
+              {% else %}
+                <h5><a href="{{ item.url }}">{{ item.title }}</a></h5>
+                <p>{{ item.content | strip_html | truncate: 120 }}</p>
+              {% endif %}
+            </div>
+          {% else %}
+            <p>No results found.</p>
+          {% endfor %}
+        </div>
+        {{ paginate | default_pagination }}
+      {% endpaginate %}
+    {% endif %}
+  </div>
+</section>

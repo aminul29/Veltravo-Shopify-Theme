@@ -1,0 +1,27 @@
+<section class="padding-top-60 padding-bottom-60">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        {% if product.featured_image %}
+          {{ product.featured_image | image_url: width: 1400 | image_tag: loading: 'lazy', alt: product.title }}
+        {% endif %}
+      </div>
+      <div class="col-md-6">
+        <h1>{{ product.title }}</h1>
+        <p><strong>{{ product.selected_or_first_available_variant.price | money }}</strong></p>
+        {% if product.description != blank %}<div class="rte">{{ product.description }}</div>{% endif %}
+        {% form 'product', product %}
+          <select name="id">
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}" {% if variant == product.selected_or_first_available_variant %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+                {{ variant.title }} - {{ variant.price | money }}
+              </option>
+            {% endfor %}
+          </select>
+          <p><input type="number" name="quantity" value="1" min="1"></p>
+          <button class="btn-round" type="submit" {% unless product.available %}disabled{% endunless %}>Add to cart</button>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>

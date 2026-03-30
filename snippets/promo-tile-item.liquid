@@ -34,6 +34,8 @@
     assign tile_link = block.settings.link | default: '#.'
     assign tile_background_image = block.settings.tile_background_image
   endif
+
+  assign cta_label = button_label | default: 'Shop now'
 -%}
 
 {% if tile_variant == 'sale' %}
@@ -52,8 +54,7 @@
 {% else %}
   <div class="col-md-4" {% if block != blank %}{{ block.shopify_attributes }}{% endif %}>
     <div class="product">
-      <a
-        href="{{ tile_link }}"
+      <div
         class="like-bnr{% if tile_variant == 'watch' %} watch{% endif %}"
         {% if tile_background_image != blank %}
           style="background-image: url('{{ tile_background_image | image_url: width: 1800 }}'); background-size: cover; background-position: center center; background-repeat: no-repeat;"
@@ -63,8 +64,9 @@
           <h5>{{ subtitle }}</h5>
           <h4>{{ title }}</h4>
           <span class="price">{{ price }}</span>
+          <a href="{{ tile_link }}" class="btn-round promo-tile-btn">{{ cta_label }}</a>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 {% endif %}
