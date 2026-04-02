@@ -27,6 +27,7 @@
 {% endfor %}
 
 {% assign description_excerpt = product.description | strip_html | strip | truncatewords: 34 %}
+{% assign product_form_id = 'product-form-' | append: section.id %}
 
 <style>
   .product-template {
@@ -44,6 +45,10 @@
     margin-bottom: 0;
   }
 
+  .product-template__gallery .slides > li {
+    background: #ffffff;
+  }
+
   .product-template__media-frame {
     position: relative;
     min-height: 440px;
@@ -55,8 +60,10 @@
     background: #ffffff;
   }
 
-  .product-template__media-image {
-    width: 100%;
+  .product-template__gallery .slides .product-template__media-image {
+    width: auto !important;
+    max-width: 100%;
+    height: auto !important;
     max-height: 520px;
     object-fit: contain;
     margin: 0 auto;
@@ -209,7 +216,7 @@
 
   @media (max-width: 767px) {
     .product-template__media-frame {
-      min-height: 300px;
+      min-height: 260px;
       padding: 16px;
     }
 
@@ -238,214 +245,228 @@
   }
 </style>
 
-<section class="product-template padding-top-40 padding-bottom-60">
-  <div class="container">
-    <div class="product-detail">
-      <div class="product">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="product-template__gallery article-reset">
-              <article class="slider-item on-nav">
-                <div class="thumb-slider">
-                  <ul class="slides">
-                    {% if product.media.size > 0 %}
-                      {% for media in product.media %}
-                        {% assign media_preview = media.preview_image %}
-                        {% assign media_alt = media.alt | default: product.title %}
-                        <li
-                          data-media-id="{{ media.id }}"
-                          {% if media_preview != blank %}
-                            data-thumb="{{ media_preview | image_url: width: 240 }}"
+<div id="content">
+  <section class="product-template padding-top-40 padding-bottom-60">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="product-detail">
+            <div class="product">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="product-template__gallery article-reset">
+                    <article class="slider-item on-nav">
+                      <div class="thumb-slider">
+                        <ul class="slides">
+                          {% if product.media.size > 0 %}
+                            {% for media in product.media %}
+                              {% assign media_preview = media.preview_image %}
+                              {% assign media_alt = media.alt | default: product.title %}
+                              <li
+                                data-media-id="{{ media.id }}"
+                                {% if media_preview != blank %}
+                                  data-thumb="{{ media_preview | image_url: width: 240 }}"
+                                {% endif %}
+                              >
+                                <div class="product-template__media-frame">
+                                  {% if media.media_type == 'image' %}
+                                    {{ media | image_url: width: 1600 | image_tag: class: 'img-responsive product-template__media-image', alt: media_alt, loading: 'lazy' }}
+                                  {% elsif media_preview != blank %}
+                                    {{ media_preview | image_url: width: 1600 | image_tag: class: 'img-responsive product-template__media-image', alt: media_alt, loading: 'lazy' }}
+                                  {% else %}
+                                    {{ 'product-1' | placeholder_svg_tag: 'product-template__media-image' }}
+                                  {% endif %}
+                                  {% unless media.media_type == 'image' %}
+                                    <span class="product-template__media-badge">{{ media.media_type | replace: '_', ' ' }}</span>
+                                  {% endunless %}
+                                </div>
+                              </li>
+                            {% endfor %}
+                          {% elsif product.featured_image != blank %}
+                            <li data-media-id="{{ product.featured_image.id }}" data-thumb="{{ product.featured_image | image_url: width: 240 }}">
+                              <div class="product-template__media-frame">
+                                {{ product.featured_image | image_url: width: 1600 | image_tag: class: 'img-responsive product-template__media-image', alt: product.title, loading: 'lazy' }}
+                              </div>
+                            </li>
+                          {% else %}
+                            <li data-media-id="placeholder">
+                              <div class="product-template__media-frame">
+                                {{ 'product-1' | placeholder_svg_tag: 'product-template__media-image' }}
+                              </div>
+                            </li>
                           {% endif %}
-                        >
-                          <div class="product-template__media-frame">
-                            {% if media_preview != blank %}
-                              {{ media_preview | image_url: width: 1400 | image_tag: class: 'img-responsive product-template__media-image', alt: media_alt, loading: 'lazy' }}
-                            {% else %}
-                              {{ 'product-1' | placeholder_svg_tag: 'product-template__media-image' }}
-                            {% endif %}
-                            {% unless media.media_type == 'image' %}
-                              <span class="product-template__media-badge">{{ media.media_type | replace: '_', ' ' }}</span>
-                            {% endunless %}
-                          </div>
-                        </li>
-                      {% endfor %}
-                    {% elsif product.featured_image != blank %}
-                      <li data-media-id="{{ product.featured_image.id }}" data-thumb="{{ product.featured_image | image_url: width: 240 }}">
-                        <div class="product-template__media-frame">
-                          {{ product.featured_image | image_url: width: 1400 | image_tag: class: 'img-responsive product-template__media-image', alt: product.title, loading: 'lazy' }}
-                        </div>
-                      </li>
-                    {% else %}
-                      <li data-media-id="placeholder">
-                        <div class="product-template__media-frame">
-                          {{ 'product-1' | placeholder_svg_tag: 'product-template__media-image' }}
-                        </div>
-                      </li>
+                        </ul>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  {% form 'product',
+                    product,
+                    novalidate: 'novalidate',
+                    id: product_form_id,
+                    class: 'product-template__summary',
+                    data-product-form: '',
+                    data-product-url: product.url,
+                    data-section-id: section.id
+                  %}
+                    <input type="hidden" name="id" value="{{ selected_variant.id }}" data-variant-id>
+
+                    {% if vendor_block != blank %}
+                      <span class="tags" {{ vendor_block.shopify_attributes }}>{{ product.vendor | default: product.type | escape }}</span>
                     {% endif %}
-                  </ul>
-                </div>
-              </article>
-            </div>
-          </div>
 
-          <div class="col-sm-6">
-            {% form 'product',
-              product,
-              novalidate: 'novalidate',
-              id: 'product-form-' | append: section.id,
-              class: 'product-template__summary',
-              data-product-form: '',
-              data-product-url: product.url,
-              data-section-id: section.id
-            %}
-              <input type="hidden" name="id" value="{{ selected_variant.id }}" data-variant-id>
+                    {% if title_block != blank %}
+                      <h1 class="product-template__title" {{ title_block.shopify_attributes }}>{{ product.title }}</h1>
+                    {% endif %}
 
-              {% if vendor_block != blank %}
-                <span class="tags" {{ vendor_block.shopify_attributes }}>{{ product.vendor | default: product.type | escape }}</span>
-              {% endif %}
+                    {% if price_block != blank %}
+                      <div class="row product-template__meta" id="product-price-{{ section.id }}" {{ price_block.shopify_attributes }}>
+                        <div class="col-xs-12 col-sm-6">
+                          <span class="price" data-price>
+                            {{ selected_variant.price | money }}
+                            {% if selected_variant.compare_at_price > selected_variant.price %}
+                              <small data-compare-price>{{ selected_variant.compare_at_price | money }}</small>
+                            {% endif %}
+                          </span>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                          <p class="product-template__availability">
+                            Availability:
+                            <span
+                              id="product-stock-{{ section.id }}"
+                              class="{% if selected_variant.available %}in-stock{% endif %}"
+                              data-availability-text
+                            >
+                              {% if selected_variant.available %}
+                                In stock
+                              {% else %}
+                                Out of stock
+                              {% endif %}
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                    {% endif %}
 
-              {% if title_block != blank %}
-                <h1 class="product-template__title" {{ title_block.shopify_attributes }}>{{ product.title }}</h1>
-              {% endif %}
-
-              {% if price_block != blank %}
-                <div class="row product-template__meta" id="product-price-{{ section.id }}" {{ price_block.shopify_attributes }}>
-                  <div class="col-xs-12 col-sm-6">
-                    <span class="price" data-price>
-                      {{ selected_variant.price | money }}
-                      {% if selected_variant.compare_at_price > selected_variant.price %}
-                        <small data-compare-price>{{ selected_variant.compare_at_price | money }}</small>
-                      {% endif %}
-                    </span>
-                  </div>
-                  <div class="col-xs-12 col-sm-6">
-                    <p class="product-template__availability">
-                      Availability:
-                      <span
-                        id="product-stock-{{ section.id }}"
-                        class="{% if selected_variant.available %}in-stock{% endif %}"
-                        data-availability-text
-                      >
-                        {% if selected_variant.available %}
-                          In stock
-                        {% else %}
-                          Out of stock
-                        {% endif %}
-                      </span>
-                    </p>
-                  </div>
-                </div>
-              {% endif %}
-
-              {% if variant_selector_block != blank and product.has_only_default_variant == false %}
-                <div {{ variant_selector_block.shopify_attributes }}>
-                  {% for option in product.options_with_values %}
-                    <div class="product-template__option-field">
-                      <label class="product-template__option-label" for="option-{{ section.id }}-{{ forloop.index0 }}">
-                        {{ option.name }}
-                      </label>
-                      <select
-                        id="option-{{ section.id }}-{{ forloop.index0 }}"
-                        class="product-template__select"
-                        name="options[{{ option.name | escape }}]"
-                        data-product-option
-                      >
-                        {% for value in option.values %}
-                          <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
-                            {{ value }}
-                          </option>
+                    {% if variant_selector_block != blank and product.has_only_default_variant == false %}
+                      <div {{ variant_selector_block.shopify_attributes }}>
+                        {% for option in product.options_with_values %}
+                          <div class="product-template__option-field">
+                            <label class="product-template__option-label" for="option-{{ section.id }}-{{ forloop.index0 }}">
+                              {{ option.name }}
+                            </label>
+                            <select
+                              id="option-{{ section.id }}-{{ forloop.index0 }}"
+                              class="product-template__select"
+                              name="options[{{ option.name | escape }}]"
+                              data-product-option
+                            >
+                              {% for value in option.values %}
+                                <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
+                                  {{ value }}
+                                </option>
+                              {% endfor %}
+                            </select>
+                          </div>
                         {% endfor %}
-                      </select>
-                    </div>
-                  {% endfor %}
-                </div>
-              {% endif %}
+                      </div>
+                    {% endif %}
 
-              {% if description_block != blank and description_excerpt != blank %}
-                <p class="product-template__excerpt" {{ description_block.shopify_attributes }}>{{ description_excerpt }}</p>
-              {% endif %}
+                    {% if description_block != blank and description_excerpt != blank %}
+                      <p class="product-template__excerpt" {{ description_block.shopify_attributes }}>{{ description_excerpt }}</p>
+                    {% endif %}
 
-              {% if quantity_block != blank or checkout_buttons_block != blank %}
-                <div class="product-template__actions">
-                  {% if quantity_block != blank %}
-                    <div class="quinty" {{ quantity_block.shopify_attributes }}>
-                      <input type="number" name="quantity" id="quantity-{{ section.id }}" min="1" value="1">
-                    </div>
-                  {% endif %}
-
-                  {% if checkout_buttons_block != blank %}
-                    <div id="product-submit-{{ section.id }}" {{ checkout_buttons_block.shopify_attributes }}>
-                      <button
-                        type="submit"
-                        name="add"
-                        class="btn-round product-template__submit"
-                        data-add-to-cart
-                        {% if selected_variant == blank or selected_variant.available == false %}
-                          disabled
+                    {% if quantity_block != blank or checkout_buttons_block != blank %}
+                      <div class="product-template__actions">
+                        {% if quantity_block != blank %}
+                          <div class="quinty" {{ quantity_block.shopify_attributes }}>
+                            <input type="number" name="quantity" id="quantity-{{ section.id }}" min="1" value="1">
+                          </div>
                         {% endif %}
-                      >
-                        {% if selected_variant == blank or selected_variant.available == false %}
-                          Sold out
-                        {% else %}
-                          Add to cart
-                        {% endif %}
-                      </button>
-                    </div>
-                  {% endif %}
-                </div>
-              {% endif %}
 
-              <script type="application/json" data-product-variants>
-                {{ product.variants | json }}
-              </script>
-            {% endform %}
+                        {% if checkout_buttons_block != blank %}
+                          <div id="product-submit-{{ section.id }}" {{ checkout_buttons_block.shopify_attributes }}>
+                            <button
+                              type="submit"
+                              name="add"
+                              class="btn-round product-template__submit"
+                              data-add-to-cart
+                              {% if selected_variant == blank or selected_variant.available == false %}
+                                disabled
+                              {% endif %}
+                            >
+                              {% if selected_variant == blank or selected_variant.available == false %}
+                                Sold out
+                              {% else %}
+                                Add to cart
+                              {% endif %}
+                            </button>
+                          </div>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+
+                    <script type="application/json" data-product-variants>
+                      {{ product.variants | json }}
+                    </script>
+                  {% endform %}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
 
-      {% if description_block != blank or shop.shipping_policy.body != blank %}
-        <div class="item-tabs-sec product-template__tabs">
-          <ul class="nav" role="tablist">
-            {% if description_block != blank %}
-              <li role="presentation" class="active">
-                <a href="#product-details-{{ section.id }}" role="tab" data-toggle="tab">Product details</a>
-              </li>
-            {% endif %}
-            <li role="presentation" {% if description_block == blank %}class="active"{% endif %}>
-              <a href="#product-shipping-{{ section.id }}" role="tab" data-toggle="tab">Shipping & payment</a>
-            </li>
-          </ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          {% if description_block != blank or shop.shipping_policy.body != blank %}
+            <div class="item-tabs-sec product-template__tabs">
+              <ul class="nav" role="tablist">
+                {% if description_block != blank %}
+                  <li role="presentation" class="active">
+                    <a href="#product-details-{{ section.id }}" role="tab" data-toggle="tab">Product details</a>
+                  </li>
+                {% endif %}
+                <li role="presentation" {% if description_block == blank %}class="active"{% endif %}>
+                  <a href="#product-shipping-{{ section.id }}" role="tab" data-toggle="tab">Shipping & payment</a>
+                </li>
+              </ul>
 
-          <div class="tab-content">
-            {% if description_block != blank %}
-              <div role="tabpanel" class="tab-pane fade in active" id="product-details-{{ section.id }}">
-                <div class="product-template__description">
-                  {% if product.description != blank %}
-                    {{ product.description }}
-                  {% else %}
-                    <p class="product-template__empty-text">No product description is available for this item yet.</p>
-                  {% endif %}
+              <div class="tab-content">
+                {% if description_block != blank %}
+                  <div role="tabpanel" class="tab-pane fade in active" id="product-details-{{ section.id }}">
+                    <div class="product-template__description">
+                      {% if product.description != blank %}
+                        {{ product.description }}
+                      {% else %}
+                        <p class="product-template__empty-text">No product description is available for this item yet.</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+
+                <div role="tabpanel" class="tab-pane fade {% if description_block == blank %}in active{% endif %}" id="product-shipping-{{ section.id }}">
+                  <div class="product-template__description">
+                    {% if shop.shipping_policy.body != blank %}
+                      {{ shop.shipping_policy.body }}
+                    {% else %}
+                      <p>Shipping costs and delivery timelines are calculated during checkout.</p>
+                      <p>Secure payment methods are shown once you proceed to checkout.</p>
+                    {% endif %}
+                  </div>
                 </div>
               </div>
-            {% endif %}
-
-            <div role="tabpanel" class="tab-pane fade {% if description_block == blank %}in active{% endif %}" id="product-shipping-{{ section.id }}">
-              <div class="product-template__description">
-                {% if shop.shipping_policy.body != blank %}
-                  {{ shop.shipping_policy.body }}
-                {% else %}
-                  <p>Shipping costs and delivery timelines are calculated during checkout.</p>
-                  <p>Secure payment methods are shown once you proceed to checkout.</p>
-                {% endif %}
-              </div>
             </div>
-          </div>
+          {% endif %}
         </div>
-      {% endif %}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>
 
 <script>
   (function () {
