@@ -243,6 +243,13 @@
     line-height: 1.85;
   }
 
+  .product-template__tab-panel {
+    max-height: 520px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 10px;
+  }
+
   .product-template__description > :first-child {
     margin-top: 0;
   }
@@ -508,7 +515,7 @@
               <div class="tab-content">
                 {% if description_block != blank %}
                   <div role="tabpanel" class="tab-pane fade in active" id="product-details-{{ section.id }}">
-                    <div class="product-template__description">
+                    <div class="product-template__description product-template__tab-panel">
                       {% if product.description != blank %}
                         {{ product.description }}
                       {% else %}
@@ -519,7 +526,7 @@
                 {% endif %}
 
                 <div role="tabpanel" class="tab-pane fade {% if description_block == blank %}in active{% endif %}" id="product-shipping-{{ section.id }}">
-                  <div class="product-template__description">
+                  <div class="product-template__description product-template__tab-panel">
                     {% if shop.shipping_policy.body != blank %}
                       {{ shop.shipping_policy.body }}
                     {% else %}
