@@ -140,11 +140,11 @@
     position: relative;
   }
 
-  footer .container,
-  .rights .container {
-    width: 100%;
-    max-width: 1140px;
-    margin: 0 auto;
+  #shopify-section-{{ section.id }} footer .container,
+  #shopify-section-{{ section.id }} .rights .container {
+    width: calc(100% - 30px) !important;
+    max-width: 1140px !important;
+    margin: 0 auto !important;
   }
 
   footer h4 {

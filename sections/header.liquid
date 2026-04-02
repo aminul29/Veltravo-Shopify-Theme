@@ -237,13 +237,13 @@
 </header>
 
 {% stylesheet %}
-  .top-bar .container,
-  .header-style-5 > .container,
-  .header-style-5 .navbar > .container {
-    width: 100%;
-    max-width: 1140px;
-    margin-left: auto;
-    margin-right: auto;
+  #shopify-section-{{ section.id }} .top-bar .container,
+  #shopify-section-{{ section.id }} .header-style-5 > .container,
+  #shopify-section-{{ section.id }} .header-style-5 .navbar > .container {
+    width: calc(100% - 30px) !important;
+    max-width: 1140px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 
   .header-logo-text {
