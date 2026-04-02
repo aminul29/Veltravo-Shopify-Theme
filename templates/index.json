@@ -248,8 +248,8 @@
       "type": "top-selling-showcase",
       "settings": {
         "heading": "Top Selling of the Week",
-        "collection": "",
-        "featured_product": "",
+        "collection": "home-essentials",
+        "featured_product": "null-1773091609385",
         "products_limit": 4,
         "featured_media_limit": 4
       }
