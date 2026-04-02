@@ -17,6 +17,10 @@
   assign header_search_placeholder = section.settings.search_placeholder
   assign header_cart_label = section.settings.cart_label
   assign header_categories_label = section.settings.categories_label
+  assign categories_expanded = false
+  if request.page_type == 'index'
+    assign categories_expanded = true
+  endif
 
   assign top_message_block = blank
   assign logo_block = blank
@@ -165,9 +169,9 @@
   <nav class="navbar ownmenu">
     <div class="container">
       <!-- Categories -->
-      <div class="cate-lst"{% if categories_block != blank %} {{ categories_block.shopify_attributes }}{% endif %}> <a data-toggle="collapse" class="cate-style" href="#cater-{{ section.id }}" aria-expanded="true"><i class="fa fa-list-ul"></i> {{ header_categories_label }} </a>
+      <div class="cate-lst"{% if categories_block != blank %} {{ categories_block.shopify_attributes }}{% endif %}> <a data-toggle="collapse" class="cate-style{% unless categories_expanded %} collapsed{% endunless %}" href="#cater-{{ section.id }}" aria-expanded="{% if categories_expanded %}true{% else %}false{% endif %}"><i class="fa fa-list-ul"></i> {{ header_categories_label }} </a>
         <div class="cate-bar-in">
-          <div id="cater-{{ section.id }}" class="collapse in" aria-expanded="true">
+          <div id="cater-{{ section.id }}" class="collapse{% if categories_expanded %} in{% endif %}" aria-expanded="{% if categories_expanded %}true{% else %}false{% endif %}">
             <ul>
               {% if categories_menu != blank and categories_menu.links.size > 0 %}
                 {% for link in categories_menu.links %}
