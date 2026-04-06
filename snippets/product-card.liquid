@@ -1,34 +1,99 @@
-{% # Product card with hover effects and shadow %}
-<div class="group relative bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col h-full">
-  {% # Product image section with fallback placeholder %}
-  {% if product.featured_image %}
-    <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-t-lg">
-      <img
-        src="{{ product.featured_image | image_url: width: 720 }}"
-        alt="{{ product.featured_image.alt }}"
-        height="{{ product.featured_image.height }}"
-        width="{{ product.featured_image.width }}"
-        class="h-full w-full object-cover object-center transition duration-1000 ease-in-out hover:scale-105 transform group-hover:scale-105"
-      >
-    </div>
-  {% else %}
-    {% # Display placeholder SVG if no product image exists %}
-    {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover rounded-t-lg' }}
-  {% endif %}
+{% doc %}
+  Renders a theme-compatible product card for collection grids and tab panels.
 
-  {% # Product information section %}
-  <div class="p-4 flex-grow flex flex-col">
-    {% # Vendor name %}
-    <span class="text-sm text-gray-500">{{ product.vendor }}</span>
-    {% # Product title with hover effect %}
-    <a href="{{ product.url }}" class="mt-2 block">
-      <h2 class="text-lg font-medium text-gray-900 hover:text-indigo-600 transition-colors line-clamp-2">
-        {{ product.title }}
-      </h2>
+  @param {product} [product] - Shopify product object
+  @param {block} [block] - Optional theme editor block for shopify attributes
+  @param {string} [fallback_image] - Fallback asset filename
+  @param {string} [fallback_tag] - Fallback product tag text
+  @param {string} [fallback_title] - Fallback product title
+  @param {string} [fallback_price] - Fallback price text
+  @param {string} [fallback_compare_price] - Fallback compare-at price text
+{% enddoc %}
+
+{%- liquid
+  assign card_title = fallback_title | default: 'Sample product'
+  assign card_tag = fallback_tag | default: 'Featured'
+  assign card_url = '#.'
+  assign card_price = fallback_price | default: '$350.00'
+  assign card_compare_price = fallback_compare_price
+  assign card_image = blank
+  assign show_sale_tag = false
+  assign show_new_tag = false
+
+  if product != blank
+    assign card_title = product.title
+    assign card_tag = product.type | default: product.vendor | default: fallback_tag | default: 'Featured'
+    assign card_url = product.url
+    assign card_price = product.price | money
+    assign card_image = product.featured_image
+
+    if product.compare_at_price > product.price
+      assign card_compare_price = product.compare_at_price | money
+      assign show_sale_tag = true
+    endif
+
+    if product.available and product.tags contains 'new'
+      assign show_new_tag = true
+    endif
+  endif
+-%}
+
+<div class="product"{% if block != blank %} {{ block.shopify_attributes }}{% endif %}>
+  <article>
+    {% if show_sale_tag %}
+      <span class="sale-tag">Sale</span>
+    {% elsif show_new_tag %}
+      <span class="new-tag">New</span>
+    {% endif %}
+
+    {% if card_image != blank %}
+      <a href="{{ card_url }}" class="product-card__media">
+        {{ card_image | image_url: width: 720 | image_tag: alt: card_title, loading: 'lazy' }}
+      </a>
+    {% elsif fallback_image != blank %}
+      <a href="{{ card_url }}" class="product-card__media">
+        <img src="{{ fallback_image | asset_url }}" alt="{{ card_title | escape }}" loading="lazy" width="720" height="720">
+      </a>
+    {% else %}
+      <a href="{{ card_url }}" class="product-card__media product-card__media--placeholder">
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      </a>
+    {% endif %}
+
+    <span class="tag">{{ card_tag | escape }}</span>
+    <a href="{{ card_url }}" class="tittle">{{ card_title }}</a>
+    <div class="price">
+      {{ card_price }}
+      {% if card_compare_price != blank %}
+        <span>{{ card_compare_price }}</span>
+      {% endif %}
+    </div>
+    <a href="{{ card_url }}" class="cart-btn" aria-label="{{ card_title | escape }}">
+      <i class="icon-basket-loaded"></i>
     </a>
-    {% # Spacer to push price to the bottom %}
-    <div class="flex-grow"></div>
-    {% # Product price %}
-    <p class="mt-2 text-xl font-semibold text-gray-900">{{ product.price | money }}</p>
-  </div>
+  </article>
 </div>
+
+{% stylesheet %}
+  .product article .product-card__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .product article .product-card__media img,
+  .product article .product-card__media svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .product article .product-card__media--placeholder svg {
+    max-width: 70%;
+    max-height: 70%;
+  }
+{% endstylesheet %}

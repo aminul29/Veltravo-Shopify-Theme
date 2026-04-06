@@ -35,11 +35,17 @@
 <div class="col-md-4" {% if block != blank %}{{ block.shopify_attributes }}{% endif %}>
   <div class="some-cate">
     {% if block != blank and block.settings.image != blank %}
-      {{ block.settings.image | image_url: width: 140 | image_tag: alt: category_title, loading: 'lazy' }}
+      <div class="featured-category-card__media">
+        {{ block.settings.image | image_url: width: 220 | image_tag: alt: category_title, loading: 'lazy' }}
+      </div>
     {% elsif category_collection != blank and category_collection.featured_image != blank %}
-      {{ category_collection.featured_image | image_url: width: 140 | image_tag: alt: category_title, loading: 'lazy' }}
+      <div class="featured-category-card__media">
+        {{ category_collection.featured_image | image_url: width: 220 | image_tag: alt: category_title, loading: 'lazy' }}
+      </div>
     {% elsif fallback_image != blank %}
-      <img src="{{ fallback_image | asset_url }}" alt="{{ category_title | escape }}">
+      <div class="featured-category-card__media">
+        <img src="{{ fallback_image | asset_url }}" alt="{{ category_title | escape }}" loading="lazy" width="220" height="220">
+      </div>
     {% endif %}
     <h5>{{ category_title }}</h5>
     <ul>
@@ -56,3 +62,59 @@
     </ul>
   </div>
 </div>
+
+{% stylesheet %}
+  .some-cate {
+    overflow: hidden;
+    min-height: 165px;
+  }
+
+  .some-cate .featured-category-card__media {
+    position: absolute;
+    right: 16px;
+    bottom: 0;
+    width: min(42%, 190px);
+    max-height: calc(100% - 12px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .some-cate .featured-category-card__media img {
+    position: static;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .some-cate h5,
+  .some-cate ul {
+    position: relative;
+    z-index: 1;
+    max-width: 58%;
+  }
+
+  @media screen and (max-width: 991px) {
+    .some-cate .featured-category-card__media {
+      width: min(38%, 170px);
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .some-cate {
+      min-height: 180px;
+    }
+
+    .some-cate h5,
+    .some-cate ul {
+      max-width: 52%;
+    }
+
+    .some-cate .featured-category-card__media {
+      width: min(44%, 160px);
+      right: 10px;
+    }
+  }
+{% endstylesheet %}

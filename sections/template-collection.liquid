@@ -1,39 +1,310 @@
-{% # Main container with max width and padding for responsive layout %}
-<div class="max-w-6xl mx-auto px-4 py-8">
-  {% # Collection header section with title and description %}
+<style>
+  .collection-template {
+    padding: 48px 0 64px;
+  }
 
-  <div class="mb-8 flex items-center justify-between">
-    {% # Collection image with aspect ratio and hover effect %}
-    <div class="">
-      <h1 class="text-3xl font-bold text-gray-900">{{ collection.title }}</h1>
-      {% if collection.description != blank %}
-        <div class="mt-4 text-gray-600">{{ collection.description }}</div>
-      {% endif %}
-    </div>
-    <a href="{{ routes.collections_url }}" class="text-blue-600 hover:underline">Go Back to Collections</a>
-  </div>
-      
-  {% # Paginate products, showing 6 items per page %}
-  {% paginate collection.products by section.settings.products_per_page %}
-    {% # Responsive grid layout: 1 column on mobile, 2 on tablet, 3 on desktop %}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {% for product in collection.products %}
-        {% # Product Card from snippet folder %}
-        {% render 'product-card', product: product %}
-      {% else %}
-        {% # Empty state when no products are found %}
-        <div class="col-span-full text-center py-12">
-          <p class="text-gray-500 text-lg">No products found.</p>
+  .collection-template__container {
+    width: calc(100% - 30px);
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+
+  .collection-template__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 28px;
+    margin-bottom: 34px;
+  }
+
+  .collection-template__eyebrow {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #26c281;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .collection-template__title {
+    margin: 0;
+    color: #1f2937;
+    font-size: 36px;
+    line-height: 1.12;
+    font-weight: 700;
+  }
+
+  .collection-template__description {
+    max-width: 760px;
+    margin-top: 16px;
+    color: #5f6b7a;
+    line-height: 1.8;
+  }
+
+  .collection-template__backlink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 22px;
+    border: 1px solid #d9dee5;
+    border-radius: 999px;
+    color: #1f2937;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .collection-template__backlink:hover {
+    border-color: #26c281;
+    color: #26c281;
+  }
+
+  .collection-template__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+  }
+
+  .collection-template__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid #ebedf0;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.04);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  .collection-template__card:hover {
+    transform: translateY(-4px);
+    border-color: #d8dde3;
+    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.08);
+  }
+
+  .collection-template__media {
+    display: block;
+    aspect-ratio: 1 / 1;
+    background: #f5f7fa;
+    overflow: hidden;
+  }
+
+  .collection-template__media img,
+  .collection-template__media svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+
+  .collection-template__card:hover .collection-template__media img,
+  .collection-template__card:hover .collection-template__media svg {
+    transform: scale(1.03);
+  }
+
+  .collection-template__content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 18px 20px 22px;
+  }
+
+  .collection-template__vendor {
+    color: #8a94a6;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .collection-template__product-title {
+    margin: 10px 0 0;
+    color: #1f2937;
+    font-size: 28px;
+    line-height: 1.38;
+    font-weight: 700;
+  }
+
+  .collection-template__product-link {
+    color: inherit;
+  }
+
+  .collection-template__product-link:hover {
+    color: #26c281;
+  }
+
+  .collection-template__price {
+    margin-top: auto;
+    padding-top: 18px;
+    color: #1f2937;
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .collection-template__empty {
+    padding: 56px 24px;
+    border: 1px dashed #d5dbe3;
+    border-radius: 18px;
+    color: #6b7280;
+    text-align: center;
+  }
+
+  .collection-template__pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 42px;
+  }
+
+  .collection-template__pagination-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .collection-template__pagination-link,
+  .collection-template__pagination-current,
+  .collection-template__pagination-gap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    min-height: 42px;
+    padding: 0 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .collection-template__pagination-link {
+    border: 1px solid #d8dde3;
+    color: #374151;
+  }
+
+  .collection-template__pagination-link:hover {
+    border-color: #26c281;
+    color: #26c281;
+  }
+
+  .collection-template__pagination-current {
+    background: #26c281;
+    color: #ffffff;
+  }
+
+  .collection-template__pagination-gap {
+    color: #9ca3af;
+  }
+
+  @media (max-width: 991px) {
+    .collection-template__header {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .collection-template__backlink {
+      align-self: flex-start;
+    }
+
+    .collection-template__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 575px) {
+    .collection-template {
+      padding: 36px 0 48px;
+    }
+
+    .collection-template__title {
+      font-size: 30px;
+    }
+
+    .collection-template__grid {
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+  }
+</style>
+
+<section class="collection-template">
+  <div class="collection-template__container">
+    <header class="collection-template__header">
+      <div>
+        <span class="collection-template__eyebrow">Collection</span>
+        <h1 class="collection-template__title">{{ collection.title }}</h1>
+
+        {% if collection.description != blank %}
+          <div class="collection-template__description">{{ collection.description }}</div>
+        {% endif %}
+      </div>
+
+      <a href="{{ routes.collections_url }}" class="collection-template__backlink">Go Back to Collections</a>
+    </header>
+
+    {% paginate collection.products by section.settings.products_per_page %}
+      {% if collection.products_count > 0 %}
+        <div class="collection-template__grid">
+          {% for product in collection.products %}
+            <article class="collection-template__card">
+              <a class="collection-template__media" href="{{ product.url }}">
+                {% if product.featured_image != blank %}
+                  {{ product.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', alt: product.title }}
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'collection-template__placeholder' }}
+                {% endif %}
+              </a>
+
+              <div class="collection-template__content">
+                {% if product.vendor != blank %}
+                  <span class="collection-template__vendor">{{ product.vendor }}</span>
+                {% endif %}
+
+                <h2 class="collection-template__product-title">
+                  <a class="collection-template__product-link" href="{{ product.url }}">{{ product.title }}</a>
+                </h2>
+
+                <p class="collection-template__price">{{ product.price | money }}</p>
+              </div>
+            </article>
+          {% endfor %}
         </div>
-      {% endfor %}
-    </div>
+      {% else %}
+        <div class="collection-template__empty">
+          <p>No products found.</p>
+        </div>
+      {% endif %}
 
-    {% # Pagination section %}
-    <div class="mt-8">
-      {% render 'pagination-numbered', pagination: paginate %}
-    </div>
-  {% endpaginate %}
-</div>
+      {% if paginate.pages > 1 %}
+        <div class="collection-template__pagination">
+          <nav class="collection-template__pagination-nav" aria-label="Pagination">
+            {% if paginate.previous %}
+              <a class="collection-template__pagination-link" href="{{ paginate.previous.url }}">Previous</a>
+            {% endif %}
+
+            {% for part in paginate.parts %}
+              {% if part.is_link %}
+                <a class="collection-template__pagination-link" href="{{ part.url }}">{{ part.title }}</a>
+              {% elsif part.title == paginate.current_page %}
+                <span class="collection-template__pagination-current">{{ part.title }}</span>
+              {% else %}
+                <span class="collection-template__pagination-gap">{{ part.title }}</span>
+              {% endif %}
+            {% endfor %}
+
+            {% if paginate.next %}
+              <a class="collection-template__pagination-link" href="{{ paginate.next.url }}">Next</a>
+            {% endif %}
+          </nav>
+        </div>
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</section>
 
 {% schema %}
 {
@@ -43,7 +314,7 @@
       "type": "number",
       "id": "products_per_page",
       "label": "Products per Page",
-      "default": 6
+      "default": 9
     }
   ]
 }
