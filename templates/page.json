@@ -11,10 +11,43 @@
   "sections": {
     "main": {
       "type": "template-page",
-      "settings": {}
+      "settings": {
+        "enable_title": true
+      }
+    },
+    "contact_form_A48LxD": {
+      "type": "contact-form",
+      "name": "Contact Form",
+      "settings": {
+        "home_label": "Home",
+        "breadcrumb_label": "Contact",
+        "show_page_content": true,
+        "form_heading": "Do You have a Question for Us ?",
+        "name_label": "Full Name",
+        "first_name_label": "First Name",
+        "last_name_label": "Last Name",
+        "email_label": "Email",
+        "phone_label": "Phone",
+        "message_label": "Message",
+        "button_label": "Send Message",
+        "success_message": "Thanks for contacting us. We will reply soon.",
+        "map_label": "Store map",
+        "map_embed_url": "",
+        "info_title": "SmartTech",
+        "info_text": "The most powerful PSD for Digital & Electronic!",
+        "address_heading": "Address:",
+        "address": "45 Grand Central Terminal New York, NY 1017\nUnited State USA",
+        "phone_heading": "Phone:",
+        "phone_primary": "(+100) 123 456 7890",
+        "phone_secondary": "(+100) 987 654 3210",
+        "email_heading": "Email:",
+        "email_primary": "Support@smarttech.com",
+        "email_secondary": "Support24/7@smarttech.com"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "contact_form_A48LxD"
   ]
 }
