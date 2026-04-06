@@ -254,15 +254,11 @@
         "featured_media_limit": 4
       }
     },
-    "clients_img": {
-      "type": "logo-list",
-      "settings": {}
-    },
     "blog": {
       "type": "featured-blog",
       "settings": {
         "heading": "From our Blog",
-        "blog": "",
+        "blog": "news",
         "posts_to_show": 3
       }
     },
@@ -287,7 +283,6 @@
     "tab_section",
     "featured_categories",
     "top_selling_week",
-    "clients_img",
     "blog",
     "shipping_info",
     "newslatter"
