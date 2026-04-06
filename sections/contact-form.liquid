@@ -1,0 +1,432 @@
+{% liquid
+  assign page_heading = page.title | default: section.settings.breadcrumb_label
+  assign customer_name = customer.name | default: ''
+  assign customer_first_name = customer.first_name | default: ''
+  assign customer_last_name = customer.last_name | default: ''
+  assign customer_email = customer.email | default: ''
+  assign customer_phone = customer.phone | default: ''
+%}
+
+<div class="linking">
+  <div class="container">
+    <ol class="breadcrumb">
+      <li><a href="{{ routes.root_url }}">{{ section.settings.home_label | escape }}</a></li>
+      <li class="active">{{ page_heading | escape }}</li>
+    </ol>
+  </div>
+</div>
+
+<section class="contact-sec contact-page contact-page-section padding-top-40 padding-bottom-80">
+  <div class="container">
+    {% if section.settings.map_embed_url != blank %}
+      <section class="map-block margin-bottom-40" aria-label="{{ section.settings.map_label | escape }}">
+        <div class="map-wrapper">
+          <iframe
+            src="{{ section.settings.map_embed_url | escape }}"
+            title="{{ section.settings.map_label | escape }}"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </section>
+    {% endif %}
+
+    <div class="contact">
+      <div class="contact-form">
+        {% form 'contact', id: 'contact_form', class: 'contact-form shopify-contact-form' %}
+          <div class="row">
+            <div class="col-md-8">
+              <div class="heading">
+                <h2>{{ section.settings.form_heading }}</h2>
+              </div>
+
+              {% if section.settings.show_page_content and page.content != blank %}
+                <div class="contact-page-section__intro rte">
+                  {{ page.content }}
+                </div>
+              {% endif %}
+
+              {% if form.posted_successfully? %}
+                <div class="success-msg contact-page-section__message contact-page-section__message--success" style="display:block;">
+                  <p>{{ section.settings.success_message }}</p>
+                </div>
+              {% endif %}
+
+              {% if form.errors %}
+                <div class="contact-page-section__message contact-page-section__message--error">
+                  {{ form.errors | default_errors }}
+                </div>
+              {% endif %}
+
+              <ul class="row">
+                <li class="col-sm-6">
+                  <label for="ContactFirstName-{{ section.id }}">
+                    {{ section.settings.first_name_label }}
+                    <input
+                      id="ContactFirstName-{{ section.id }}"
+                      class="form-control"
+                      type="text"
+                      name="contact[first_name]"
+                      value="{{ form.first_name | default: customer_first_name | escape }}"
+                      autocomplete="given-name">
+                  </label>
+                </li>
+                <li class="col-sm-6">
+                  <label for="ContactLastName-{{ section.id }}">
+                    {{ section.settings.last_name_label }}
+                    <input
+                      id="ContactLastName-{{ section.id }}"
+                      class="form-control"
+                      type="text"
+                      name="contact[last_name]"
+                      value="{{ form.last_name | default: customer_last_name | escape }}"
+                      autocomplete="family-name">
+                  </label>
+                </li>
+                <li class="col-sm-6">
+                  <label for="ContactName-{{ section.id }}">
+                    {{ section.settings.name_label }}
+                    <input
+                      id="ContactName-{{ section.id }}"
+                      class="form-control"
+                      type="text"
+                      name="contact[name]"
+                      value="{{ form.name | default: customer_name | escape }}"
+                      autocomplete="name">
+                  </label>
+                </li>
+                <li class="col-sm-6">
+                  <label for="ContactEmail-{{ section.id }}">
+                    {{ section.settings.email_label }}
+                    <input
+                      id="ContactEmail-{{ section.id }}"
+                      class="form-control"
+                      type="email"
+                      name="contact[email]"
+                      value="{{ form.email | default: customer_email | escape }}"
+                      autocomplete="email"
+                      required>
+                  </label>
+                </li>
+                <li class="col-sm-12">
+                  <label for="ContactPhone-{{ section.id }}">
+                    {{ section.settings.phone_label }}
+                    <input
+                      id="ContactPhone-{{ section.id }}"
+                      class="form-control"
+                      type="tel"
+                      name="contact[phone]"
+                      value="{{ form.phone | default: customer_phone | escape }}"
+                      autocomplete="tel">
+                  </label>
+                </li>
+                <li class="col-sm-12">
+                  <label for="ContactBody-{{ section.id }}">
+                    {{ section.settings.message_label }}
+                    <textarea
+                      id="ContactBody-{{ section.id }}"
+                      class="form-control"
+                      name="contact[body]"
+                      rows="5"
+                      required>{{ form.body }}</textarea>
+                  </label>
+                </li>
+                <li class="col-sm-12 no-margin">
+                  <button type="submit" class="btn-round">{{ section.settings.button_label }}</button>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-md-4">
+              <div class="contact-info">
+                {% if section.settings.info_title != blank %}
+                  <h5>{{ section.settings.info_title }}</h5>
+                {% endif %}
+
+                {% if section.settings.info_text != blank %}
+                  <p>{{ section.settings.info_text }}</p>
+                {% endif %}
+
+                <hr>
+
+                {% if section.settings.address != blank %}
+                  <h6>{{ section.settings.address_heading }}</h6>
+                  <p>{{ section.settings.address | newline_to_br }}</p>
+                {% endif %}
+
+                {% if section.settings.phone_primary != blank or section.settings.phone_secondary != blank %}
+                  <h6>{{ section.settings.phone_heading }}</h6>
+                  {% if section.settings.phone_primary != blank %}
+                    <p>{{ section.settings.phone_primary }}</p>
+                  {% endif %}
+                  {% if section.settings.phone_secondary != blank %}
+                    <p>{{ section.settings.phone_secondary }}</p>
+                  {% endif %}
+                {% endif %}
+
+                {% if section.settings.email_primary != blank or section.settings.email_secondary != blank %}
+                  <h6>{{ section.settings.email_heading }}</h6>
+                  {% if section.settings.email_primary != blank %}
+                    <p>{{ section.settings.email_primary }}</p>
+                  {% endif %}
+                  {% if section.settings.email_secondary != blank %}
+                    <p>{{ section.settings.email_secondary }}</p>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .contact-page-section .map-wrapper {
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
+  .contact-page-section .map-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 350px;
+    border: 0;
+    display: block;
+  }
+
+  .contact-page-section .heading {
+    margin-bottom: 20px;
+  }
+
+  .contact-page-section .heading h2 {
+    margin: 0;
+  }
+
+  .contact-page-section__intro {
+    margin-bottom: 24px;
+    color: #555555;
+  }
+
+  .contact-page-section__message {
+    margin-bottom: 24px;
+    padding: 16px 18px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .contact-page-section__message--success {
+    border: 1px solid #abd0a8;
+    background: #f6fbf5;
+    color: #2e6b2e;
+  }
+
+  .contact-page-section__message--error {
+    border: 1px solid #e0b4b4;
+    background: #fff6f6;
+    color: #9f3a38;
+  }
+
+  .contact-page-section__message--error ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  .contact-page-section #contact_form {
+    text-align: left;
+  }
+
+  .contact-page-section #contact_form li label {
+    color: #323131;
+    font-weight: 500;
+    text-transform: none;
+    text-align: left;
+    font-size: 15px;
+  }
+
+  .contact-page-section #contact_form li .form-control {
+    background: #eaeaea;
+    color: #323131;
+    margin-top: 10px;
+    border-radius: 4px;
+  }
+
+  .contact-page-section #contact_form li input.form-control {
+    height: 40px;
+  }
+
+  .contact-page-section #contact_form li textarea.form-control {
+    min-height: 170px;
+    padding-top: 14px;
+    color: #323131;
+    resize: vertical;
+  }
+
+  .contact-page-section .contact-form button {
+    float: none;
+  }
+
+  @media screen and (max-width: 991px) {
+    .contact-page-section .contact-info {
+      margin-top: 30px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Contact Form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "home_label",
+      "label": "Breadcrumb home label",
+      "default": "Home"
+    },
+    {
+      "type": "text",
+      "id": "breadcrumb_label",
+      "label": "Fallback page label",
+      "default": "Contact"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_page_content",
+      "label": "Show page content above form",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form heading",
+      "default": "Do You have a Question for Us ?"
+    },
+    {
+      "type": "text",
+      "id": "name_label",
+      "label": "Full name label",
+      "default": "Full Name"
+    },
+    {
+      "type": "text",
+      "id": "first_name_label",
+      "label": "First name label",
+      "default": "First Name"
+    },
+    {
+      "type": "text",
+      "id": "last_name_label",
+      "label": "Last name label",
+      "default": "Last Name"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email label",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "phone_label",
+      "label": "Phone label",
+      "default": "Phone"
+    },
+    {
+      "type": "text",
+      "id": "message_label",
+      "label": "Message label",
+      "default": "Message"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Send Message"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thanks for contacting us. We will reply soon."
+    },
+    {
+      "type": "text",
+      "id": "map_label",
+      "label": "Map label",
+      "default": "Store map"
+    },
+    {
+      "type": "url",
+      "id": "map_embed_url",
+      "label": "Map embed URL"
+    },
+    {
+      "type": "text",
+      "id": "info_title",
+      "label": "Info title",
+      "default": "SmartTech"
+    },
+    {
+      "type": "textarea",
+      "id": "info_text",
+      "label": "Info text",
+      "default": "The most powerful PSD for Digital & Electronic!"
+    },
+    {
+      "type": "text",
+      "id": "address_heading",
+      "label": "Address heading",
+      "default": "Address:"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address",
+      "default": "45 Grand Central Terminal New York, NY 1017\nUnited State USA"
+    },
+    {
+      "type": "text",
+      "id": "phone_heading",
+      "label": "Phone heading",
+      "default": "Phone:"
+    },
+    {
+      "type": "text",
+      "id": "phone_primary",
+      "label": "Primary phone",
+      "default": "(+100) 123 456 7890"
+    },
+    {
+      "type": "text",
+      "id": "phone_secondary",
+      "label": "Secondary phone",
+      "default": "(+100) 987 654 3210"
+    },
+    {
+      "type": "text",
+      "id": "email_heading",
+      "label": "Email heading",
+      "default": "Email:"
+    },
+    {
+      "type": "text",
+      "id": "email_primary",
+      "label": "Primary email",
+      "default": "Support@smarttech.com"
+    },
+    {
+      "type": "text",
+      "id": "email_secondary",
+      "label": "Secondary email",
+      "default": "Support24/7@smarttech.com"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Form"
+    }
+  ]
+}
+{% endschema %}

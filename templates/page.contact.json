@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "template-page",
+      "type": "contact-form",
       "settings": {}
     }
   },
