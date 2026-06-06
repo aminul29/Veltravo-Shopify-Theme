@@ -24,12 +24,7 @@
     <div class="row">
       <div class="col-md-4">
         <h4>Contact SmartTech!</h4>
-        {% if contact_text != blank %}
-          <div class="contact-copy rte">{{ contact_text }}</div>
-        {% else %}
-          <p>Address: 45 Grand Central Terminal New York, NY 1017 United State USA</p>
-        {% endif %}
-       <p>Email: {{ contact_email | default: 'Support@smarttech.com' | escape }}</p>
+          <p>Email: {{ contact_email | default: 'Support@smarttech.com' | escape }}</p>
         <div class="social-links">
           <a href="{{ settings.social_facebook | default: '#' }}" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
           <a href="{{ settings.social_x | default: '#' }}" aria-label="X"><i class="fa fa-twitter"></i></a>
