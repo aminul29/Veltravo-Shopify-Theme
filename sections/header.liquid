@@ -108,10 +108,7 @@
       </a>
     </div>
     <div class="go-right">
-      <span class="call-mun"{% if hotline_block != blank %} {{ hotline_block.shopify_attributes }}{% endif %}><i class="fa fa-phone"></i> <strong>{{ header_hotline_label }}:</strong><br>
-      {{ header_hotline_text }}</span>
-
-      <!-- search -->
+       <!-- search -->
       <div class="search-cate"{% if search_block != blank %} {{ search_block.shopify_attributes }}{% endif %}>
         <form action="{{ routes.search_url }}" method="get" role="search">
           <select class="selectpicker" aria-label="Search category">
