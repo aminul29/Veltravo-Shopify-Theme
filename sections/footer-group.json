@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "Footer group",
@@ -5,6 +14,14 @@
     "footer": {
       "type": "footer",
       "settings": {
+        "top_links_menu": "",
+        "categories_menu": "",
+        "services_menu": "",
+        "information_menu": "",
+        "contact_text": "<p>Address: 45 Grand Central Terminal New York, NY 1017 United State USA</p>",
+        "contact_phone": "",
+        "contact_email": "Support@smarttech.com",
+        "footer_text": "Copyright © 2017 SmartTech HTML5 template. All rights reserved",
         "show_payment_icons": true
       }
     }
