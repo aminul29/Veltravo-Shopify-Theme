@@ -7,10 +7,7 @@
   assign contact_email = section.settings.contact_email
   assign contact_text = section.settings.contact_text
   assign footer_text = section.settings.footer_text
-  if contact_phone == blank and settings.hotline_text != blank
-    assign contact_phone = settings.hotline_text
-  endif
--%}
+  -%}
 
 <footer>
   <div class="container">
