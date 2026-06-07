@@ -11,6 +11,36 @@
   "type": "footer",
   "name": "Footer group",
   "sections": {
+    "contact_form_i9dCxM": {
+      "type": "contact-form",
+      "name": "Contact Form",
+      "settings": {
+        "home_label": "Home",
+        "breadcrumb_label": "Contact",
+        "show_page_content": true,
+        "form_heading": "Do You have a Question for Us ?",
+        "name_label": "Full Name",
+        "first_name_label": "First Name",
+        "last_name_label": "Last Name",
+        "email_label": "Email",
+        "phone_label": "Phone",
+        "message_label": "Message",
+        "button_label": "Send Message",
+        "success_message": "Thanks for contacting us. We will reply soon.",
+        "map_label": "Store map",
+        "map_embed_url": "",
+        "info_title": "Veltravo",
+        "info_text": "The most powerful PSD for Digital & Electronic!",
+        "address_heading": "",
+        "address": "",
+        "phone_heading": "",
+        "phone_primary": "",
+        "phone_secondary": "",
+        "email_heading": "Email:",
+        "email_primary": "support@shopveltravo.com",
+        "email_secondary": "Support24/7@smarttech.com"
+      }
+    },
     "footer": {
       "type": "footer",
       "settings": {
@@ -27,6 +57,7 @@
     }
   },
   "order": [
+    "contact_form_i9dCxM",
     "footer"
   ]
 }
