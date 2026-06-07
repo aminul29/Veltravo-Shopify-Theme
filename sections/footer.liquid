@@ -1,6 +1,6 @@
 {%- liquid
   assign top_links_menu = section.settings.top_links_menu
-  assign company_menu = section.settings.company_menu
+  assign categories_menu = section.settings.categories_menu
   assign services_menu = section.settings.services_menu
   assign information_menu = section.settings.information_menu
   assign contact_phone = section.settings.contact_phone
@@ -36,10 +36,10 @@
       </div>
 
       <div class="col-md-3">
-        <h4>Company</h4>
+        <h4>Categories</h4>
         <ul class="links-footer">
-          {% if company_menu != blank and company_menu.links.size > 0 %}
-            {% for link in company_menu.links %}
+          {% if categories_menu != blank and categories_menu.links.size > 0 %}
+            {% for link in categories_menu.links %}
               <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
             {% endfor %}
           {% endif %}
