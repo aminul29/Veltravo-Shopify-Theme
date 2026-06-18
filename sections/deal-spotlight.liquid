@@ -78,9 +78,6 @@ Slim Con 8GB</a>
                 if tag_text == blank and deal_product != blank
                   assign tag_text = deal_product.type | default: deal_product.vendor
                 endif
-                if tag_text == blank
-                  assign tag_text = 'Desk & Laptop'
-                endif
               -%}
               <div class="weekly-deal" {{ block.shopify_attributes }}>
                 <div class="media-left">
@@ -177,14 +174,7 @@ Slim Con 8GB</a>
                   <div class="col-sm-6"><span class="price">$480.00 <small>$780.00</small></span></div>
                   <div class="col-sm-6 margin-top-10"><p>Availability: <span class="in-stock">In stock</span></p></div>
                 </div>
-                <ul>
-                  <li>Screen: 1920 x 1080 pixels</li>
-                  <li>Processor: 2.5 GHz None</li>
-                  <li>RAM: 8 GB</li>
-                  <li>Hard Drive: Flash memory solid state</li>
-                  <li>Graphics : Intel HD Graphics 520 Integrated</li>
-                </ul>
-                <a href="#." class="btn-round">Add to Cart</a> </div>
+                  <a href="#." class="btn-round">Add to Cart</a> </div>
             </div>
           {% endif %}
         </div>
