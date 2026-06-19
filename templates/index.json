@@ -43,13 +43,14 @@
           "type": "promo_tile",
           "settings": {
             "tile_variant": "regular",
-            "subtitle": "New line required",
-            "title": "Z68 Web Camera",
+            "subtitle": "Transform Any Room",
+            "title": "GalaxyGlow™ Star Projector",
             "price": "$85.00",
+            "tile_background_image": "shopify://shop_images/b20d8faa-1646-44bf-a181-b4f20f7bb5d1.jpg",
             "highlight": "Sale!",
             "body_text": "Saving up to 50% off all online store items this week.",
             "button_label": "Shop now",
-            "link": ""
+            "link": "shopify://products/star-projector-lamp"
           }
         },
         "promo_tile_tTapLh": {
