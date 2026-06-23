@@ -11,6 +11,9 @@
   "current": {
     "color_background": "#111827",
     "color_surface": "#111827",
+    "color_text": "#FFFFFF",
+    "hotline_label": "",
+    "hotline_text": "",
     "content_for_index": [],
     "blocks": {
       "6588702529468458379": {
