@@ -10,7 +10,7 @@
 {
   "current": {
     "color_background": "#111827",
-    "color_surface": "#111827",
+    "color_surface": "{{ shop.brand.colors.primary[0].background }}",
     "color_text": "#FFFFFF",
     "hotline_label": "",
     "hotline_text": "",

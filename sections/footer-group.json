@@ -38,7 +38,7 @@
         "phone_secondary": "",
         "email_heading": "Email:",
         "email_primary": "support@shopveltravo.com",
-        "email_secondary": "Support24/7@smarttech.com"
+        "email_secondary": ""
       }
     },
     "footer": {
@@ -46,7 +46,7 @@
       "settings": {
         "top_links_menu": "",
         "categories_menu": "company",
-        "services_menu": "",
+        "services_menu": "policies",
         "information_menu": "",
         "contact_text": "",
         "contact_phone": "",
