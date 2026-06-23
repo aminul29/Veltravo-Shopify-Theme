@@ -9,7 +9,8 @@
  */
 {
   "current": {
-    "color_background": "#D4D4D4",
+    "color_background": "#111827",
+    "color_surface": "#111827",
     "content_for_index": [],
     "blocks": {
       "6588702529468458379": {
