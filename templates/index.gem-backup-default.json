@@ -1,0 +1,293 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slid_sec": {
+      "type": "home-hero-merchandising",
+      "settings": {
+        "categories_menu": "",
+        "merch_collection": "smart-beauty",
+        "products_to_show": 3,
+        "slider_autoplay": false,
+        "slider_delay_seconds": 9,
+        "show_arrows": true,
+        "show_bullets": true,
+        "slider_height": 500,
+        "overlay_color": "#000000",
+        "overlay_opacity": 55,
+        "pretitle_color": "#f5f5f5",
+        "pretitle_size": 26,
+        "title_color": "#22c961",
+        "title_size": 32,
+        "price_color": "#ffffff",
+        "price_size": 36,
+        "button_bg_color": "#22c961",
+        "button_text_color": "#ffffff",
+        "button_bg_hover_color": "#111111",
+        "button_text_hover_color": "#ffffff",
+        "button_radius": 30,
+        "button_label": "Shop Now"
+      }
+    },
+    "banner": {
+      "type": "promo-tile-row",
+      "blocks": {
+        "promo_tile_k48JRU": {
+          "type": "promo_tile",
+          "settings": {
+            "tile_variant": "regular",
+            "subtitle": "Beauty That Defies Gravity",
+            "title": "EternaGlow™ Magnetic Levitation Flower Lamp",
+            "price": "$85.00",
+            "tile_background_image": "shopify:\/\/shop_images\/28a12f06-be5d-432a-a0e7-3d3fb5b1a801.jpg",
+            "highlight": "Sale!",
+            "body_text": "Saving up to 50% off all online store items this week.",
+            "button_label": "Shop now",
+            "link": "shopify:\/\/products\/eternaglow-magnetic-levitation-flower-lamp-floating-eternal-rose-display"
+          }
+        },
+        "promo_tile_tTapLh": {
+          "type": "promo_tile",
+          "settings": {
+            "tile_variant": "regular",
+            "subtitle": "Healthier Hair Starts Here",
+            "title": "MistFlow™ Hair Massage Comb",
+            "price": "$35.99",
+            "tile_background_image": "shopify:\/\/shop_images\/82524191-39df-4814-8731-81ad519c380a.jpg",
+            "highlight": "Sale!",
+            "body_text": "Saving up to 50% off all online store items this week.",
+            "button_label": "Shop now",
+            "link": "shopify:\/\/products\/electric-spray-massage-hair-comb-rechargeable-scalp-care-hair-growth-brush"
+          }
+        },
+        "promo_tile_xNFgbm": {
+          "type": "promo_tile",
+          "settings": {
+            "tile_variant": "regular",
+            "subtitle": "Faith Meets Innovation",
+            "title": "LeviGlow™ Magnetic Levitation Cross Lamp",
+            "price": "$85.00",
+            "tile_background_image": "shopify:\/\/shop_images\/02ab6173-a944-4a0a-b90f-10971ace52e3.jpg",
+            "highlight": "Sale!",
+            "body_text": "Saving up to 50% off all online store items this week.",
+            "button_label": "Shop now",
+            "link": "shopify:\/\/products\/leviglow-magnetic-levitation-cross-lamp-floating-light-of-faith-inspiration"
+          }
+        }
+      },
+      "block_order": [
+        "promo_tile_k48JRU",
+        "promo_tile_tTapLh",
+        "promo_tile_xNFgbm"
+      ],
+      "settings": {}
+    },
+    "hot_deal": {
+      "type": "deal-spotlight",
+      "blocks": {
+        "deal_ih68fL": {
+          "type": "deal",
+          "settings": {
+            "product": "null-1774711325656",
+            "tag": "Desk & Laptop",
+            "fallback_title": "Laptop Alienware 15” i7 Perfect For Gamer",
+            "feature_1": "Screen: 1920 x 1080 pixels",
+            "feature_2": "Processor: 2.5 GHz None",
+            "feature_3": "RAM: 8 GB",
+            "feature_4": "Hard Drive: Flash memory solid state",
+            "feature_5": "Graphics : Intel HD Graphics 520 Integrated",
+            "button_label": "Add to Cart"
+          }
+        },
+        "deal_X7UxXc": {
+          "type": "deal",
+          "settings": {
+            "product": "null-1773099079761",
+            "tag": "Desk & Laptop",
+            "fallback_title": "",
+            "feature_1": "",
+            "feature_2": "",
+            "feature_3": "",
+            "feature_4": "",
+            "feature_5": "",
+            "button_label": "Add to Cart"
+          }
+        },
+        "deal_JTDBrB": {
+          "type": "deal",
+          "settings": {
+            "product": "null-1774445536059",
+            "tag": "Desk & Laptop",
+            "fallback_title": "Laptop Alienware 15” i7 Perfect For Gamer",
+            "feature_1": "",
+            "feature_2": "",
+            "feature_3": "",
+            "feature_4": "",
+            "feature_5": "",
+            "button_label": "Add to Cart"
+          }
+        },
+        "deal_bzLpHB": {
+          "type": "deal",
+          "settings": {
+            "product": "null-1774712575131",
+            "tag": "Desk & Laptop",
+            "fallback_title": "",
+            "feature_1": "",
+            "feature_2": "",
+            "feature_3": "",
+            "feature_4": "",
+            "feature_5": "",
+            "button_label": "Add to Cart"
+          }
+        }
+      },
+      "block_order": [
+        "deal_ih68fL",
+        "deal_X7UxXc",
+        "deal_JTDBrB",
+        "deal_bzLpHB"
+      ],
+      "settings": {
+        "popular_heading": "Popular items",
+        "deal_heading": "Hot Deal Of the Week",
+        "popular_collection": "car-accessories-1",
+        "popular_products_limit": 3,
+        "view_more_label": "View more"
+      }
+    },
+    "tab_section": {
+      "type": "featured-collection-tabs",
+      "settings": {
+        "featured_tab_label": "Featured",
+        "special_tab_label": "Special",
+        "onsale_tab_label": "Onsale",
+        "featured_collection": "best-sellers",
+        "special_collection": "home-essentials",
+        "onsale_collection": "kitchen-essentials",
+        "featured_products_limit": 8,
+        "special_products_limit": 4,
+        "onsale_products_limit": 4
+      }
+    },
+    "featured_categories": {
+      "type": "featured-categories-grid",
+      "blocks": {
+        "category_Xi7Kip": {
+          "type": "category",
+          "settings": {
+            "title": "",
+            "collection": "",
+            "menu": "",
+            "link": ""
+          }
+        },
+        "category_ghGnwr": {
+          "type": "category",
+          "settings": {
+            "title": "",
+            "collection": "",
+            "menu": "",
+            "link": ""
+          }
+        },
+        "category_AbtkHH": {
+          "type": "category",
+          "settings": {
+            "title": "",
+            "collection": "",
+            "menu": "",
+            "link": ""
+          }
+        },
+        "category_K74fPP": {
+          "type": "category",
+          "settings": {
+            "title": "",
+            "collection": "",
+            "menu": "",
+            "link": ""
+          }
+        },
+        "category_wkfYFU": {
+          "type": "category",
+          "settings": {
+            "title": "",
+            "collection": "",
+            "menu": "",
+            "link": ""
+          }
+        },
+        "category_hRNw3i": {
+          "type": "category",
+          "settings": {
+            "title": "",
+            "collection": "",
+            "menu": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_Xi7Kip",
+        "category_ghGnwr",
+        "category_AbtkHH",
+        "category_K74fPP",
+        "category_wkfYFU",
+        "category_hRNw3i"
+      ],
+      "settings": {
+        "heading": "Featured Categories"
+      }
+    },
+    "top_selling_week": {
+      "type": "top-selling-showcase",
+      "settings": {
+        "heading": "Top Selling of the Week",
+        "collection": "home-essentials",
+        "featured_product": "null-1774569870590",
+        "products_limit": 4,
+        "featured_media_limit": 4
+      }
+    },
+    "blog": {
+      "type": "featured-blog",
+      "settings": {
+        "heading": "From our Blog",
+        "blog": "news",
+        "posts_to_show": 3
+      }
+    },
+    "shipping_info": {
+      "type": "store-benefits",
+      "settings": {}
+    },
+    "newslatter": {
+      "type": "newsletter-signup",
+      "settings": {
+        "heading": "Subscribe our Newsletter",
+        "subheading": "Get <strong>25% Off<\/strong> first purchase!",
+        "placeholder": "Your email address here...",
+        "button_label": "Subscribe!"
+      }
+    }
+  },
+  "order": [
+    "slid_sec",
+    "banner",
+    "hot_deal",
+    "tab_section",
+    "featured_categories",
+    "top_selling_week",
+    "blog",
+    "shipping_info",
+    "newslatter"
+  ]
+}
