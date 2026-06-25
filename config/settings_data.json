@@ -16,6 +16,11 @@
     "hotline_text": "",
     "content_for_index": [],
     "blocks": {
+      "625607185052730221": {
+        "type": "shopify://apps//blocks/embed-gp-script-head/20b379d4-1b20-474c-a6ca-665c331919f3",
+        "disabled": false,
+        "settings": {}
+      },
       "6588702529468458379": {
         "type": "shopify://apps/ecomposer-builder/blocks/app-embed/a0fc26e1-7741-4773-8b27-39389b4fb4a0",
         "disabled": false,
@@ -52,5 +57,6 @@
         }
       }
     }
-  }
+  },
+  "presets": null
 }
