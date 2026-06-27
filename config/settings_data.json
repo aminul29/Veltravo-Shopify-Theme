@@ -55,6 +55,11 @@
           "custom_switcher_background_color": "#ffffff",
           "custom_switcher_border_color": "#000000"
         }
+      },
+      "pagefly-page-builder": {
+        "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
