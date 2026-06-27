@@ -93,6 +93,8 @@
   {%- capture ecom_header_content -%}{%- render 'ecom_header', ECOM_THEME: true -%}{%- endcapture -%}{%- unless ecom_header_content contains 'Liquid error' -%}{{ ecom_header_content }}{%- endunless -%}
    {{ content_for_header }}
 
+
+  {% render 'shogun-head' %}
 </head>
 
 <body class="template-{{ template | split: '.' | first }}">

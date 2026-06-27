@@ -60,6 +60,8 @@
         --type-scale: {{ settings.type_scale | default: 100 | divided_by: 100.0 }};
       }
     {% endstyle %}
-  </head>
+  
+  {% render 'shogun-head' %}
+</head>
   <body>{{ content_for_layout }}</body>
 </html>

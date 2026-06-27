@@ -67,7 +67,9 @@
         --type-scale: {{ settings.type_scale | default: 100 | divided_by: 100.0 }};
       }
     {% endstyle %}
-  </head>
+  
+  {% render 'shogun-head' %}
+</head>
   <body>
 <div class="gem-container">
 	{{ content_for_layout }}
