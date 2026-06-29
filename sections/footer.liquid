@@ -152,6 +152,27 @@ font-weight:700;
     line-height:1.8;
 }
 
+.footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:50px;
+    max-width:1200px;
+    margin:0 auto;
+}
+
+.footer-column{
+    min-width:0;
+}
+
+@media(max-width:768px){
+
+.footer-grid{
+grid-template-columns:1fr;
+gap:35px;
+}
+
+}
+
   .foot-link {
     border-bottom: 1px solid #111827;
     margin-bottom: 30px;
