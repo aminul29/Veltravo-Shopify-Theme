@@ -34,7 +34,6 @@ We deliver premium products with secure payments and worldwide shipping.</p>
           <a href="{{ settings.social_pinterest | default: '#' }}" aria-label="Pinterest"><i class="fa fa-pinterest"></i></a>
           <a href="{{ settings.social_instagram | default: '#' }}" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
           <a href="{{ settings.social_google | default: '#' }}" aria-label="Google"><i class="fa fa-google"></i></a>
-          <a href="{{ settings.social_tiktok | default: '#' }}" aria-label="Tiktok"><i class="fa fa-tiktok"></i></a>
         </div>
       </div>
 
@@ -199,12 +198,22 @@ footer .row > div{
   }
 
   .social-links {
-    margin-top: 30px;
+    display:flex;
+    gap:18px;
+    margin-top:25px;
   }
 
   .social-links a{
-color:white;
-font-size:22px;
+ width:42px;
+    height:42px;
+    border:1px solid rgba(255,255,255,.25);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:18px;
+    transition:.3s;
 }
 
   .links-footer {
@@ -222,8 +231,9 @@ transition:.3s;
 }
 
 .links-footer a:hover{
-color:#2ECC71;
-padding-left:6px;
+ background:#2ECC71;
+    border-color:#2ECC71;
+    color:#fff;
 }
 
   .contact-copy > *:first-child {
