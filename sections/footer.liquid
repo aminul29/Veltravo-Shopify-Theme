@@ -152,6 +152,14 @@ We deliver premium products with secure payments and worldwide shipping.</p>
     line-height:1.8;
 }
 
+footer strong{
+    color:#FFFFFF;
+}
+
+footer p strong + *{
+    color:#F1F5F9;
+}
+
 .footer-grid{
     display:grid;
     grid-template-columns:2fr 1fr 1fr 1fr;
@@ -189,6 +197,12 @@ gap:35px;
     margin-right: 20px;
   }
 
+  .links-footer a{
+    color:#F8FAFC;
+    text-decoration:none;
+    transition:.3s;
+    font-weight:500;
+}
   .foot-link li a {
     display: inline-block;
     padding: 15px 0;
@@ -263,8 +277,10 @@ footer .row > div{
 }
 
 .links-footer a:hover{
-      color:#2ECC71;
-    padding-left:8px;
+    color:#2ECC71;
+    background:none;
+    transform:translateX(5px);
+}
 }
 
   .contact-copy > *:first-child {
@@ -327,6 +343,8 @@ align-items:center;
     background:#111827;
     border-top:1px solid rgba(255,255,255,.08);
     border-bottom:1px solid rgba(255,255,255,.08);
+      color:#FFFFFF;
+    font-weight:700;
 }
 
 .trust-bar span{
@@ -426,6 +444,10 @@ align-items:center;
     .rights {
       text-align: center;
     }
+
+    .rights p{
+    color:#F8FAFC;
+}
 
     .rights .text-right {
       margin-top: 20px;
