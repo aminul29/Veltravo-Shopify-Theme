@@ -184,8 +184,9 @@
           "type": "category",
           "settings": {
             "title": "",
-            "collection": "",
+            "collection": "smart-beauty",
             "menu": "",
+            "image": "shopify://shop_images/5b6f9838-eaaa-40f8-9cd0-da1f6de29f97.png",
             "link": ""
           }
         },
@@ -193,7 +194,7 @@
           "type": "category",
           "settings": {
             "title": "",
-            "collection": "",
+            "collection": "car-accessories-1",
             "menu": "",
             "link": ""
           }
@@ -202,7 +203,7 @@
           "type": "category",
           "settings": {
             "title": "",
-            "collection": "",
+            "collection": "best-seller",
             "menu": "",
             "link": ""
           }
@@ -211,7 +212,7 @@
           "type": "category",
           "settings": {
             "title": "",
-            "collection": "",
+            "collection": "home-essentials",
             "menu": "",
             "link": ""
           }
@@ -220,8 +221,9 @@
           "type": "category",
           "settings": {
             "title": "",
-            "collection": "",
+            "collection": "kitchen-essentials",
             "menu": "",
+            "image": "shopify://shop_images/82524191-39df-4814-8731-81ad519c380a.jpg",
             "link": ""
           }
         },
@@ -229,8 +231,9 @@
           "type": "category",
           "settings": {
             "title": "",
-            "collection": "",
+            "collection": "smart-living-copy",
             "menu": "",
+            "image": "shopify://shop_images/6fdf653e-4929-4232-ba56-bd05953fca4f.jpg",
             "link": ""
           }
         }
