@@ -101,17 +101,17 @@ We deliver premium products with secure payments and worldwide shipping.</p>
     <span>🔒 Secure Checkout</span>
     <span>💬 24/7 Support</span>
 </div>
-<div class="rights">
+<div class="rights-inner">
   <div class="container">
     <div class="row">
-      <div class="col-sm-6">
+      <div class="rights-left">
         {% if footer_text != blank %}
           <p>{{ footer_text }}</p>
         {% else %}
           <p>© 2026 Veltravo. All Rights Reserved.</p>
         {% endif %}
       </div>
-      <div class="col-sm-6 text-right">
+      <div class="rights-right">
         <div class="rights__payments">
     <img src="https://cdn.shopify.com/s/files/1/0991/0049/2066/files/2018-PaynowTopup-badge-RGB_1.png?v=1782170901"
          alt="Secure Payment Methods"
@@ -307,6 +307,22 @@ justify-content:space-between;
  min-height:95px;
 }
 
+.rights-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
+}
+
+.rights-left{
+    flex:1;
+}
+
+.rights-right{
+    display:flex;
+    justify-content:flex-end;
+}
+
 .rights .container{
     display:flex;
     justify-content:space-between;
@@ -331,7 +347,7 @@ justify-content:space-between;
      display:flex;
     justify-content:flex-end;
     align-items:center;
-    margin-left:auto;
+     margin-left:auto !important;
     gap: 0.4rem;
   }
 
