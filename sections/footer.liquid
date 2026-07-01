@@ -308,21 +308,29 @@ justify-content:space-between;
 }
 
 .rights-inner{
-  background:#111827;
-color:#d1d5db;
-    display:flex;
+  display:flex;
     justify-content:space-between;
-    align-items:center;
+    align-items:center;   /* Vertical alignment */
     width:100%;
+    min-height:70px;
 }
 
 .rights-left{
     flex:1;
+    display:flex;
+    align-items:center;
+}
+
+.rights-left p{
+    margin:0;
+    line-height:1;
 }
 
 .rights-right{
+    flex:1;
     display:flex;
     justify-content:flex-end;
+    align-items:center;
 }
 
 .rights .container{
