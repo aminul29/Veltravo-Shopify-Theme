@@ -20,22 +20,25 @@
         {% endif %}
       </ul>
     </div>
-
-    <div class="row">
-      <div class="col-md-4">
-        <h4>Contact Veltravo!</h4>
-          <p>Email: {{ contact_email | default: 'Support@smarttech.com' | escape }}</p>
+    <div class="footer-grid">
+      <div class="footer-column">
+        <h4>About Veltravo!</h4>
+         <p>Veltravo brings you innovative gadgets and smart home solutions designed to make everyday life easier.
+We deliver premium products with secure payments and worldwide shipping.</p>
+<p>
+<strong>Email:</strong> {{ contact_email }}
+</p> 
         <div class="social-links">
-          <a href="{{ settings.social_facebook | default: '#' }}" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
-          <a href="{{ settings.social_x | default: '#' }}" aria-label="X"><i class="fa fa-twitter"></i></a>
-          <a href="{{ settings.social_pinterest | default: '#' }}" aria-label="Pinterest"><i class="fa fa-pinterest"></i></a>
-          <a href="{{ settings.social_instagram | default: '#' }}" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
-          <a href="{{ settings.social_google | default: '#' }}" aria-label="Google"><i class="fa fa-google"></i></a>
+          <a href="{{ settings.social_facebook | default: '#' }}" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.tiktok.com/@yourusername" aria-label="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/YOURUSERNAME" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+           <a href="https://www.youtube.com/@YOURCHANNEL" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="{{ settings.social_google | default: '#' }}" aria-label="Google"><i class="fa-brands fa-google"></i></a>
         </div>
       </div>
 
-      <div class="col-md-3">
-        <h4>Company</h4>
+      <div class="footer-column">
+        <h4>Quick Links</h4>
         <ul class="links-footer">
           {% if categories_menu != blank and categories_menu.links.size > 0 %}
             {% for link in categories_menu.links %}
@@ -45,8 +48,8 @@
         </ul>
       </div>
 
-      <div class="col-md-3">
-        <h4>Policies</h4>
+      <div class="footer-column">
+        <h4>Customer Care</h4>
         <ul class="links-footer">
           {% if services_menu != blank and services_menu.links.size > 0 %}
             {% for link in services_menu.links %}
@@ -68,8 +71,8 @@
         </ul>
       </div>
 
-      <div class="col-md-2">
-        <h4>Information</h4>
+      <div class="footer-column">
+        <h4>Explore</h4>
         <ul class="links-footer">
           {% if information_menu != blank and information_menu.links.size > 0 %}
             {% for link in information_menu.links %}
@@ -78,10 +81,6 @@
           {% else %}
             <li><a href="{{ routes.all_products_collection_url }}">Shop</a></li>
             <li><a href="{{ routes.collections_url }}">Collections</a></li>
-            <li><a href="/pages/contact">Contact</a></li>
-            {% if shop.privacy_policy != blank %}
-              <li><a href="{{ shop.privacy_policy.url }}">Privacy policy</a></li>
-            {% endif %}
             {% if shop.refund_policy != blank %}
               <li><a href="{{ shop.refund_policy.url }}">Refund policy</a></li>
             {% endif %}
@@ -97,25 +96,27 @@
     </div>
   </div>
 </footer>
-
-<div class="rights">
+<div class="trust-bar">
+    <span>🚚 Worldwide Shipping</span>
+    <span>🔒 Secure Checkout</span>
+    <span>💬 24/7 Support</span>
+</div>
+<div class="rights-inner">
   <div class="container">
     <div class="row">
-      <div class="col-sm-6">
+      <div class="rights-left">
         {% if footer_text != blank %}
           <p>{{ footer_text }}</p>
         {% else %}
-          <p>Copyright &copy; 2017 <a href="{{ routes.root_url }}" class="ri-li">SmartTech</a>HTML5 template. All rights reserved</p>
+          <p>© 2026 Veltravo. All Rights Reserved.</p>
         {% endif %}
       </div>
-      <div class="col-sm-6 text-right">
-        {% if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 %}
-          <div class="rights__payments" aria-label="Payment methods">
-            {% for type in shop.enabled_payment_types %}
-              {{ type | payment_type_svg_tag }}
-            {% endfor %}
-          </div>
-        {% endif %}
+      <div class="rights-right">
+        <div class="rights__payments">
+    <img src="https://cdn.shopify.com/s/files/1/0991/0049/2066/files/2018-PaynowTopup-badge-RGB_1.png?v=1782170901"
+         alt="Secure Payment Methods"
+         style="max-height:72px;width:auto;">
+</div>
       </div>
     </div>
   </div>
@@ -124,11 +125,10 @@
 <a href="#" class="cd-top" aria-label="Back to top"><i class="fa fa-angle-up"></i></a>
 
 {% stylesheet %}
-  footer {
-    padding: 0 0 50px;
-    background: #111827;
-    position: relative;
-  }
+ footer,
+.rights {
+    background: #0f172a !important;
+}
 
   #shopify-section-{{ section.id }} .container {
     width: calc(100% - 30px) !important;
@@ -136,25 +136,56 @@
     margin: 0 auto !important;
   }
 
-  footer h4 {
-    font-size: 20px;
-    margin: 0 0 20px;
-    font-weight: 500;
-  }
+  footer h4{
+ color:#FFFFFF;
+    font-size:30px;
+    font-weight:700;
+    margin-bottom:25px;
+}
 
-  footer p {
-    color: #555555;
-    margin-top: 0;
-  }
+  footer p{
+     color:#F1F5F9;
+    max-width:320px;
+    line-height:1.8;
+}
+
+footer strong{
+    color:#FFFFFF;
+}
+
+footer p strong + *{
+    color:#F1F5F9;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:50px;
+    max-width:1200px;
+    margin:0 auto;
+}
+
+.footer-column{
+    min-width:0;
+}
+
+@media(max-width:768px){
+
+.footer-grid{
+grid-template-columns:1fr;
+gap:35px;
+}
+
+}
 
   .foot-link {
     border-bottom: 1px solid #111827;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
   }
 
   .foot-link ul {
     margin: 0;
-    padding: 0;
+     padding: 60px 0 20px;
     list-style: none;
   }
 
@@ -163,18 +194,18 @@
     margin-right: 20px;
   }
 
+  .links-footer a{
+    color:#F8FAFC;
+    text-decoration:none;
+    transition:.3s;
+    font-weight:500;
+}
   .foot-link li a {
-    font-size: 14px;
     display: inline-block;
     padding: 15px 0;
-    color: #555555;
-  }
-
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: -15px;
-    margin-right: -15px;
+    color:#CBD5E1;
+    font-size:17px;
+    transition:.3s;
   }
 
   [class*="col-md-"],
@@ -185,35 +216,59 @@
     padding-right: 15px;
   }
 
-  .col-md-4 {
-    width: 33.333333%;
-  }
+  footer .row{
+    display:grid;
+     grid-template-columns:1fr;
+    gap:35px;
+    align-items:flex-start;
+}
 
-  .col-md-3 {
-    width: 25%;
-  }
-
-  .col-md-2 {
-    width: 16.666667%;
-  }
-
-  .col-sm-6 {
-    width: 50%;
-  }
+footer .row > div{
+    flex:1 1 220px;
+}
 
   .text-right {
     text-align: right;
   }
 
   .social-links {
-    margin-top: 30px;
+     display:flex;
+    gap:16px;
+    margin-top:30px;
   }
 
-  .social-links a {
-    margin-right: 20px;
-    font-size: 18px;
-    color: #111827;
-  }
+  .social-links a{
+    width:25px;
+    height:25px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+   background:#1E293B;
+    border:2px solid #334155;
+    border-radius:50%;
+    color:#FFFFFF;
+    font-size:22px;
+    transition:all .3s ease;
+    background:rgba(255,255,255,.05);
+}
+
+.social-links a i{
+    color:#FFFFFF !important;
+    opacity:1 !important;
+    font-size:22px;
+    font-weight:700;
+    text-shadow:0 0 1px rgba(255,255,255,.8);
+}
+
+.social-links a:hover{
+   background:#22C55E;
+    border-color:#22C55E;
+    transform:translateY(-3px);
+}
+
+.social-links a:hover i{
+    color:#FFFFFF !important;
+}
 
   .links-footer {
     margin: 0;
@@ -222,35 +277,66 @@
 
   .links-footer li {
     list-style: none;
+    margin-bottom:12px;
   }
 
-  .links-footer li a {
-    line-height: 30px;
-    display: inline-block;
-    width: 100%;
-    color: #555555;
-    font-weight: 500;
-  }
+  .links-footer a{
+  color:#E5E7EB;
+    transition:.3s;
+ text-decoration:none;
+}
 
-  .links-footer li a:hover {
-    padding-left: 5px;
-  }
+.links-footer a:hover{
+    color:#2ECC71;
+    background:none;
+    transform:translateX(5px);
+}
+}
 
   .contact-copy > *:first-child {
     margin-top: 0;
   }
 
-  .rights {
-    background: #111827;
-    padding: 20px 0 15px;
-  }
+ .rights{
+background:#111827;
+color:#d1d5db;
+padding:20px 0;
+display:flex;
+align-items:center;
+justify-content:space-between;
+ min-height:95px;
+}
 
-  .rights p {
-    margin-bottom: 0;
-    font-size: 14px;
-    margin-top: 8px;
-    align-items: center;
-  }
+.rights-inner{
+  background:#111827;
+color:#d1d5db;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
+}
+
+.rights-left{
+    flex:1;
+}
+
+.rights-right{
+    display:flex;
+    justify-content:flex-end;
+}
+
+.rights .container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
+}
+
+.rights p{
+     color:#F8FAFC;
+    font-size:15px;
+    margin:0;
+}
 
   .rights ul {
     text-align: right;
@@ -260,18 +346,45 @@
   }
 
   .rights__payments {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-end;
+     display:flex;
+    justify-content:flex-end;
+    align-items:center;
+     margin-left:auto !important;
     gap: 0.4rem;
-    color : #111827
   }
+
 
   .rights__payments svg {
     width: 42px;
     height: auto;
   }
+.payment-badges{
+display:flex;
+justify-content:flex-end;
+align-items:center;
+}
+
+.trust-bar{
+    display:flex;
+    justify-content:space-evenly;
+    align-items:center;
+    flex-wrap:wrap;
+    padding:24px 40px;
+    background:#111827;
+    border-top:1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid rgba(255,255,255,.08);
+      color:#FFFFFF;
+    font-weight:700;
+}
+
+.trust-bar span{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#fff;
+    font-size:18px;
+    font-weight:600;
+}
 
   .rights .text-right img {
     display: inline-block;
@@ -325,13 +438,6 @@
     color: #111827;
   }
 
-  @media screen and (max-width: 989px) {
-    .col-md-4,
-    .col-md-3,
-    .col-md-2 {
-      width: 50%;
-    }
-
     footer h4 {
       display: inline-block;
       width: 100%;
@@ -355,7 +461,7 @@
     .col-md-4,
     .col-md-3,
     .col-md-2,
-    .col-sm-6 {
+     .col-sm-6 {
       width: 100%;
       float: none;
     }
@@ -363,6 +469,7 @@
     footer h4 {
       margin-top: 20px;
       margin-bottom: 0;
+       color:#FFFFFF;
     }
 
     .rights {
@@ -376,6 +483,11 @@
 
     .rights .row {
       flex-direction: column;
+    display:flex !important;
+    justify-content:space-between !important;
+    align-items:center !important;
+    width:100% !important;
+    margin:0 !important;
     }
 
     .rights ul {
