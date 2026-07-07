@@ -308,56 +308,56 @@ justify-content:space-between;
 }
 
 .rights-inner{
-  background:#111827;
-color:#d1d5db;
+    background:#111827;
+    padding:20px 0;
+}
+
+.rights-inner .container{
     display:flex;
     justify-content:space-between;
     align-items:center;
     width:100%;
 }
 
+.rights-inner .row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
+    margin:0;
+}
+
 .rights-left{
     flex:1;
+    display:flex;
+    align-items:center;
+}
+
+.rights-left p{
+    margin:0;
+    color:#FFFFFF !important;
+    font-size:15px;
+    font-weight:500;
 }
 
 .rights-right{
     display:flex;
     justify-content:flex-end;
-}
-
-.rights .container{
-    display:flex;
-    justify-content:space-between;
     align-items:center;
-    width:100%;
+    flex-shrink:0;
 }
 
-.rights p{
-     color:#F8FAFC;
-    font-size:15px;
-    margin:0;
-}
-
-  .rights ul {
-    text-align: right;
-    margin-bottom: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .rights__payments {
-     display:flex;
+.rights__payments{
+    display:flex;
     justify-content:flex-end;
     align-items:center;
-     margin-left:auto !important;
-    gap: 0.4rem;
-  }
+}
 
-
-  .rights__payments svg {
-    width: 42px;
-    height: auto;
-  }
+.rights__payments img{
+    display:block;
+    max-height:72px;
+    width:auto;
+}
 .payment-badges{
 display:flex;
 justify-content:flex-end;
