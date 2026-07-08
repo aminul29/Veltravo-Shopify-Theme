@@ -9,6 +9,10 @@
  */
 {
   "sections": {
+    "17835256382d35352a": {
+      "type": "apps",
+      "settings": {}
+    },
     "slid_sec": {
       "type": "home-hero-merchandising",
       "settings": {
@@ -280,9 +284,14 @@
         "placeholder": "Your email address here...",
         "button_label": "Subscribe!"
       }
+    },
+    "1783525448bd8ab85d": {
+      "type": "apps",
+      "settings": {}
     }
   },
   "order": [
+    "17835256382d35352a",
     "slid_sec",
     "banner",
     "hot_deal",
@@ -291,6 +300,7 @@
     "top_selling_week",
     "blog",
     "shipping_info",
-    "newslatter"
+    "newslatter",
+    "1783525448bd8ab85d"
   ]
 }
