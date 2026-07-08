@@ -128,13 +128,13 @@
           "type": "deal",
           "settings": {
             "product": "null-1774445536059",
-            "tag": "Desk & Laptop",
-            "fallback_title": "Laptop Alienware 15” i7 Perfect For Gamer",
-            "feature_1": "",
-            "feature_2": "",
-            "feature_3": "",
-            "feature_4": "",
-            "feature_5": "",
+            "tag": "Car Essentials",
+            "fallback_title": "AromaDrive™ Car Diffuser",
+            "feature_1": "Freshens Your Car",
+            "feature_2": "USB Powered Design",
+            "feature_3": "Quiet Mist Technology",
+            "feature_4": "Elegant Ambient Light",
+            "feature_5": "Long-Lasting Fragrance",
             "button_label": "Add to Cart"
           }
         },
