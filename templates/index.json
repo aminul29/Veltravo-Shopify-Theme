@@ -114,13 +114,13 @@
           "type": "deal",
           "settings": {
             "product": "null-1773099079761",
-            "tag": "Desk & Laptop",
-            "fallback_title": "",
-            "feature_1": "",
-            "feature_2": "",
-            "feature_3": "",
-            "feature_4": "",
-            "feature_5": "",
+            "tag": "Room Lighting",
+            "fallback_title": "NebulaGlow™ Galaxy Projector Lamp",
+            "feature_1": "Stunning Galaxy Effects",
+            "feature_2": "Relaxing Night Light",
+            "feature_3": "Multiple Lighting Modes",
+            "feature_4": "Remote Control Included",
+            "feature_5": "Perfect for Bedrooms",
             "button_label": "Add to Cart"
           }
         },
