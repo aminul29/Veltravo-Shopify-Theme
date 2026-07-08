@@ -142,13 +142,13 @@
           "type": "deal",
           "settings": {
             "product": "null-1774712575131",
-            "tag": "Desk & Laptop",
-            "fallback_title": "",
-            "feature_1": "",
-            "feature_2": "",
-            "feature_3": "",
-            "feature_4": "",
-            "feature_5": "",
+            "tag": "Home Decor",
+            "fallback_title": "CrystalGlow™ Crystal Ball Lamp",
+            "feature_1": "Premium Crystal Design",
+            "feature_2": "Color-Changing LED Base",
+            "feature_3": "Stunning 3D Engraving",
+            "feature_4": "Elegant Room Decor",
+            "feature_5": "Perfect Gift Idea",
             "button_label": "Add to Cart"
           }
         }
