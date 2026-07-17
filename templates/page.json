@@ -11,7 +11,6 @@
   "sections": {
     "main": {
       "type": "template-page",
-      "disabled": true,
       "settings": {
         "enable_title": true
       }
