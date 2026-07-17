@@ -13,15 +13,6 @@
   "sections": {
     "17835289004dc57048": {
       "type": "apps",
-      "blocks": {
-        "vairo_countdown_timer_product_dJk3KY": {
-          "type": "shopify://apps/vairo/blocks/countdown-timer-product/3146741e-71a4-43d1-8174-2d896a33983f",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "vairo_countdown_timer_product_dJk3KY"
-      ],
       "settings": {}
     },
     "header": {
