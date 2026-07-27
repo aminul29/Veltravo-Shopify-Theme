@@ -1,187 +1,716 @@
-  {%- liquid
+{%- liquid
   assign popular_collection = section.settings.popular_collection
+  if popular_collection == blank or popular_collection.products_count == 0
+    assign popular_collection = collections['all']
+  endif
 -%}
 
-<!-- HOT DEAL -->
-<section class="padding-top-60 padding-bottom-60">
+<section class="creative-deal-spotlight">
   <div class="container">
-    <div class="row">
-      <div class="col-sm-3">
-        <div class="heading">
-          <h2>{{ section.settings.popular_heading }}</h2>
-          <hr>
-        </div>
-        <div class="shop-listing on-list">
-          {% if popular_collection != blank and popular_collection.products_count > 0 %}
-            {% for product in popular_collection.products limit: section.settings.popular_products_limit %}
-              <div class="media">
-                <div class="media-left">
-                  <a href="{{ product.url }}" class="avatar">
+    <div class="row deal-spotlight-row">
+      
+      <!-- Left Sidebar: Popular Items -->
+      <div class="col-md-4 col-lg-3">
+        <div class="popular-sidebar-card">
+          <div class="sidebar-head">
+            <div class="sidebar-badge">
+              <i class="fa-solid fa-fire text-danger"></i>
+              <span>{{ section.settings.popular_heading | default: 'Popular Items' }}</span>
+            </div>
+          </div>
+
+          <div class="popular-products-list">
+            {% if popular_collection != blank and popular_collection.products_count > 0 %}
+              {% for product in popular_collection.products limit: section.settings.popular_products_limit %}
+                <div class="popular-item-row">
+                  <a href="{{ product.url }}" class="popular-item-thumb">
                     {% if product.featured_image %}
-                      {{ product.featured_image | image_url: width: 160 | image_tag: class: 'img-responsive', alt: product.title, loading: 'lazy' }}
+                      {{ product.featured_image | image_url: width: 160 | image_tag: alt: product.title, loading: 'lazy' }}
                     {% else %}
-                      <img class="img-responsive" src="{{ 'item-img-1-1.jpg' | asset_url }}" alt="{{ product.title | escape }}">
+                      <img src="{{ 'item-img-1-1.jpg' | asset_url }}" alt="{{ product.title | escape }}" width="64" height="64">
                     {% endif %}
                   </a>
-                </div>
-                <div class="media-body">
-                  <a href="{{ product.url }}">{{ product.title | escape }}</a>
-                  <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>
-                  <span class="price">
-                    <b>{{ product.price | money }}</b>
-                    {% if product.compare_at_price > product.price %}
-                      <small>{{ product.compare_at_price | money }}</small>
-                    {% endif %}
-                  </span>
-                </div>
-              </div>
-            {% endfor %}
-          {% else %}
-            <div class="media">
-              <div class="media-left"> <a href="#." class="avatar"><img class="img-responsive" src="{{ 'item-img-1-1.jpg' | asset_url }}" alt=""></a> </div>
-              <div class="media-body"> <a href="#">Mp3 Sumergible Deportivo Slim Con 8GB</a>
-              <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>
-              <span class="price"><b>$480.00</b> <small>$780.00</small></span> </div>
-            </div>
-            <div class="media">
-              <div class="media-left"> <a href="#." class="avatar"><img class="img-responsive" src="{{ 'item-img-1-2.jpg' | asset_url }}" alt=""></a> </div>
-              <div class="media-body"> <a href="#">Mp3 Sumergible Deportivo
-Slim Con 8GB</a>
-              <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>
-              <span class="price">$480.00 </span> </div>
-            </div>
-            <div class="media">
-              <div class="media-left"> <a href="#." class="avatar"><img class="img-responsive" src="{{ 'item-img-1-3.jpg' | asset_url }}" alt=""></a> </div>
-              <div class="media-body"> <a href="#">Mp3 Sumergible Deportivo
-Slim Con 8GB</a>
-              <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>
-              <span class="price">$480.00 </span> </div>
-            </div>
-          {% endif %}
-
-          <a href="{{ popular_collection.url | default: '#.' }}" class="view-all">+ {{ section.settings.view_more_label }}</a>
-        </div>
-      </div>
-
-      <div class="col-sm-9">
-        <div class="heading">
-          <h2>{{ section.settings.deal_heading }}</h2>
-          <hr>
-        </div>
-
-        <div class="singl-slide with-nav">
-          {% if section.blocks.size > 0 %}
-            {% for block in section.blocks %}
-              {%- liquid
-                assign deal_product = block.settings.product
-                assign tag_text = block.settings.tag
-                if tag_text == blank and deal_product != blank
-                  assign tag_text = deal_product.type | default: deal_product.vendor
-                endif
-              -%}
-              <div class="weekly-deal" {{ block.shopify_attributes }}>
-                <div class="media-left">
-                  <div class="item-img">
-                    {% if deal_product != blank and deal_product.featured_image != blank %}
-                      {{ deal_product.featured_image | image_url: width: 700 | image_tag: class: 'img-responsive', alt: deal_product.title | escape }}
-                    {% else %}
-                      <img class="img-responsive" src="{{ 'item-img-1-17.jpg' | asset_url }}" alt="">
-                    {% endif %}
-                  </div>
-                  <div class="offer-time">
-                    <div class="countdown">
-                      <article> <span class="days">00</span><p class="days_ref">Days</p></article>
-                      <article> <span class="hours">22</span><p class="hours_ref">Hours</p></article>
-                      <article><span class="minutes">57</span><p class="minutes_ref">Minutes</p></article>
-                      <article><span class="seconds">13</span><p class="seconds_ref">Seconds</p></article>
+                  <div class="popular-item-info">
+                    <a href="{{ product.url }}" class="popular-item-title">{{ product.title | escape }}</a>
+                    <div class="popular-item-stars">
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <div class="popular-item-price">
+                      <strong>{{ product.price | money }}</strong>
+                      {% if product.compare_at_price > product.price %}
+                        <small>{{ product.compare_at_price | money }}</small>
+                      {% endif %}
                     </div>
                   </div>
                 </div>
-                <div class="media-body">
-                  <span class="tags">{{ tag_text | escape }}</span>
-                  <a href="{{ deal_product.url | default: '#.' }}" class="tittle">{{ deal_product.title | default: block.settings.fallback_title }}</a>
-                  <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <span class="margin-left-10">5 Review(s)</span></p>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <span class="price">
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <div class="sidebar-foot">
+            <a href="{{ popular_collection.url }}" class="btn-view-popular">
+              <span>{{ section.settings.view_more_label | default: 'View Collection' }}</span>
+              <i class="fa-solid fa-arrow-right-long"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Main: Hot Deal Showcase -->
+      <div class="col-md-8 col-lg-9">
+        <div class="deal-showcase-wrap">
+          <div class="deal-showcase-head">
+            <div class="deal-main-badge">
+              <i class="fa-solid fa-bolt-lightning"></i>
+              <span>{{ section.settings.deal_heading | default: 'Hot Deal Of The Week' }}</span>
+            </div>
+          </div>
+
+          {% if section.blocks.size > 0 %}
+            <div class="deal-slides-wrapper">
+              {% for block in section.blocks limit: 1 %}
+                {%- liquid
+                  assign deal_product = block.settings.product
+                  assign tag_text = block.settings.tag
+                  if tag_text == blank and deal_product != blank
+                    assign tag_text = deal_product.type | default: deal_product.vendor
+                  endif
+                  if tag_text == blank
+                    assign tag_text = 'LIMITED EDITION'
+                  endif
+
+                  assign current_variant = blank
+                  assign is_available = true
+
+                  if deal_product != blank
+                    assign current_variant = deal_product.selected_or_first_available_variant | default: deal_product.variants.first
+                    if deal_product.available == false
+                      assign is_available = false
+                    elsif current_variant != blank and current_variant.available == false
+                      assign is_available = false
+                    endif
+                  endif
+                -%}
+                <div class="deal-showcase-card" {{ block.shopify_attributes }}>
+                  
+                  <!-- Left Media & Countdown -->
+                  <div class="deal-media-col">
+                    <div class="deal-image-glass">
+                      {% if deal_product != blank and deal_product.featured_image != blank %}
+                        {{ deal_product.featured_image | image_url: width: 800 | image_tag: alt: deal_product.title, loading: 'eager', class: 'deal-product-img', width: 400, height: 400 }}
+                      {% else %}
+                        <img src="{{ 'item-img-1-17.jpg' | asset_url }}" alt="Hot Deal Product" class="deal-product-img" width="400" height="400">
+                      {% endif %}
+                      <span class="deal-hot-badge">OFFER</span>
+                    </div>
+
+                    <!-- Countdown Timer Bar -->
+                    <div class="deal-countdown-box">
+                      <div class="countdown-label">Hurry! Offer Ends In:</div>
+                      <div class="countdown timer-flex">
+                        <div class="time-block"><span class="days">00</span><p>Days</p></div>
+                        <div class="time-colon">:</div>
+                        <div class="time-block"><span class="hours">22</span><p>Hours</p></div>
+                        <div class="time-colon">:</div>
+                        <div class="time-block"><span class="minutes">57</span><p>Mins</p></div>
+                        <div class="time-colon">:</div>
+                        <div class="time-block"><span class="seconds">13</span><p>Secs</p></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Right Info & Details -->
+                  <div class="deal-info-col">
+                    <div class="deal-tag-pill">{{ tag_text | escape }}</div>
+                    <h2 class="deal-title">
+                      {% if deal_product != blank %}
+                        <a href="{{ deal_product.url }}">{{ deal_product.title | escape }}</a>
+                      {% else %}
+                        <a href="#">{{ block.settings.fallback_title }}</a>
+                      {% endif %}
+                    </h2>
+
+                    <div class="deal-rating-row">
+                      <div class="stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                      </div>
+                      <span class="reviews-count">5.0 (18 Reviews)</span>
+                    </div>
+
+                    <div class="deal-price-stock-row">
+                      <div class="deal-price-box">
                         {% if deal_product != blank %}
-                          {{ deal_product.price | money }}
+                          <span class="deal-price-main">{{ deal_product.price | money }}</span>
                           {% if deal_product.compare_at_price > deal_product.price %}
-                            <small>{{ deal_product.compare_at_price | money }}</small>
+                            <span class="deal-price-old">{{ deal_product.compare_at_price | money }}</span>
+                            <span class="deal-save-badge">SALE</span>
                           {% endif %}
                         {% else %}
-                          $480.00 <small>$780.00</small>
+                          <span class="deal-price-main">$29.99</span>
+                          <span class="deal-price-old">$59.99</span>
+                          <span class="deal-save-badge">SAVE 50%</span>
                         {% endif %}
-                      </span>
-                    </div>
-                    <div class="col-sm-6 margin-top-10">
-                      <p>Availability:
-                        {% if deal_product != blank and deal_product.available %}
-                          <span class="in-stock">In stock</span>
+                      </div>
+                      <div class="deal-stock-status">
+                        {% if is_available %}
+                          <i class="fa-solid fa-circle-check text-success"></i>
+                          <span>In Stock</span>
                         {% else %}
-                          <span class="in-stock">In stock</span>
+                          <i class="fa-solid fa-circle-xmark text-danger"></i>
+                          <span class="text-danger">Out of Stock</span>
                         {% endif %}
-                      </p>
+                      </div>
+                    </div>
+
+                    <ul class="deal-specs-list">
+                      {% if block.settings.feature_1 != blank %}<li><i class="fa-solid fa-check check-icon"></i> {{ block.settings.feature_1 }}</li>{% endif %}
+                      {% if block.settings.feature_2 != blank %}<li><i class="fa-solid fa-check check-icon"></i> {{ block.settings.feature_2 }}</li>{% endif %}
+                      {% if block.settings.feature_3 != blank %}<li><i class="fa-solid fa-check check-icon"></i> {{ block.settings.feature_3 }}</li>{% endif %}
+                      {% if block.settings.feature_4 != blank %}<li><i class="fa-solid fa-check check-icon"></i> {{ block.settings.feature_4 }}</li>{% endif %}
+                      {% if block.settings.feature_5 != blank %}<li><i class="fa-solid fa-check check-icon"></i> {{ block.settings.feature_5 }}</li>{% endif %}
+                    </ul>
+
+                    <div class="deal-action-row">
+                      {% if deal_product != blank and current_variant != blank %}
+                        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="deal-add-to-cart-form">
+                          <input type="hidden" name="id" value="{{ current_variant.id }}">
+                          <button type="submit" class="deal-btn-claim" {% unless is_available %}disabled{% endunless %}>
+                            <i class="fa-solid fa-bag-shopping"></i>
+                            <span>
+                              {% if is_available %}
+                                {{ block.settings.button_label | default: 'Add to Cart' }}
+                              {% else %}
+                                Sold Out
+                              {% endif %}
+                            </span>
+                          </button>
+                        </form>
+                      {% else %}
+                        <a href="{{ routes.all_products_collection_url }}" class="deal-btn-claim">
+                          <i class="fa-solid fa-bag-shopping"></i>
+                          <span>{{ block.settings.button_label | default: 'Shop Now' }}</span>
+                        </a>
+                      {% endif %}
                     </div>
                   </div>
-                  <ul>
-                    <li>{{ block.settings.feature_1 }}</li>
-                    <li>{{ block.settings.feature_2 }}</li>
-                    <li>{{ block.settings.feature_3 }}</li>
-                    <li>{{ block.settings.feature_4 }}</li>
-                    <li>{{ block.settings.feature_5 }}</li>
-                  </ul>
-                  <a href="{{ deal_product.url | default: '#.' }}" class="btn-round">{{ block.settings.button_label }}</a>
+
                 </div>
-              </div>
-            {% endfor %}
-          {% else %}
-            <div class="weekly-deal">
-              <div class="media-left">
-                <div class="item-img"> <img class="img-responsive" src="{{ 'item-img-1-17.jpg' | asset_url }}" alt=""> </div>
-                <div class="offer-time">
-                  <div class="countdown">
-                    <article> <span class="days">00</span><p class="days_ref">Days</p></article>
-                    <article> <span class="hours">00</span><p class="hours_ref">Hours</p></article>
-                    <article><span class="minutes">00</span><p class="minutes_ref">Minutes</p></article>
-                    <article><span class="seconds">00</span><p class="seconds_ref">Seconds</p></article>
-                  </div>
-                </div>
-              </div>
-              <div class="media-body"> <span class="tags">Desk & Laptop</span> <a href="#." class="tittle">Laptop Alienware 15” i7 Perfect For Gamer</a>
-                <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <span class="margin-left-10">5 Review(s)</span></p>
-                <div class="row">
-                  <div class="col-sm-6"><span class="price">$480.00 <small>$780.00</small></span></div>
-                  <div class="col-sm-6 margin-top-10"><p>available: <span class="in-stock">In stock</span></p></div>
-                </div>
-                  <a href="#." class="btn-round">Add to Cart</a> </div>
-            </div>
-            <div class="weekly-deal">
-              <div class="media-left">
-                <div class="item-img"> <img class="img-responsive" src="{{ 'item-img-1-17.jpg' | asset_url }}" alt=""> </div>
-                <div class="offer-time">
-                  <div class="countdown">
-                    <article> <span class="days">00</span><p class="days_ref">Days</p></article>
-                    <article> <span class="hours">00</span><p class="hours_ref">Hours</p></article>
-                    <article><span class="minutes">00</span><p class="minutes_ref">Minutes</p></article>
-                    <article><span class="seconds">00</span><p class="seconds_ref">Seconds</p></article>
-                  </div>
-                </div>
-              </div>
-              <div class="media-body"> <span class="tags">Desk & Laptop</span> <a href="#." class="tittle">Laptop Alienware 15” i7 Perfect For Gamer</a>
-                <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <span class="margin-left-10">5 Review(s)</span></p>
-                <div class="row">
-                  <div class="col-sm-6"><span class="price">$480.00 <small>$780.00</small></span></div>
-                  <div class="col-sm-6 margin-top-10"><p>Available: <span class="in-stock">In stock</span></p></div>
-                </div>
-                  <a href="#." class="btn-round">Add to Cart</a> </div>
+              {% endfor %}
             </div>
           {% endif %}
         </div>
       </div>
+
     </div>
   </div>
 </section>
+
+{% stylesheet %}
+  .creative-deal-spotlight {
+    padding: 36px 0;
+    background: #f8fafc;
+  }
+
+  .creative-deal-spotlight .container {
+    width: 100% !important;
+    max-width: 1240px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  .deal-spotlight-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+
+  /* Left Popular Sidebar Card */
+  .popular-sidebar-card {
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .sidebar-head {
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f1f5f9;
+    margin-bottom: 16px;
+  }
+
+  .sidebar-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 800;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .popular-products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .popular-item-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f8fafc;
+  }
+
+  .popular-item-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .popular-item-thumb {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f1f5f9;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .popular-item-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .popular-item-row:hover .popular-item-thumb img {
+    transform: scale(1.08);
+  }
+
+  .popular-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .popular-item-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f172a;
+    text-decoration: none;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color 0.2s ease;
+  }
+
+  .popular-item-title:hover {
+    color: #10b981;
+  }
+
+  .popular-item-stars {
+    color: #f59e0b;
+    font-size: 11px;
+    display: flex;
+    gap: 2px;
+  }
+
+  .popular-item-price {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .popular-item-price strong {
+    color: #10b981;
+    font-weight: 800;
+  }
+
+  .popular-item-price small {
+    color: #94a3b8;
+    text-decoration: line-through;
+  }
+
+  .sidebar-foot {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid #f1f5f9;
+  }
+
+  .btn-view-popular {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #f1f5f9;
+    color: #0f172a;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .btn-view-popular:hover {
+    background: #10b981;
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  /* Right Deal Showcase Wrap */
+  .deal-showcase-wrap {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: 24px;
+    padding: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15);
+    height: 100%;
+  }
+
+  .deal-showcase-head {
+    margin-bottom: 20px;
+  }
+
+  .deal-main-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: #10b981;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 7px 16px;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+
+  .deal-showcase-card {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+
+  /* Left Media Col */
+  .deal-media-col {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .deal-image-glass {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 20px;
+    background: radial-gradient(circle at center, rgba(16, 185, 129, 0.18) 0%, rgba(15, 23, 42, 0.8) 75%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .deal-product-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.4));
+  }
+
+  .deal-hot-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Digital Countdown Box */
+  .deal-countdown-box {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+
+  .countdown-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #94a3b8;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .timer-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 10px;
+    padding: 6px 10px;
+    min-width: 46px;
+  }
+
+  .time-block span {
+    font-size: 18px;
+    font-weight: 900;
+    color: #10b981;
+    line-height: 1;
+  }
+
+  .time-block p {
+    font-size: 10px;
+    color: #cbd5e1;
+    margin: 3px 0 0;
+    text-transform: uppercase;
+  }
+
+  .time-colon {
+    font-size: 18px;
+    font-weight: 800;
+    color: #10b981;
+  }
+
+  /* Right Info Col */
+  .deal-info-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .deal-tag-pill {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #38bdf8;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .deal-title {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.25;
+    margin: 0 0 12px;
+  }
+
+  .deal-title a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .deal-title a:hover {
+    color: #10b981;
+  }
+
+  .deal-rating-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .deal-rating-row .stars {
+    color: #f59e0b;
+    font-size: 12px;
+    display: flex;
+    gap: 3px;
+  }
+
+  .reviews-count {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 600;
+  }
+
+  .deal-price-stock-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .deal-price-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .deal-price-main {
+    font-size: 30px;
+    font-weight: 900;
+    color: #10b981;
+  }
+
+  .deal-price-old {
+    font-size: 16px;
+    color: #64748b;
+    text-decoration: line-through;
+  }
+
+  .deal-save-badge {
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  .deal-stock-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #e2e8f0;
+    font-weight: 600;
+  }
+
+  .deal-specs-list {
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .deal-specs-list li {
+    font-size: 14px;
+    color: #cbd5e1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .check-icon {
+    color: #10b981;
+    font-size: 13px;
+  }
+
+  .deal-btn-claim {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    padding: 13px 30px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+  }
+
+  .deal-btn-claim:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    color: #ffffff;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
+  }
+
+  @media (max-width: 991px) {
+    .popular-sidebar-card {
+      margin-bottom: 24px;
+    }
+
+    .deal-showcase-card {
+      grid-template-columns: 1fr;
+    }
+
+    .deal-media-col {
+      max-width: 320px;
+      margin: 0 auto;
+    }
+  }
+{% endstylesheet %}
+
+<script>
+  (function () {
+    document.addEventListener('submit', function (e) {
+      if (e.target && e.target.classList.contains('deal-add-to-cart-form')) {
+        e.preventDefault();
+        var form = e.target;
+        var button = form.querySelector('.deal-btn-claim');
+        if (!button || button.disabled) return;
+
+        var originalHtml = button.innerHTML;
+        button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Adding...</span>';
+        button.disabled = true;
+
+        fetch('{{ routes.cart_add_url }}.js', {
+          method: 'POST',
+          body: new FormData(form)
+        })
+          .then(function (response) {
+            if (!response.ok) throw new Error('Add to cart failed');
+            return response.json();
+          })
+          .then(function (data) {
+            button.innerHTML = '<i class="fa-solid fa-check"></i> <span>Added to Cart!</span>';
+            document.dispatchEvent(new CustomEvent('cart:updated', { detail: data }));
+            setTimeout(function () {
+              button.innerHTML = originalHtml;
+              button.disabled = false;
+            }, 2500);
+          })
+          .catch(function (error) {
+            button.innerHTML = originalHtml;
+            button.disabled = false;
+            form.submit();
+          });
+      }
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -252,25 +781,25 @@ Slim Con 8GB</a>
           "type": "text",
           "id": "feature_2",
           "label": "Feature 2",
-          "default": "Processor: 2.5 GHz None"
+          "default": "Processor: 1.5 GHz GHz"
         },
         {
           "type": "text",
           "id": "feature_3",
           "label": "Feature 3",
-          "default": "RAM: 8 GB"
+          "default": "RAM: 8 GB DDR3 SDRAM"
         },
         {
           "type": "text",
           "id": "feature_4",
           "label": "Feature 4",
-          "default": "Hard Drive: Flash memory solid state"
+          "default": "Hard Drive: 1000 GB"
         },
         {
           "type": "text",
           "id": "feature_5",
           "label": "Feature 5",
-          "default": "Graphics : Intel HD Graphics 520 Integrated"
+          "default": "Graphics Coprocessor: Intel HD"
         },
         {
           "type": "text",
@@ -281,18 +810,9 @@ Slim Con 8GB</a>
       ]
     }
   ],
-  "max_blocks": 6,
   "presets": [
     {
-      "name": "Deal Spotlight",
-      "blocks": [
-        {
-          "type": "deal"
-        },
-        {
-          "type": "deal"
-        }
-      ]
+      "name": "Deal Spotlight"
     }
   ]
 }

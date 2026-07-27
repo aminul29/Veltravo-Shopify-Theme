@@ -1,24 +1,395 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-  <div class="prose prose-lg max-w-3xl mx-auto">
+{% liquid
+  assign is_contact_page = false
+  if page.handle contains 'contact' or page.title contains 'Contact' or section.settings.show_contact_form
+    assign is_contact_page = true
+  endif
+%}
+
+<!-- General Page & Contact Page Section -->
+<section class="creative-page-section">
+  <div class="container">
+    
+    <!-- Top Breadcrumbs -->
+    <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>{{ page.title | escape }}</span>
+    </nav>
+
+    <!-- Page Hero Header Card -->
     {% if section.settings.enable_title %}
-      <h1 class="text-4xl font-bold text-gray-900 mb-8">{{ page.title }}</h1>
-      <div class="text-gray-700 leading-relaxed">
-        {{ page.content }}
+      <header class="page-hero-card">
+        <div class="page-hero-content">
+          <span class="page-badge-pill">
+            {% if is_contact_page %}
+              <i class="fa-solid fa-headset text-success"></i>
+              <span>GET IN TOUCH</span>
+            {% else %}
+              <i class="fa-solid fa-circle-info text-info"></i>
+              <span>STORE PAGE</span>
+            {% endif %}
+          </span>
+          <h1 class="page-main-title">{{ page.title | escape }}</h1>
+        </div>
+      </header>
+    {% endif %}
+
+    <!-- Page Content Container -->
+    {% if page.content != blank %}
+      <div class="page-content-card">
+        <div class="page-body-formatted">
+          {{ page.content }}
+        </div>
       </div>
     {% endif %}
+
+    <!-- Optional Integrated Contact Form if Enabled in Settings -->
+    {% if section.settings.show_contact_form %}
+      <div class="page-integrated-contact">
+        {% form 'contact', id: 'page_contact_form', class: 'shopify-contact-form' %}
+          <div class="contact-form-card">
+            <h2 class="form-title">Send Us A Message</h2>
+            <p class="form-subtitle">Have questions or need assistance? Fill out the form below.</p>
+
+            {% if form.posted_successfully? %}
+              <div class="form-alert alert-success">
+                <i class="fa-solid fa-circle-check text-success"></i>
+                <span>Thank you! Your message has been submitted successfully.</span>
+              </div>
+            {% endif %}
+
+            {% if form.errors %}
+              <div class="form-alert alert-danger">
+                <i class="fa-solid fa-circle-exclamation text-danger"></i>
+                <span>{{ form.errors | default_errors }}</span>
+              </div>
+            {% endif %}
+
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group-item">
+                  <label for="PageContactName-{{ section.id }}" class="form-label-text">Your Name *</label>
+                  <input
+                    id="PageContactName-{{ section.id }}"
+                    class="form-input-field"
+                    type="text"
+                    name="contact[name]"
+                    placeholder="John Doe"
+                    required
+                  >
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group-item">
+                  <label for="PageContactEmail-{{ section.id }}" class="form-label-text">Email Address *</label>
+                  <input
+                    id="PageContactEmail-{{ section.id }}"
+                    class="form-input-field"
+                    type="email"
+                    name="contact[email]"
+                    placeholder="john@example.com"
+                    required
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group-item">
+              <label for="PageContactBody-{{ section.id }}" class="form-label-text">Message *</label>
+              <textarea
+                id="PageContactBody-{{ section.id }}"
+                class="form-textarea-field"
+                name="contact[body]"
+                rows="5"
+                placeholder="How can we help you?"
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="contact-submit-btn">
+              <span>Send Message</span>
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+        {% endform %}
+      </div>
+    {% endif %}
+
   </div>
-</div>
+</section>
+
+{% stylesheet %}
+  .creative-page-section {
+    padding: 36px 0 64px 0;
+    background: #f8fafc;
+  }
+
+  .creative-page-section .container {
+    width: 100% !important;
+    max-width: 1140px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  /* Breadcrumbs */
+  .page-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .page-breadcrumbs a {
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .page-breadcrumbs a:hover {
+    color: #10b981;
+  }
+
+  .page-breadcrumbs i {
+    font-size: 10px;
+    color: #cbd5e1;
+  }
+
+  .page-breadcrumbs span {
+    color: #0f172a;
+    font-weight: 700;
+  }
+
+  /* Hero Card */
+  .page-hero-card {
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
+    padding: 32px 36px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    margin-bottom: 28px;
+  }
+
+  .page-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: #10b981;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .page-main-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  /* Content Card */
+  .page-content-card {
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    margin-bottom: 32px;
+  }
+
+  .page-body-formatted {
+    font-size: 16px;
+    line-height: 1.85;
+    color: #334155;
+  }
+
+  .page-body-formatted h1,
+  .page-body-formatted h2,
+  .page-body-formatted h3,
+  .page-body-formatted h4 {
+    color: #0f172a;
+    font-weight: 800;
+    margin: 28px 0 14px;
+    line-height: 1.3;
+  }
+
+  .page-body-formatted p {
+    margin-bottom: 18px;
+  }
+
+  .page-body-formatted ul,
+  .page-body-formatted ol {
+    margin-bottom: 20px;
+    padding-left: 24px;
+  }
+
+  .page-body-formatted li {
+    margin-bottom: 8px;
+  }
+
+  .page-body-formatted a {
+    color: #10b981;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  .page-body-formatted a:hover {
+    color: #059669;
+  }
+
+  /* Integrated Contact Form */
+  .page-integrated-contact {
+    margin-top: 32px;
+  }
+
+  .contact-form-card {
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
+    padding: 32px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  }
+
+  .form-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 6px;
+  }
+
+  .form-subtitle {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 24px;
+  }
+
+  .form-group-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+
+  .form-label-text {
+    font-size: 12px;
+    font-weight: 800;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  .form-input-field,
+  .form-textarea-field {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #0f172a;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+
+  .form-input-field:focus,
+  .form-textarea-field:focus {
+    border-color: #10b981;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+  }
+
+  .contact-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    padding: 12px 32px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+  }
+
+  .contact-submit-btn:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+  }
+
+  .form-alert {
+    padding: 14px 18px;
+    border-radius: 14px;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .alert-success {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+  }
+
+  .alert-danger {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+  }
+
+  @media (max-width: 767px) {
+    .page-content-card,
+    .page-hero-card {
+      padding: 24px;
+    }
+
+    .page-main-title {
+      font-size: 24px;
+    }
+  }
+{% endstylesheet %}
 
 {% schema %}
-  {
-    "name": "Template Page",
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "enable_title",
-        "label": "Enable Title",
-        "default": true
-      }
-    ]
-  }
+{
+  "name": "Template Page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_title",
+      "label": "Enable Title",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact_form",
+      "label": "Show Contact Form",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "General Page"
+    }
+  ]
+}
 {% endschema %}

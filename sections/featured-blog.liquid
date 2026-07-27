@@ -1,15 +1,23 @@
 {%- liquid
-  assign featured_blog = section.settings.blog
+  assign blog_handle = section.settings.blog
+  assign featured_blog = blogs[blog_handle]
 -%}
 
-<!-- Blog -->
-<section class="padding-bottom-60 padding-top-60">
+<!-- Featured Blog Section -->
+<section class="creative-blog-section">
   <div class="container">
-    <div class="heading">
-      <h2>{{ section.settings.heading }}</h2>
-      <hr>
+    
+    <div class="blog-section-head">
+      <div class="section-title-box">
+        <span class="section-badge-pill">
+          <i class="fa-solid fa-newspaper text-info"></i>
+          <span>TECH JOURNAL</span>
+        </span>
+        <h2 class="section-main-heading">{{ section.settings.heading | default: 'Latest Tech News & Guides' }}</h2>
+      </div>
     </div>
-    <div id="blog-slide" class="with-nav">
+
+    <div class="row blog-grid-row">
       {% if featured_blog != blank and featured_blog.articles_count > 0 %}
         {% for article in featured_blog.articles limit: section.settings.posts_to_show %}
           {%- liquid
@@ -37,13 +45,198 @@
           {% render 'blog-post-card', block: block, fallback_image: fallback_image %}
         {% endfor %}
       {% else %}
-        {% render 'blog-post-card', fallback_image: 'blog-img-1.jpg', fallback_date: '25 Dec, 2017', fallback_comments: '86 Comments', fallback_title: 'It''s why there''s nothing else like Mac.', fallback_excerpt: 'Etiam porttitor ante non tellus pulvinar, non vehicula lorem fermentum. Nulla vitae efficitur mi [...]', fallback_url: '#.' %}
-        {% render 'blog-post-card', fallback_image: 'blog-img-2.jpg', fallback_date: '25 Dec, 2017', fallback_comments: '86 Comments', fallback_title: 'Get the power to take your business to the next level.', fallback_excerpt: 'Etiam porttitor ante non tellus pulvinar, non vehicula lorem fermentum. Nulla vitae efficitur mi [...]', fallback_url: '#.' %}
-        {% render 'blog-post-card', fallback_image: 'blog-img-3.jpg', fallback_date: '25 Dec, 2017', fallback_comments: '86 Comments', fallback_title: 'It''s why there''s nothing else like Mac.', fallback_excerpt: 'Etiam porttitor ante non tellus pulvinar, non vehicula lorem fermentum. Nulla vitae efficitur mi [...]', fallback_url: '#.' %}
+        {% render 'blog-post-card', fallback_image: 'blog-img-1.jpg', fallback_date: 'Oct 24, 2024', fallback_comments: '18 Comments', fallback_title: 'Top 10 Smart Home Gadgets You Need in 2025', fallback_excerpt: 'Explore how intelligent ambient lighting, automated diffusers, and voice controls are revolutionizing modern home living.', fallback_url: '#.' %}
+        {% render 'blog-post-card', fallback_image: 'blog-img-2.jpg', fallback_date: 'Nov 12, 2024', fallback_comments: '24 Comments', fallback_title: 'Next-Gen Wearables & Ultra Smartwatches Review', fallback_excerpt: 'A comprehensive deep dive into battery life, health tracking precision, and sleek titanium designs of modern smart watches.', fallback_url: '#.' %}
+        {% render 'blog-post-card', fallback_image: 'blog-img-3.jpg', fallback_date: 'Dec 05, 2024', fallback_comments: '15 Comments', fallback_title: 'How RGB Ambient Lighting Boosts Focus & Setup Aesthetics', fallback_excerpt: 'Learn how customized desk lighting setups reduce eye strain while creating an immersive workspace atmosphere.', fallback_url: '#.' %}
       {% endif %}
     </div>
+
   </div>
 </section>
+
+{% stylesheet %}
+  .creative-blog-section {
+    padding: 40px 0;
+    background: #f8fafc;
+  }
+
+  .creative-blog-section .container {
+    width: 100% !important;
+    max-width: 1240px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  .blog-section-head {
+    margin-bottom: 28px;
+  }
+
+  .section-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: #10b981;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .section-main-heading {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+    letter-spacing: -0.5px;
+  }
+
+  /* Blog Card Component */
+  .gadget-blog-card {
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+    transition: all 0.35s ease;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .gadget-blog-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+    border-color: #10b981;
+  }
+
+  .blog-card-media-box {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    background: #0f172a;
+    overflow: hidden;
+  }
+
+  .blog-media-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+  }
+
+  .blog-post-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease;
+    display: block;
+  }
+
+  .gadget-blog-card:hover .blog-post-img {
+    transform: scale(1.08);
+  }
+
+  .blog-date-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 5px 12px;
+    border-radius: 14px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    z-index: 2;
+  }
+
+  .blog-card-content-box {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    gap: 12px;
+  }
+
+  .blog-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 12px;
+    color: #64748b;
+  }
+
+  .blog-comments-tag,
+  .blog-author-tag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .blog-post-title {
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  .blog-post-title a {
+    color: #0f172a;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .blog-post-title a:hover {
+    color: #10b981;
+  }
+
+  .blog-post-excerpt {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .blog-readmore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #10b981;
+    text-decoration: none;
+    margin-top: 4px;
+    transition: gap 0.2s ease;
+  }
+
+  .blog-readmore-btn:hover {
+    gap: 12px;
+    color: #059669;
+    text-decoration: none;
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
@@ -84,7 +277,7 @@
           "type": "text",
           "id": "date_text",
           "label": "Date text",
-          "default": "25 Dec, 2017"
+          "default": "25 Dec, 2024"
         },
         {
           "type": "text",
@@ -102,7 +295,7 @@
           "type": "textarea",
           "id": "excerpt",
           "label": "Excerpt",
-          "default": "Etiam porttitor ante non tellus pulvinar, non vehicula lorem fermentum. Nulla vitae efficitur mi [...]"
+          "default": "Discover the latest breakthroughs in smart tech, living automation, and gadget reviews."
         },
         {
           "type": "url",

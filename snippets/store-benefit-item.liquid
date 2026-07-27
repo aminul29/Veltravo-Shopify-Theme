@@ -1,5 +1,5 @@
 {% doc %}
-  Renders a single store benefit item.
+  Renders a single store benefit item for the full-width green benefits section.
 
   @param {object} [block] - Section block object
   @param {string} [icon_class] - Icon class fallback
@@ -8,21 +8,33 @@
 {% enddoc %}
 
 {%- liquid
-  assign benefit_icon = icon_class | default: 'flaticon-delivery-truck-1'
-  assign benefit_title = title | default: 'Free Shipping'
-  assign benefit_text = text | default: 'On order over $99'
+  assign benefit_icon = icon_class | default: 'fa-solid fa-truck-fast'
+  assign benefit_title = title | default: 'Free Express Shipping'
+  assign benefit_text = text | default: 'On all orders over $49'
 
   if block != blank
     assign benefit_icon = block.settings.icon_class | default: benefit_icon
     assign benefit_title = block.settings.title | default: benefit_title
     assign benefit_text = block.settings.text | default: benefit_text
   endif
+
+  if benefit_icon contains 'flaticon-delivery'
+    assign benefit_icon = 'fa-solid fa-truck-fast'
+  elsif benefit_icon contains 'flaticon-arrows'
+    assign benefit_icon = 'fa-solid fa-rotate-left'
+  elsif benefit_icon contains 'flaticon-operator'
+    assign benefit_icon = 'fa-solid fa-headset'
+  elsif benefit_icon contains 'flaticon-business'
+    assign benefit_icon = 'fa-solid fa-shield-halved'
+  endif
 -%}
 
-<li {% if block != blank %}{{ block.shopify_attributes }}{% endif %}>
-  <div class="media-left"> <i class="{{ benefit_icon }}"></i> </div>
-  <div class="media-body">
-    <h5>{{ benefit_title }}</h5>
-    <span>{{ benefit_text }}</span>
+<div class="store-benefit-item"{% if block != blank %} {{ block.shopify_attributes }}{% endif %}>
+  <div class="benefit-icon-box">
+    <i class="{{ benefit_icon }}"></i>
   </div>
-</li>
+  <div class="benefit-text-box">
+    <h4 class="benefit-title">{{ benefit_title | escape }}</h4>
+    <p class="benefit-desc">{{ benefit_text | escape }}</p>
+  </div>
+</div>

@@ -1,125 +1,459 @@
-{% # Main container with Alpine.js state management for form toggle #%}
-<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8" x-data="{ loginForm: true, pwRecoverForm: false}">
-  <div class="max-w-md w-full space-y-8">
-    {% # Login Form Section #%}
-    <div x-show="loginForm" class="bg-white p-8 rounded-lg shadow-md">
-      <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Sign in to your account</h1>
-      </div>
-      <div class="mt-8 space-y-6">
-        {% form 'customer_login' %}
+<!-- Customer Login Page Section -->
+<section class="creative-auth-section" x-data="{ loginForm: true, pwRecoverForm: false }">
+  <div class="container">
+    
+    <!-- Top Breadcrumbs -->
+    <nav class="auth-breadcrumbs" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>Account Login</span>
+    </nav>
+
+    <div class="auth-card-wrapper">
+      
+      <!-- Login Form Card -->
+      <div x-show="loginForm" class="auth-card">
+        <div class="auth-card-header">
+          <span class="auth-badge-pill">
+            <i class="fa-solid fa-lock text-success"></i>
+            <span>CUSTOMER PORTAL</span>
+          </span>
+          <h1 class="auth-card-title">Sign In to Your Account</h1>
+          <p class="auth-card-subtitle">Access your orders, track shipments, and manage your account details.</p>
+        </div>
+
+        {% form 'customer_login', class: 'auth-form' %}
           {% if form.errors %}
-            <div class="bg-red-50 p-4 rounded-md mb-6" role="alert">
-              <span class="sr-only">Error</span>
-              {{ form.errors | default_errors }}
+            <div class="auth-alert alert-danger" role="alert">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <span>{{ form.errors | default_errors }}</span>
             </div>
           {% endif %}
-          
-          <div class="space-y-4">
-            <div class="relative">
-              <label for="login_email" class="sr-only">Email</label>
-              <input type="email" name="customer[email]" autocomplete="email" id="login_email" 
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Email"/>               
-            </div>
 
-            {% if form.password_needed %}
-              <div class="relative">
-                <label for="password" class="sr-only">Password</label>
-                <input type="password" name="customer[password]" autocomplete="current-password" id="password" 
-                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-                  placeholder="Password"/>
+          <div class="form-group-item">
+            <label for="login_email" class="form-label-text">Email Address *</label>
+            <div class="input-with-icon">
+              <i class="fa-regular fa-envelope field-icon"></i>
+              <input
+                type="email"
+                name="customer[email]"
+                autocomplete="email"
+                id="login_email"
+                class="auth-input-field"
+                placeholder="name@example.com"
+                required
+              >
+            </div>
+          </div>
+
+          {% if form.password_needed %}
+            <div class="form-group-item">
+              <div class="label-with-action">
+                <label for="password" class="form-label-text">Password *</label>
+                <a href="#" class="forgot-pwd-link" x-on:click.prevent="loginForm = false; pwRecoverForm = true">
+                  Forgot Password?
+                </a>
               </div>
-            {% endif %}
-
-            <div class="flex items-center justify-between space-x-4">
-              <a href="{{ routes.account_register_url }}" class="text-sm text-indigo-600 hover:text-indigo-500">
-                Don't have an account? Sign up
-              </a>
-              <div class="h-4 w-px bg-gray-300"></div>
-              <a href="#" class="text-sm text-indigo-600 hover:text-indigo-500" 
-                x-on:click="loginForm = false; pwRecoverForm = true">
-                Forgot Password?
-              </a>
+              <div class="input-with-icon">
+                <i class="fa-solid fa-lock-open field-icon"></i>
+                <input
+                  type="password"
+                  name="customer[password]"
+                  autocomplete="current-password"
+                  id="password"
+                  class="auth-input-field"
+                  placeholder="••••••••"
+                  required
+                >
+              </div>
             </div>
+          {% endif %}
 
-            <div>
-              <button type="submit" 
-                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Sign in
-              </button>
-            </div>
+          <button type="submit" class="auth-primary-btn">
+            <span>Sign In</span>
+            <i class="fa-solid fa-arrow-right-long"></i>
+          </button>
+
+          <div class="auth-footer-note">
+            <span>Don't have an account?</span>
+            <a href="{{ routes.account_register_url }}" class="auth-link-bold">Create an Account</a>
           </div>
-        {% endform %}      </div>
+        {% endform %}
 
-      {% # Guest Login Section %}
-      {% if shop.checkout.guest_login %}
-        <div class="mt-8">
-          <div class="relative">
-            <div class="absolute inset-0 flex items-center">
-              <div class="w-full border-t border-gray-300"></div>
-            </div>
-            <div class="relative flex justify-center text-sm">
-              <span class="px-4 bg-white text-gray-500">Or continue with</span>
-            </div>
+        {% if shop.checkout.guest_login %}
+          <div class="guest-login-divider">
+            <span>OR</span>
           </div>
 
-          <div class="mt-6">
-            <div class="text-center mb-4">
-              <h2 class="text-xl font-semibold text-gray-900">Guest Checkout</h2>
-              <p class="mt-2 text-sm text-gray-600">No account needed - checkout faster</p>
-            </div>
-            
+          <div class="guest-login-box">
+            <h3 class="guest-title">Fast Guest Checkout</h3>
             {% form 'guest_login' %}
-              <button type="submit" 
-                class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">
-                Continue as Guest
+              <button type="submit" class="auth-secondary-btn">
+                <span>Continue as Guest</span>
+                <i class="fa-solid fa-user-clock"></i>
               </button>
             {% endform %}
           </div>
-        </div>
-      {% endif %}
-    </div>
-
-    {% # Password Recovery Form Section #%}
-    <div x-show="pwRecoverForm" class="bg-white p-8 rounded-lg shadow-md">
-      <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Recover your Password</h1>
+        {% endif %}
       </div>
-      <div class="mt-8 space-y-6">
-        {% form 'recover_customer_password' %}
+
+      <!-- Password Recovery Form Card -->
+      <div x-show="pwRecoverForm" class="auth-card" style="display: none;">
+        <div class="auth-card-header">
+          <span class="auth-badge-pill">
+            <i class="fa-solid fa-key text-warning"></i>
+            <span>PASSWORD RECOVERY</span>
+          </span>
+          <h1 class="auth-card-title">Reset Your Password</h1>
+          <p class="auth-card-subtitle">Enter your email address below and we'll send you instructions to reset your password.</p>
+        </div>
+
+        {% form 'recover_customer_password', class: 'auth-form' %}
           {% if form.errors %}
-            <div class="bg-red-50 p-4 rounded-md mb-6" role="alert">
-              <span class="sr-only">Error</span>
-              {{ form.errors | default_errors }}
+            <div class="auth-alert alert-danger" role="alert">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <span>{{ form.errors | default_errors }}</span>
             </div>
           {% endif %}
 
-          <div class="space-y-4">
-            <div class="relative">
-              <label for="email" class="sr-only">Email</label>
-              <input type="email" name="email" autocomplete="email" id="email" 
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Email"/>               
+          <div class="form-group-item">
+            <label for="email" class="form-label-text">Email Address *</label>
+            <div class="input-with-icon">
+              <i class="fa-regular fa-envelope field-icon"></i>
+              <input
+                type="email"
+                name="email"
+                autocomplete="email"
+                id="email"
+                class="auth-input-field"
+                placeholder="name@example.com"
+                required
+              >
             </div>
+          </div>
 
-            <div>
-              <button type="submit" 
-                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Recover Password
-              </button>
-            </div>
+          <button type="submit" class="auth-primary-btn">
+            <span>Send Reset Instructions</span>
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
 
-            <div class="text-center mt-4">
-              <a href="#" 
-                class="text-sm text-indigo-600 hover:text-indigo-500"
-                x-on:click="loginForm = true; pwRecoverForm = false">
-                Return to Login
-              </a>
-            </div>
+          <div class="auth-footer-note">
+            <a href="#" class="auth-link-bold" x-on:click.prevent="loginForm = true; pwRecoverForm = false">
+              <i class="fa-solid fa-arrow-left"></i> Return to Sign In
+            </a>
           </div>
         {% endform %}
       </div>
+
     </div>
+
   </div>
-</div>
+</section>
+
+{% stylesheet %}
+  .creative-auth-section {
+    padding: 60px 0 90px 0;
+    background: #f8fafc;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .creative-auth-section .container {
+    width: 100% !important;
+    max-width: 600px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  /* Breadcrumbs */
+  .auth-breadcrumbs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 28px;
+  }
+
+  .auth-breadcrumbs a {
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .auth-breadcrumbs a:hover {
+    color: #10b981;
+  }
+
+  .auth-breadcrumbs i {
+    font-size: 10px;
+    color: #cbd5e1;
+  }
+
+  .auth-breadcrumbs span {
+    color: #0f172a;
+    font-weight: 700;
+  }
+
+  /* Card */
+  .auth-card-wrapper {
+    width: 100%;
+  }
+
+  .auth-card {
+    background: #ffffff;
+    border-radius: 28px;
+    border: 1px solid #e2e8f0;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(15, 23, 42, 0.06);
+  }
+
+  .auth-card-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .auth-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: #10b981;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .auth-card-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 8px;
+    line-height: 1.25;
+  }
+
+  .auth-card-subtitle {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Form Controls */
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-group-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .label-with-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .form-label-text {
+    font-size: 12px;
+    font-weight: 800;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  .forgot-pwd-link {
+    font-size: 12px;
+    font-weight: 700;
+    color: #10b981;
+    text-decoration: none;
+  }
+
+  .forgot-pwd-link:hover {
+    color: #059669;
+    text-decoration: underline;
+  }
+
+  .input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .field-icon {
+    position: absolute;
+    left: 16px;
+    font-size: 15px;
+    color: #94a3b8;
+    pointer-events: none;
+  }
+
+  .auth-input-field {
+    width: 100%;
+    height: 48px;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    padding: 0 16px 0 46px;
+    font-size: 14px;
+    color: #0f172a;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+
+  .auth-input-field:focus {
+    border-color: #10b981;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+  }
+
+  .auth-primary-btn {
+    width: 100%;
+    height: 48px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+  }
+
+  .auth-primary-btn:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.45);
+  }
+
+  .auth-secondary-btn {
+    width: 100%;
+    height: 44px;
+    border-radius: 30px;
+    background: #f1f5f9;
+    color: #0f172a;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid #cbd5e1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .auth-secondary-btn:hover {
+    background: #e2e8f0;
+  }
+
+  .auth-footer-note {
+    text-align: center;
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 8px;
+  }
+
+  .auth-link-bold {
+    color: #10b981;
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: 4px;
+  }
+
+  .auth-link-bold:hover {
+    color: #059669;
+    text-decoration: underline;
+  }
+
+  .guest-login-divider {
+    position: relative;
+    text-align: center;
+    margin: 24px 0;
+  }
+
+  .guest-login-divider::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background: #e2e8f0;
+  }
+
+  .guest-login-divider span {
+    position: relative;
+    background: #ffffff;
+    padding: 0 14px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #94a3b8;
+    letter-spacing: 1px;
+  }
+
+  .guest-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #0f172a;
+    text-align: center;
+    margin: 0 0 10px;
+  }
+
+  .auth-alert {
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .alert-danger {
+    background: #fef2f2;
+    color: #ef4444;
+    border: 1px solid #fca5a5;
+  }
+
+  @media (max-width: 575px) {
+    .auth-card {
+      padding: 28px 20px;
+    }
+
+    .auth-card-title {
+      font-size: 22px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Customer Login",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Customer Login Page"
+    }
+  ]
+}
+{% endschema %}

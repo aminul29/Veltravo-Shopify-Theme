@@ -1,60 +1,364 @@
-{% # Main container with Alpine.js state management for form toggle #%}
-<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-md w-full space-y-8">
-    {% # Login Form Section #%}
-    <div class="bg-white p-8 rounded-lg shadow-md">
-      <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Register an Account</h1>
-      </div>
-      <div class="mt-8 space-y-6">
-        {% form 'create_customer' %}
+<!-- Customer Register Page Section -->
+<section class="creative-auth-section">
+  <div class="container">
+    
+    <!-- Top Breadcrumbs -->
+    <nav class="auth-breadcrumbs" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>Create Account</span>
+    </nav>
+
+    <div class="auth-card-wrapper">
+      <div class="auth-card">
+        
+        <div class="auth-card-header">
+          <span class="auth-badge-pill">
+            <i class="fa-solid fa-user-plus text-success"></i>
+            <span>VIP MEMBERSHIP</span>
+          </span>
+          <h1 class="auth-card-title">Create Your Account</h1>
+          <p class="auth-card-subtitle">Join our community to enjoy express checkout, order tracking, and exclusive rewards.</p>
+        </div>
+
+        {% form 'create_customer', class: 'auth-form' %}
           {% if form.errors %}
-            <div class="bg-red-50 p-4 rounded-md mb-6" role="alert">
-              <span class="sr-only">Error</span>
-              {{ form.errors | default_errors }}
+            <div class="auth-alert alert-danger" role="alert">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <span>{{ form.errors | default_errors }}</span>
             </div>
           {% endif %}
-          
-          <div class="space-y-4">
-            <div class="relative">
-              <label for="first_name" class="sr-only">First Name</label>
-              <input type="text" name="customer[first_name]" autocomplete="given-name" id="first_name" 
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="First Name"/>               
-            </div>
-            <div class="relative">
-              <label for="last_name" class="sr-only">Last Name</label>
-              <input type="text" name="customer[last_name]" autocomplete="family-name" id="last_name" 
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Last Name"/>               
-            </div>
-            <div class="relative">
-              <label for="login_email" class="sr-only">Email</label>
-              <input type="email" name="customer[email]" autocomplete="email" id="login_email" 
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Email"/>               
-            </div>
-            <div class="relative">
-               <label for="password" class="sr-only">Password</label>
-               <input type="password" name="customer[password]" autocomplete="new-password" id="password" 
-               class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-               placeholder="Password"/>
-            </div>
-            <div class="relative">
-               <label for="birthdate" class="sr-only">Birthdate</label>
-               <input type="date" name="customer[notes][birthdate]" id="birthdate" 
-               class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"/>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group-item">
+                <label for="first_name" class="form-label-text">First Name</label>
+                <div class="input-with-icon">
+                  <i class="fa-regular fa-user field-icon"></i>
+                  <input
+                    type="text"
+                    name="customer[first_name]"
+                    autocomplete="given-name"
+                    id="first_name"
+                    class="auth-input-field"
+                    placeholder="John"
+                  >
+                </div>
+              </div>
             </div>
 
-            <div>
-              <button type="submit" 
-                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Register
-              </button>
+            <div class="col-sm-6">
+              <div class="form-group-item">
+                <label for="last_name" class="form-label-text">Last Name</label>
+                <div class="input-with-icon">
+                  <i class="fa-regular fa-user field-icon"></i>
+                  <input
+                    type="text"
+                    name="customer[last_name]"
+                    autocomplete="family-name"
+                    id="last_name"
+                    class="auth-input-field"
+                    placeholder="Doe"
+                  >
+                </div>
+              </div>
             </div>
           </div>
+
+          <div class="form-group-item">
+            <label for="login_email" class="form-label-text">Email Address *</label>
+            <div class="input-with-icon">
+              <i class="fa-regular fa-envelope field-icon"></i>
+              <input
+                type="email"
+                name="customer[email]"
+                autocomplete="email"
+                id="login_email"
+                class="auth-input-field"
+                placeholder="name@example.com"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="form-group-item">
+            <label for="password" class="form-label-text">Password *</label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-lock-open field-icon"></i>
+              <input
+                type="password"
+                name="customer[password]"
+                autocomplete="new-password"
+                id="password"
+                class="auth-input-field"
+                placeholder="At least 6 characters"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="form-group-item">
+            <label for="birthdate" class="form-label-text">Birthdate (Optional)</label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-cake-candles field-icon"></i>
+              <input
+                type="date"
+                name="customer[notes][birthdate]"
+                id="birthdate"
+                class="auth-input-field"
+              >
+            </div>
+          </div>
+
+          <button type="submit" class="auth-primary-btn">
+            <span>Create Account</span>
+            <i class="fa-solid fa-arrow-right-long"></i>
+          </button>
+
+          <div class="auth-footer-note">
+            <span>Already have an account?</span>
+            <a href="{{ routes.account_login_url }}" class="auth-link-bold">Sign In</a>
+          </div>
         {% endform %}
+
       </div>
     </div>
+
   </div>
-</div>
+</section>
+
+{% stylesheet %}
+  .creative-auth-section {
+    padding: 60px 0 90px 0;
+    background: #f8fafc;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .creative-auth-section .container {
+    width: 100% !important;
+    max-width: 620px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  /* Breadcrumbs */
+  .auth-breadcrumbs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 28px;
+  }
+
+  .auth-breadcrumbs a {
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .auth-breadcrumbs a:hover {
+    color: #10b981;
+  }
+
+  .auth-breadcrumbs i {
+    font-size: 10px;
+    color: #cbd5e1;
+  }
+
+  .auth-breadcrumbs span {
+    color: #0f172a;
+    font-weight: 700;
+  }
+
+  /* Card */
+  .auth-card-wrapper {
+    width: 100%;
+  }
+
+  .auth-card {
+    background: #ffffff;
+    border-radius: 28px;
+    border: 1px solid #e2e8f0;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(15, 23, 42, 0.06);
+  }
+
+  .auth-card-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .auth-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: #10b981;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .auth-card-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 8px;
+    line-height: 1.25;
+  }
+
+  .auth-card-subtitle {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Form Controls */
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .form-group-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-label-text {
+    font-size: 12px;
+    font-weight: 800;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  .input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .field-icon {
+    position: absolute;
+    left: 16px;
+    font-size: 15px;
+    color: #94a3b8;
+    pointer-events: none;
+  }
+
+  .auth-input-field {
+    width: 100%;
+    height: 48px;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    padding: 0 16px 0 46px;
+    font-size: 14px;
+    color: #0f172a;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+
+  .auth-input-field:focus {
+    border-color: #10b981;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+  }
+
+  .auth-primary-btn {
+    width: 100%;
+    height: 48px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+    margin-top: 6px;
+  }
+
+  .auth-primary-btn:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.45);
+  }
+
+  .auth-footer-note {
+    text-align: center;
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 8px;
+  }
+
+  .auth-link-bold {
+    color: #10b981;
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: 4px;
+  }
+
+  .auth-link-bold:hover {
+    color: #059669;
+    text-decoration: underline;
+  }
+
+  .auth-alert {
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .alert-danger {
+    background: #fef2f2;
+    color: #ef4444;
+    border: 1px solid #fca5a5;
+  }
+
+  @media (max-width: 575px) {
+    .auth-card {
+      padding: 28px 20px;
+    }
+
+    .auth-card-title {
+      font-size: 22px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Customer Register",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Customer Register Page"
+    }
+  ]
+}
+{% endschema %}

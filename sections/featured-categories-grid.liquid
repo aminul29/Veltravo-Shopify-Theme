@@ -1,13 +1,19 @@
-<!-- Featured Categories -->
-<section class="light-gry-bg padding-top-50 padding-bottom-30">
+<!-- Featured Categories Section -->
+<section class="creative-categories-section">
   <div class="container">
-    <div class="heading">
-      <h2>{{ section.settings.heading }}</h2>
-      <hr>
+    
+    <div class="categories-section-head">
+      <div class="section-title-box">
+        <span class="section-badge-pill">
+          <i class="fa-solid fa-layer-group text-success"></i>
+          <span>CATEGORY EXPLORER</span>
+        </span>
+        <h2 class="section-main-heading">{{ section.settings.heading | default: 'Featured Categories' }}</h2>
+      </div>
     </div>
 
-    {% if section.blocks.size > 0 %}
-      <div class="row">
+    <div class="row categories-grid-row">
+      {% if section.blocks.size > 0 %}
         {% for block in section.blocks %}
           {%- liquid
             assign fallback_image = 'feture-item-1.png'
@@ -26,19 +32,195 @@
           -%}
           {% render 'featured-category-card', block: block, fallback_image: fallback_image %}
         {% endfor %}
-      </div>
-    {% else %}
-      <div class="row">
-        {% render 'featured-category-card', fallback_image: 'feture-item-1.png', fallback_title: 'TV & Audios' %}
-        {% render 'featured-category-card', fallback_image: 'feture-item-2.png', fallback_title: 'SmartPhones' %}
-        {% render 'featured-category-card', fallback_image: 'feture-item-3.png', fallback_title: 'Game Console' %}
-        {% render 'featured-category-card', fallback_image: 'feture-item-4.png', fallback_title: 'Desktop & Laptop' %}
-        {% render 'featured-category-card', fallback_image: 'feture-item-5.png', fallback_title: 'Watches' %}
-        {% render 'featured-category-card', fallback_image: 'feture-item-6.png', fallback_title: 'Accessories' %}
-      </div>
-    {% endif %}
+      {% else %}
+        {% render 'featured-category-card', fallback_image: 'feture-item-1.png', fallback_title: 'TV & Audio Gadgets' %}
+        {% render 'featured-category-card', fallback_image: 'feture-item-2.png', fallback_title: 'Smartphones & Wearables' %}
+        {% render 'featured-category-card', fallback_image: 'feture-item-3.png', fallback_title: 'Gaming & Controllers' %}
+        {% render 'featured-category-card', fallback_image: 'feture-item-4.png', fallback_title: 'Computers & Laptops' %}
+        {% render 'featured-category-card', fallback_image: 'feture-item-5.png', fallback_title: 'Smart Home & Lighting' %}
+        {% render 'featured-category-card', fallback_image: 'feture-item-6.png', fallback_title: 'Tech Accessories' %}
+      {% endif %}
+    </div>
+
   </div>
 </section>
+
+{% stylesheet %}
+  .creative-categories-section {
+    padding: 40px 0;
+    background: #f8fafc;
+  }
+
+  .creative-categories-section .container {
+    width: 100% !important;
+    max-width: 1240px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  .categories-section-head {
+    margin-bottom: 28px;
+  }
+
+  .section-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: #10b981;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .section-main-heading {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+    letter-spacing: -0.5px;
+  }
+
+  .gadget-category-card {
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    padding: 22px;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+    transition: all 0.3s ease;
+    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: 1fr 130px;
+    gap: 16px;
+    align-items: center;
+    min-height: 175px;
+  }
+
+  .gadget-category-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.12);
+    border-color: #10b981;
+  }
+
+  .category-info-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 100%;
+    gap: 10px;
+  }
+
+  .category-title {
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .category-title a {
+    color: #0f172a;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .category-title a:hover {
+    color: #10b981;
+  }
+
+  .category-links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cat-sub-link {
+    font-size: 12px;
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 140px;
+  }
+
+  .cat-sub-link:hover {
+    color: #10b981;
+    text-decoration: none;
+  }
+
+  .category-explore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #10b981;
+    text-decoration: none;
+    transition: gap 0.2s ease;
+  }
+
+  .category-explore-btn:hover {
+    gap: 10px;
+    color: #059669;
+    text-decoration: none;
+  }
+
+  /* Right Media Column */
+  .category-media-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .category-img-frame {
+    width: 130px;
+    height: 130px;
+    border-radius: 16px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    overflow: hidden;
+    text-decoration: none;
+  }
+
+  .cat-product-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+  }
+
+  .gadget-category-card:hover .cat-product-img {
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 767px) {
+    .gadget-category-card {
+      grid-template-columns: 1fr 110px;
+      padding: 16px;
+    }
+
+    .category-img-frame {
+      width: 110px;
+      height: 110px;
+    }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {

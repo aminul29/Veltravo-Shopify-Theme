@@ -1,60 +1,196 @@
-{%- comment -%} Main container with max width for content centering {%- endcomment -%}
-<div class="max-w-md">
-  {%- comment -%} 404 error title from section settings {%- endcomment -%}
-  <div class="text-5xl font-bold my-4">
-    {{ section.settings.title }}
+{%- liquid
+  assign shop_url = section.settings.button_link | default: routes.root_url
+-%}
+
+<!-- 404 Error Page Section -->
+<section class="creative-404-section">
+  <div class="container">
+    <div class="error-404-card">
+      <span class="error-badge-pill">
+        <i class="fa-solid fa-triangle-exclamation text-warning"></i>
+        <span>ERROR 404</span>
+      </span>
+
+      <h1 class="error-glitch-title">{{ section.settings.title | default: '404' }}</h1>
+
+      <h2 class="error-subtitle">Page Not Found</h2>
+
+      <p class="error-desc">
+        {{ section.settings.subtext_html | default: "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable." }}
+      </p>
+
+      <div class="error-actions-row">
+        <a href="{{ shop_url }}" class="error-btn-primary">
+          <i class="fa-solid fa-house"></i>
+          <span>{{ section.settings.button_text | default: 'Back to Home' }}</span>
+        </a>
+
+        <a href="{{ routes.all_products_collection_url }}" class="error-btn-secondary">
+          <span>Explore Catalog</span>
+          <i class="fa-solid fa-arrow-right-long"></i>
+        </a>
+      </div>
+    </div>
   </div>
-  {%- comment -%} Subtext explanation message {%- endcomment -%}
-  <div class="my-4">
-    <p class="text-base md:text-xl leading-normal">
-      {{ section.settings.subtext_html }}
-    </p>
-  </div>
-  {%- comment -%} Return button with fallback URL logic {%- endcomment -%}
-  <div class="my-4">
-    {% if section.settings.button_link == blank %}
-      {%- comment -%} Use shop URL if no custom link provided {%- endcomment -%}
-      {% assign shop_url = shop.secure_url %}
-    {% else %}
-      {%- comment -%} Use custom link from section settings {%- endcomment -%}
-      {% assign shop_url = section.settings.button_link %}
-    {% endif %}
-    <a href="{{ shop_url }}" class="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200">
-      {{ section.settings.button_text }}
-    </a>
-  </div>
-</div>
+</section>
+
+{% stylesheet %}
+  .creative-404-section {
+    padding: 80px 0 100px 0;
+    background: #f8fafc;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .creative-404-section .container {
+    width: 100% !important;
+    max-width: 800px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  .error-404-card {
+    background: #ffffff;
+    border-radius: 28px;
+    border: 1px solid #e2e8f0;
+    padding: 60px 40px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(15, 23, 42, 0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .error-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    color: #d97706;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .error-glitch-title {
+    font-size: 96px;
+    font-weight: 900;
+    line-height: 1;
+    margin: 0 0 12px;
+    background: linear-gradient(135deg, #0f172a 0%, #10b981 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -2px;
+  }
+
+  .error-subtitle {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 12px;
+  }
+
+  .error-desc {
+    font-size: 15px;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0 0 32px;
+    max-width: 520px;
+  }
+
+  .error-actions-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .error-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+  }
+
+  .error-btn-primary:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    transform: translateY(-2px);
+    color: #ffffff;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+  }
+
+  .error-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f1f5f9;
+    color: #0f172a;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    border: 1px solid #cbd5e1;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .error-btn-secondary:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+    text-decoration: none;
+  }
+{% endstylesheet %}
 
 {% schema %}
-  {
-    "name": "Template 404",
-    "tag": "section",
-    "class": "flex items-center justify-center h-screen text-center py-7",
-    "settings": [
-      {
-        "type": "text",
-        "id": "title",
-        "default": "404 - Page Not Found",
-        "label": "404 Title"
-      },
-      {
-        "type": "text",
-        "id": "subtext_html",
-        "default": "The page you were looking for does not exist",
-        "label": "404 Subtext"
-      },
-      {
-        "type": "text",
-        "id": "button_text",
-        "default": "Go to Home",
-        "label": "Button Text"
-      },
-      {
-        "type": "url",
-        "id": "button_link",
-        "default": "/",
-        "label": "Button Link"
-      }
-    ]
-  }
+{
+  "name": "Template 404",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "404",
+      "label": "404 Title"
+    },
+    {
+      "type": "text",
+      "id": "subtext_html",
+      "default": "The page you are looking for does not exist or has been moved.",
+      "label": "404 Subtext"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "default": "Back to Home",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "404 Page"
+    }
+  ]
+}
 {% endschema %}

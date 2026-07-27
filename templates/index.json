@@ -276,15 +276,6 @@
       "type": "store-benefits",
       "settings": {}
     },
-    "newslatter": {
-      "type": "newsletter-signup",
-      "settings": {
-        "heading": "Subscribe our Newsletter",
-        "subheading": "Get <strong>25% Off</strong> first purchase!",
-        "placeholder": "Your email address here...",
-        "button_label": "Subscribe!"
-      }
-    },
     "1783525448bd8ab85d": {
       "type": "apps",
       "settings": {}
@@ -300,7 +291,6 @@
     "top_selling_week",
     "blog",
     "shipping_info",
-    "newslatter",
     "1783525448bd8ab85d"
   ]
 }
