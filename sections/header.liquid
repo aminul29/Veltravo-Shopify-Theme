@@ -347,6 +347,8 @@
   .header-gadget-main {
     background: #ffffff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    position: relative;
+    z-index: 1000;
   }
 
   .header-flex-wrapper {
@@ -562,6 +564,7 @@
   /* Cart Dropdown Card */
   .cart-pop-wrapper {
     position: relative;
+    z-index: 1050;
   }
 
   .cart-dropdown-card {
@@ -572,10 +575,10 @@
     width: 320px;
     background: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15);
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.2);
     border: 1px solid #e2e8f0;
     padding: 16px;
-    z-index: 100;
+    z-index: 99999 !important;
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
