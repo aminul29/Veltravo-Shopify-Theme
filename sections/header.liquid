@@ -788,24 +788,27 @@
     position: relative;
   }
 
-  .gadget-nav-list .nav-link {
+  .gadget-nav-list .nav-link,
+  .gadget-navbar .gadget-nav-list .nav-item .nav-link {
     display: flex;
     align-items: center;
     gap: 6px;
     padding: 14px 20px;
-    color: #f8fafc;
+    color: #ffffff !important;
     font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
+    font-weight: 700;
+    text-decoration: none !important;
     letter-spacing: 0.2px;
     transition: all 0.2s ease;
   }
 
   .gadget-nav-list .nav-item:hover > .nav-link,
-  .gadget-nav-list .nav-item.active > .nav-link {
-    color: #ffffff;
+  .gadget-nav-list .nav-item.active > .nav-link,
+  .gadget-navbar .gadget-nav-list .nav-item:hover > .nav-link,
+  .gadget-navbar .gadget-nav-list .nav-item.active > .nav-link {
+    color: #10b981 !important;
     background: rgba(255, 255, 255, 0.08);
-    text-decoration: none;
+    text-decoration: none !important;
   }
 
   .nav-arrow {
