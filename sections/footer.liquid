@@ -3,9 +3,7 @@
   assign categories_menu = section.settings.categories_menu
   assign services_menu = section.settings.services_menu
   assign information_menu = section.settings.information_menu
-  assign contact_phone = section.settings.contact_phone
   assign contact_email = section.settings.contact_email
-  assign contact_text = section.settings.contact_text
   assign footer_text = section.settings.footer_text
   -%}
 
@@ -115,6 +113,8 @@ We deliver premium products with secure payments and worldwide shipping.</p>
         <div class="rights__payments">
     <img src="https://cdn.shopify.com/s/files/1/0991/0049/2066/files/2018-PaynowTopup-badge-RGB_1.png?v=1782170901"
          alt="Secure Payment Methods"
+         width="240"
+         height="72"
          style="max-height:72px;width:auto;">
 </div>
       </div>
@@ -130,7 +130,7 @@ We deliver premium products with secure payments and worldwide shipping.</p>
     background: #0f172a !important;
 }
 
-  #shopify-section-{{ section.id }} .container {
+  footer .container {
     width: calc(100% - 30px) !important;
     max-width: 1140px !important;
     margin: 0 auto !important;
