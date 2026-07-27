@@ -1,7 +1,25 @@
 {%- liquid
   assign top_links_menu = section.settings.top_links_menu
+  if top_links_menu == blank or top_links_menu.links == blank
+    assign top_links_menu = linklists[section.settings.top_links_menu]
+  endif
+
   assign categories_menu = section.settings.categories_menu
+  if categories_menu == blank or categories_menu.links == blank
+    assign categories_menu = linklists[section.settings.categories_menu]
+  endif
+
   assign main_menu = section.settings.main_menu
+  if main_menu == blank or main_menu.links == blank or main_menu.links.size == 0
+    assign main_menu = linklists[section.settings.main_menu]
+  endif
+  if main_menu == blank or main_menu.links == blank or main_menu.links.size == 0
+    assign main_menu = linklists['main-menu']
+  endif
+  if main_menu == blank or main_menu.links == blank or main_menu.links.size == 0
+    assign main_menu = linklists['main']
+  endif
+
   assign header_top_message = section.settings.top_message
   assign header_logo = section.settings.header_logo
   if header_logo == blank
@@ -213,7 +231,7 @@
         <!-- Navigation Menu -->
         <div class="collapse navbar-collapse gadget-nav-collapse" id="gadget-nav-menu">
           <ul class="gadget-nav-list">
-            {% if main_menu != blank and main_menu.links.size > 0 %}
+            {% if main_menu != blank and main_menu.links != blank and main_menu.links.size > 0 %}
               {% for link in main_menu.links %}
                 <li class="nav-item{% if link.links != blank and link.links.size > 0 %} has-dropdown{% endif %}{% if link.active %} active{% endif %}">
                   <a href="{{ link.url }}" class="nav-link">
@@ -243,7 +261,8 @@
             {% else %}
               <li class="nav-item active"><a href="{{ routes.root_url }}" class="nav-link">Home</a></li>
               <li class="nav-item"><a href="{{ routes.all_products_collection_url }}" class="nav-link">Catalog</a></li>
-              <li class="nav-item"><a href="/pages/contact" class="nav-link">Contact</a></li>
+              <li class="nav-item"><a href="{{ routes.collections_url }}" class="nav-link">Collections</a></li>
+              <li class="nav-item"><a href="/pages/contact-us" class="nav-link">Contact</a></li>
             {% endif %}
           </ul>
         </div>
