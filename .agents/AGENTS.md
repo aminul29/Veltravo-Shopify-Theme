@@ -31,3 +31,9 @@
        assign show_sale_tag = true
      endif
      ```
+
+## Git Workflow & Local Work Integrity
+1. **Preserve Local Workspace Work**:
+   - During active design and development sprints, the local workspace is the authoritative source of truth.
+   - If `git push` fails due to remote branch divergence, **never** execute `git pull --rebase` or merge commands that risk introducing conflict markers into newly built theme files.
+   - Prefer force-pushing local commits (`git push origin main --force-with-lease` / `git push origin main -f`) or consult the user before initiating any rebase operations.
