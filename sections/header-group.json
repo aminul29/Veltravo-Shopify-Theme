@@ -11,15 +11,19 @@
   "type": "header",
   "name": "Header group",
   "sections": {
+    "17835289004dc57048": {
+      "type": "apps",
+      "settings": {}
+    },
     "header": {
       "type": "header",
       "settings": {
-        "top_message": "Welcome to SmartTech center!",
+        "top_message": "Welcome to Veltravo center!",
         "header_logo": "shopify://shop_images/Veltravo_Logo.png",
         "logo_width": 120,
         "logo_alt_text": "Store logo",
         "top_links_menu": "",
-        "categories_menu": "category-menu",
+        "categories_menu": "",
         "main_menu": "main-menu",
         "categories_label": "Our Categories",
         "search_placeholder": "Search entire store here...",
@@ -28,6 +32,7 @@
     }
   },
   "order": [
+    "17835289004dc57048",
     "header"
   ]
 }

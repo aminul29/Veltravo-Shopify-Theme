@@ -1,0 +1,293 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "order": [
+    "slid_sec",
+    "banner",
+    "hot_deal",
+    "tab_section",
+    "featured_categories",
+    "top_selling_week",
+    "blog",
+    "shipping_info",
+    "newslatter"
+  ],
+  "sections": {
+    "banner": {
+      "block_order": [
+        "promo_tile_k48JRU",
+        "promo_tile_tTapLh",
+        "promo_tile_xNFgbm"
+      ],
+      "blocks": {
+        "promo_tile_k48JRU": {
+          "settings": {
+            "body_text": "Saving up to 50% off all online store items this week.",
+            "button_label": "Shop now",
+            "highlight": "Sale!",
+            "link": "shopify://products/eternaglow-magnetic-levitation-flower-lamp-floating-eternal-rose-display",
+            "price": "$85.00",
+            "subtitle": "Beauty That Defies Gravity",
+            "tile_background_image": "shopify://shop_images/28a12f06-be5d-432a-a0e7-3d3fb5b1a801.jpg",
+            "tile_variant": "regular",
+            "title": "EternaGlow™ Magnetic Levitation Flower Lamp"
+          },
+          "type": "promo_tile"
+        },
+        "promo_tile_tTapLh": {
+          "settings": {
+            "body_text": "Saving up to 50% off all online store items this week.",
+            "button_label": "Shop now",
+            "highlight": "Sale!",
+            "link": "shopify://products/electric-spray-massage-hair-comb-rechargeable-scalp-care-hair-growth-brush",
+            "price": "$35.99",
+            "subtitle": "Healthier Hair Starts Here",
+            "tile_background_image": "shopify://shop_images/82524191-39df-4814-8731-81ad519c380a.jpg",
+            "tile_variant": "regular",
+            "title": "MistFlow™ Hair Massage Comb"
+          },
+          "type": "promo_tile"
+        },
+        "promo_tile_xNFgbm": {
+          "settings": {
+            "body_text": "Saving up to 50% off all online store items this week.",
+            "button_label": "Shop now",
+            "highlight": "Sale!",
+            "link": "shopify://products/leviglow-magnetic-levitation-cross-lamp-floating-light-of-faith-inspiration",
+            "price": "$85.00",
+            "subtitle": "Faith Meets Innovation",
+            "tile_background_image": "shopify://shop_images/02ab6173-a944-4a0a-b90f-10971ace52e3.jpg",
+            "tile_variant": "regular",
+            "title": "LeviGlow™ Magnetic Levitation Cross Lamp"
+          },
+          "type": "promo_tile"
+        }
+      },
+      "settings": {},
+      "type": "promo-tile-row"
+    },
+    "blog": {
+      "settings": {
+        "blog": "news",
+        "heading": "From our Blog",
+        "posts_to_show": 3
+      },
+      "type": "featured-blog"
+    },
+    "featured_categories": {
+      "block_order": [
+        "category_Xi7Kip",
+        "category_ghGnwr",
+        "category_AbtkHH",
+        "category_K74fPP",
+        "category_wkfYFU",
+        "category_hRNw3i"
+      ],
+      "blocks": {
+        "category_AbtkHH": {
+          "settings": {
+            "collection": "",
+            "link": "",
+            "menu": "",
+            "title": ""
+          },
+          "type": "category"
+        },
+        "category_K74fPP": {
+          "settings": {
+            "collection": "",
+            "link": "",
+            "menu": "",
+            "title": ""
+          },
+          "type": "category"
+        },
+        "category_Xi7Kip": {
+          "settings": {
+            "collection": "",
+            "link": "",
+            "menu": "",
+            "title": ""
+          },
+          "type": "category"
+        },
+        "category_ghGnwr": {
+          "settings": {
+            "collection": "",
+            "link": "",
+            "menu": "",
+            "title": ""
+          },
+          "type": "category"
+        },
+        "category_hRNw3i": {
+          "settings": {
+            "collection": "",
+            "link": "",
+            "menu": "",
+            "title": ""
+          },
+          "type": "category"
+        },
+        "category_wkfYFU": {
+          "settings": {
+            "collection": "",
+            "link": "",
+            "menu": "",
+            "title": ""
+          },
+          "type": "category"
+        }
+      },
+      "settings": {
+        "heading": "Featured Categories"
+      },
+      "type": "featured-categories-grid"
+    },
+    "hot_deal": {
+      "block_order": [
+        "deal_ih68fL",
+        "deal_X7UxXc",
+        "deal_JTDBrB",
+        "deal_bzLpHB"
+      ],
+      "blocks": {
+        "deal_JTDBrB": {
+          "settings": {
+            "button_label": "Add to Cart",
+            "fallback_title": "Laptop Alienware 15” i7 Perfect For Gamer",
+            "feature_1": "",
+            "feature_2": "",
+            "feature_3": "",
+            "feature_4": "",
+            "feature_5": "",
+            "product": "null-1774445536059",
+            "tag": "Desk & Laptop"
+          },
+          "type": "deal"
+        },
+        "deal_X7UxXc": {
+          "settings": {
+            "button_label": "Add to Cart",
+            "fallback_title": "",
+            "feature_1": "",
+            "feature_2": "",
+            "feature_3": "",
+            "feature_4": "",
+            "feature_5": "",
+            "product": "null-1773099079761",
+            "tag": "Desk & Laptop"
+          },
+          "type": "deal"
+        },
+        "deal_bzLpHB": {
+          "settings": {
+            "button_label": "Add to Cart",
+            "fallback_title": "",
+            "feature_1": "",
+            "feature_2": "",
+            "feature_3": "",
+            "feature_4": "",
+            "feature_5": "",
+            "product": "null-1774712575131",
+            "tag": "Desk & Laptop"
+          },
+          "type": "deal"
+        },
+        "deal_ih68fL": {
+          "settings": {
+            "button_label": "Add to Cart",
+            "fallback_title": "Laptop Alienware 15” i7 Perfect For Gamer",
+            "feature_1": "Screen: 1920 x 1080 pixels",
+            "feature_2": "Processor: 2.5 GHz None",
+            "feature_3": "RAM: 8 GB",
+            "feature_4": "Hard Drive: Flash memory solid state",
+            "feature_5": "Graphics : Intel HD Graphics 520 Integrated",
+            "product": "null-1774711325656",
+            "tag": "Desk & Laptop"
+          },
+          "type": "deal"
+        }
+      },
+      "settings": {
+        "deal_heading": "Hot Deal Of the Week",
+        "popular_collection": "car-accessories-1",
+        "popular_heading": "Popular items",
+        "popular_products_limit": 3,
+        "view_more_label": "View more"
+      },
+      "type": "deal-spotlight"
+    },
+    "newslatter": {
+      "settings": {
+        "button_label": "Subscribe!",
+        "heading": "Subscribe our Newsletter",
+        "placeholder": "Your email address here...",
+        "subheading": "Get <strong>25% Off</strong> first purchase!"
+      },
+      "type": "newsletter-signup"
+    },
+    "shipping_info": {
+      "settings": {},
+      "type": "store-benefits"
+    },
+    "slid_sec": {
+      "settings": {
+        "button_bg_color": "#22c961",
+        "button_bg_hover_color": "#111111",
+        "button_label": "Shop Now",
+        "button_radius": 30,
+        "button_text_color": "#ffffff",
+        "button_text_hover_color": "#ffffff",
+        "categories_menu": "",
+        "merch_collection": "smart-beauty",
+        "overlay_color": "#000000",
+        "overlay_opacity": 55,
+        "pretitle_color": "#f5f5f5",
+        "pretitle_size": 26,
+        "price_color": "#ffffff",
+        "price_size": 36,
+        "products_to_show": 3,
+        "show_arrows": true,
+        "show_bullets": true,
+        "slider_autoplay": false,
+        "slider_delay_seconds": 9,
+        "slider_height": 500,
+        "title_color": "#22c961",
+        "title_size": 32
+      },
+      "type": "home-hero-merchandising"
+    },
+    "tab_section": {
+      "settings": {
+        "featured_collection": "best-sellers",
+        "featured_products_limit": 8,
+        "featured_tab_label": "Featured",
+        "onsale_collection": "kitchen-essentials",
+        "onsale_products_limit": 4,
+        "onsale_tab_label": "Onsale",
+        "special_collection": "home-essentials",
+        "special_products_limit": 4,
+        "special_tab_label": "Special"
+      },
+      "type": "featured-collection-tabs"
+    },
+    "top_selling_week": {
+      "settings": {
+        "collection": "home-essentials",
+        "featured_media_limit": 4,
+        "featured_product": "null-1774569870590",
+        "heading": "Top Selling of the Week",
+        "products_limit": 4
+      },
+      "type": "top-selling-showcase"
+    }
+  }
+}

@@ -9,11 +9,15 @@
  */
 {
   "sections": {
+    "17835256382d35352a": {
+      "type": "apps",
+      "settings": {}
+    },
     "slid_sec": {
       "type": "home-hero-merchandising",
       "settings": {
         "categories_menu": "",
-        "merch_collection": "best-sellers",
+        "merch_collection": "smart-beauty",
         "products_to_show": 3,
         "slider_autoplay": false,
         "slider_delay_seconds": 9,
@@ -43,39 +47,42 @@
           "type": "promo_tile",
           "settings": {
             "tile_variant": "regular",
-            "subtitle": "New line required",
-            "title": "Z68 Web Camera",
-            "price": "$85.00",
+            "subtitle": "Game night vibes",
+            "title": "GlowKick™ Football Lamp",
+            "price": "$29.99",
+            "tile_background_image": "shopify://shop_images/4ea9c169-af37-4383-ad7a-a849a524c4a1.png",
             "highlight": "Sale!",
             "body_text": "Saving up to 50% off all online store items this week.",
             "button_label": "Shop now",
-            "link": ""
+            "link": "shopify://products/null-1774711325656"
           }
         },
         "promo_tile_tTapLh": {
           "type": "promo_tile",
           "settings": {
             "tile_variant": "regular",
-            "subtitle": "New line required",
-            "title": "Z68 Web Camera",
-            "price": "$85.00",
+            "subtitle": "Sleep under stars",
+            "title": "NebulaGlow™ Projector",
+            "price": "$47.99",
+            "tile_background_image": "shopify://shop_images/a5cb9a4d-1260-4e41-921f-0afea2d4d0e4.jpg",
             "highlight": "Sale!",
             "body_text": "Saving up to 50% off all online store items this week.",
             "button_label": "Shop now",
-            "link": ""
+            "link": "shopify://products/null-1773099079761"
           }
         },
         "promo_tile_xNFgbm": {
           "type": "promo_tile",
           "settings": {
             "tile_variant": "regular",
-            "subtitle": "New line required",
-            "title": "Z68 Web Camera",
-            "price": "$85.00",
+            "subtitle": "Transform any room",
+            "title": "LumiGlow™ Projection Lamp",
+            "price": "$27.99",
+            "tile_background_image": "shopify://shop_images/edda0927-1e6f-4a95-9299-63db65e67f98.jpg",
             "highlight": "Sale!",
             "body_text": "Saving up to 50% off all online store items this week.",
             "button_label": "Shop now",
-            "link": ""
+            "link": "shopify://products/null-1773099428862"
           }
         }
       },
@@ -93,27 +100,27 @@
           "type": "deal",
           "settings": {
             "product": "null-1774711325656",
-            "tag": "Desk & Laptop",
-            "fallback_title": "Laptop Alienware 15” i7 Perfect For Gamer",
-            "feature_1": "Screen: 1920 x 1080 pixels",
-            "feature_2": "Processor: 2.5 GHz None",
-            "feature_3": "RAM: 8 GB",
-            "feature_4": "Hard Drive: Flash memory solid state",
-            "feature_5": "Graphics : Intel HD Graphics 520 Integrated",
+            "tag": "Football Decor",
+            "fallback_title": "GlowKick™ 3D Football LED Night Light",
+            "feature_1": "3D Optical LED Design",
+            "feature_2": "Multiple Football Clubs",
+            "feature_3": "USB & Battery Powered",
+            "feature_4": "Soft Eye-Friendly Light",
+            "feature_5": "Perfect Gift for Fans",
             "button_label": "Add to Cart"
           }
         },
         "deal_X7UxXc": {
           "type": "deal",
           "settings": {
-            "product": "null-1774567034919",
-            "tag": "Desk & Laptop",
-            "fallback_title": "Laptop Alienware 15” i7 Perfect For Gamer",
-            "feature_1": "Screen: 1920 x 1080 pixels",
-            "feature_2": "Processor: 2.5 GHz None",
-            "feature_3": "RAM: 8 GB",
-            "feature_4": "Hard Drive: Flash memory solid state",
-            "feature_5": "Graphics : Intel HD Graphics 520 Integrated",
+            "product": "null-1773099079761",
+            "tag": "Room Lighting",
+            "fallback_title": "NebulaGlow™ Galaxy Projector Lamp",
+            "feature_1": "Stunning Galaxy Effects",
+            "feature_2": "Relaxing Night Light",
+            "feature_3": "Multiple Lighting Modes",
+            "feature_4": "Remote Control Included",
+            "feature_5": "Perfect for Bedrooms",
             "button_label": "Add to Cart"
           }
         },
@@ -121,27 +128,27 @@
           "type": "deal",
           "settings": {
             "product": "null-1774445536059",
-            "tag": "Desk & Laptop",
-            "fallback_title": "Laptop Alienware 15” i7 Perfect For Gamer",
-            "feature_1": "Screen: 1920 x 1080 pixels",
-            "feature_2": "Processor: 2.5 GHz None",
-            "feature_3": "RAM: 8 GB",
-            "feature_4": "Hard Drive: Flash memory solid state",
-            "feature_5": "Graphics : Intel HD Graphics 520 Integrated",
+            "tag": "Car Essentials",
+            "fallback_title": "AromaDrive™ Car Diffuser",
+            "feature_1": "Freshens Your Car",
+            "feature_2": "USB Powered Design",
+            "feature_3": "Quiet Mist Technology",
+            "feature_4": "Elegant Ambient Light",
+            "feature_5": "Long-Lasting Fragrance",
             "button_label": "Add to Cart"
           }
         },
         "deal_bzLpHB": {
           "type": "deal",
           "settings": {
-            "product": "null-1773091609385",
-            "tag": "Desk & Laptop",
-            "fallback_title": "Laptop Alienware 15” i7 Perfect For Gamer",
-            "feature_1": "Screen: 1920 x 1080 pixels",
-            "feature_2": "Processor: 2.5 GHz None",
-            "feature_3": "RAM: 8 GB",
-            "feature_4": "Hard Drive: Flash memory solid state",
-            "feature_5": "Graphics : Intel HD Graphics 520 Integrated",
+            "product": "null-1774712575131",
+            "tag": "Home Decor",
+            "fallback_title": "CrystalGlow™ Crystal Ball Lamp",
+            "feature_1": "Premium Crystal Design",
+            "feature_2": "Color-Changing LED Base",
+            "feature_3": "Stunning 3D Engraving",
+            "feature_4": "Elegant Room Decor",
+            "feature_5": "Perfect Gift Idea",
             "button_label": "Add to Cart"
           }
         }
@@ -181,8 +188,9 @@
           "type": "category",
           "settings": {
             "title": "",
-            "collection": "",
+            "collection": "smart-beauty",
             "menu": "",
+            "image": "shopify://shop_images/5b6f9838-eaaa-40f8-9cd0-da1f6de29f97.png",
             "link": ""
           }
         },
@@ -190,7 +198,7 @@
           "type": "category",
           "settings": {
             "title": "",
-            "collection": "",
+            "collection": "best-sellers",
             "menu": "",
             "link": ""
           }
@@ -199,7 +207,7 @@
           "type": "category",
           "settings": {
             "title": "",
-            "collection": "",
+            "collection": "smart-living-copy",
             "menu": "",
             "link": ""
           }
@@ -208,7 +216,7 @@
           "type": "category",
           "settings": {
             "title": "",
-            "collection": "",
+            "collection": "home-essentials",
             "menu": "",
             "link": ""
           }
@@ -217,8 +225,9 @@
           "type": "category",
           "settings": {
             "title": "",
-            "collection": "",
+            "collection": "kitchen-essentials",
             "menu": "",
+            "image": "shopify://shop_images/82524191-39df-4814-8731-81ad519c380a.jpg",
             "link": ""
           }
         },
@@ -226,8 +235,9 @@
           "type": "category",
           "settings": {
             "title": "",
-            "collection": "",
+            "collection": "best-seller",
             "menu": "",
+            "image": "shopify://shop_images/6fdf653e-4929-4232-ba56-bd05953fca4f.jpg",
             "link": ""
           }
         }
@@ -249,9 +259,9 @@
       "settings": {
         "heading": "Top Selling of the Week",
         "collection": "home-essentials",
-        "featured_product": "null-1773091609385",
-        "products_limit": 4,
-        "featured_media_limit": 4
+        "featured_product": "null-1774569870590",
+        "products_limit": 5,
+        "featured_media_limit": 2
       }
     },
     "blog": {
@@ -274,9 +284,14 @@
         "placeholder": "Your email address here...",
         "button_label": "Subscribe!"
       }
+    },
+    "1783525448bd8ab85d": {
+      "type": "apps",
+      "settings": {}
     }
   },
   "order": [
+    "17835256382d35352a",
     "slid_sec",
     "banner",
     "hot_deal",
@@ -285,6 +300,7 @@
     "top_selling_week",
     "blog",
     "shipping_info",
-    "newslatter"
+    "newslatter",
+    "1783525448bd8ab85d"
   ]
 }

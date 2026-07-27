@@ -1,28 +1,42 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-    "sections": {
-        "template": {
-            "type": "template-cart",
-            "settings": {
-                "update_button_text": "Update Cart",
-                "checkout_button_text": "Checkout"
-            },
-            "blocks": {
-                "subtotal": {
-                    "type": "subtotal"
-                },
-                "update_button": {
-                    "type": "update_button"
-                },
-                "checkout_button": {
-                    "type": "checkout_button"
-                }
-            },
-            "block_order": [
-                "subtotal",
-                "update_button",
-                "checkout_button"
-            ]
+  "sections": {
+    "template": {
+      "type": "template-cart",
+      "blocks": {
+        "subtotal": {
+          "type": "subtotal",
+          "settings": {}
+        },
+        "update_button": {
+          "type": "update_button",
+          "settings": {}
+        },
+        "checkout_button": {
+          "type": "checkout_button",
+          "settings": {}
         }
-    },
-    "order": ["template"]
+      },
+      "block_order": [
+        "subtotal",
+        "update_button",
+        "checkout_button"
+      ],
+      "settings": {
+        "update_button_text": "Update Cart",
+        "checkout_button_text": "Checkout"
+      }
+    }
+  },
+  "order": [
+    "template"
+  ]
 }
