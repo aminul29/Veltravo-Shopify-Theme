@@ -1,19 +1,13 @@
 {
   "sections": {
     "main": {
-      "type": "template-page",
-      "settings": {
-        "enable_title": true,
-        "show_contact_form": false
-      }
-    },
-    "contact": {
       "type": "contact-form",
-      "settings": {}
+      "settings": {
+        "show_page_content": true
+      }
     }
   },
   "order": [
-    "main",
-    "contact"
+    "main"
   ]
 }

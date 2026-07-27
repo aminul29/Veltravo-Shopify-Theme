@@ -1,11 +1,4 @@
-{% liquid
-  assign is_contact_page = false
-  if page.handle contains 'contact' or page.title contains 'Contact' or section.settings.show_contact_form
-    assign is_contact_page = true
-  endif
-%}
-
-<!-- General Page & Contact Page Section -->
+<!-- General Page Section -->
 <section class="creative-page-section">
   <div class="container">
     
@@ -21,13 +14,8 @@
       <header class="page-hero-card">
         <div class="page-hero-content">
           <span class="page-badge-pill">
-            {% if is_contact_page %}
-              <i class="fa-solid fa-headset text-success"></i>
-              <span>GET IN TOUCH</span>
-            {% else %}
-              <i class="fa-solid fa-circle-info text-info"></i>
-              <span>STORE PAGE</span>
-            {% endif %}
+            <i class="fa-solid fa-circle-info text-info"></i>
+            <span>STORE PAGE</span>
           </span>
           <h1 class="page-main-title">{{ page.title | escape }}</h1>
         </div>
@@ -40,78 +28,6 @@
         <div class="page-body-formatted">
           {{ page.content }}
         </div>
-      </div>
-    {% endif %}
-
-    <!-- Optional Integrated Contact Form if Enabled in Settings -->
-    {% if section.settings.show_contact_form %}
-      <div class="page-integrated-contact">
-        {% form 'contact', id: 'page_contact_form', class: 'shopify-contact-form' %}
-          <div class="contact-form-card">
-            <h2 class="form-title">Send Us A Message</h2>
-            <p class="form-subtitle">Have questions or need assistance? Fill out the form below.</p>
-
-            {% if form.posted_successfully? %}
-              <div class="form-alert alert-success">
-                <i class="fa-solid fa-circle-check text-success"></i>
-                <span>Thank you! Your message has been submitted successfully.</span>
-              </div>
-            {% endif %}
-
-            {% if form.errors %}
-              <div class="form-alert alert-danger">
-                <i class="fa-solid fa-circle-exclamation text-danger"></i>
-                <span>{{ form.errors | default_errors }}</span>
-              </div>
-            {% endif %}
-
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="form-group-item">
-                  <label for="PageContactName-{{ section.id }}" class="form-label-text">Your Name *</label>
-                  <input
-                    id="PageContactName-{{ section.id }}"
-                    class="form-input-field"
-                    type="text"
-                    name="contact[name]"
-                    placeholder="John Doe"
-                    required
-                  >
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="form-group-item">
-                  <label for="PageContactEmail-{{ section.id }}" class="form-label-text">Email Address *</label>
-                  <input
-                    id="PageContactEmail-{{ section.id }}"
-                    class="form-input-field"
-                    type="email"
-                    name="contact[email]"
-                    placeholder="john@example.com"
-                    required
-                  >
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group-item">
-              <label for="PageContactBody-{{ section.id }}" class="form-label-text">Message *</label>
-              <textarea
-                id="PageContactBody-{{ section.id }}"
-                class="form-textarea-field"
-                name="contact[body]"
-                rows="5"
-                placeholder="How can we help you?"
-                required
-              ></textarea>
-            </div>
-
-            <button type="submit" class="contact-submit-btn">
-              <span>Send Message</span>
-              <i class="fa-solid fa-paper-plane"></i>
-            </button>
-          </div>
-        {% endform %}
       </div>
     {% endif %}
 
@@ -249,114 +165,6 @@
     color: #059669;
   }
 
-  /* Integrated Contact Form */
-  .page-integrated-contact {
-    margin-top: 32px;
-  }
-
-  .contact-form-card {
-    background: #ffffff;
-    border-radius: 24px;
-    border: 1px solid #e2e8f0;
-    padding: 32px;
-    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
-  }
-
-  .form-title {
-    font-size: 22px;
-    font-weight: 800;
-    color: #0f172a;
-    margin: 0 0 6px;
-  }
-
-  .form-subtitle {
-    font-size: 13px;
-    color: #64748b;
-    margin-bottom: 24px;
-  }
-
-  .form-group-item {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 18px;
-  }
-
-  .form-label-text {
-    font-size: 12px;
-    font-weight: 800;
-    color: #0f172a;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin: 0;
-  }
-
-  .form-input-field,
-  .form-textarea-field {
-    width: 100%;
-    border-radius: 12px;
-    border: 1px solid #cbd5e1;
-    background: #f8fafc;
-    padding: 12px 16px;
-    font-size: 14px;
-    color: #0f172a;
-    outline: none;
-    transition: all 0.2s ease;
-  }
-
-  .form-input-field:focus,
-  .form-textarea-field:focus {
-    border-color: #10b981;
-    background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
-  }
-
-  .contact-submit-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: #ffffff;
-    padding: 12px 32px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 800;
-    border: none;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
-  }
-
-  .contact-submit-btn:hover {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
-  }
-
-  .form-alert {
-    padding: 14px 18px;
-    border-radius: 14px;
-    font-size: 13px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-
-  .alert-success {
-    background: #ecfdf5;
-    color: #065f46;
-    border: 1px solid #a7f3d0;
-  }
-
-  .alert-danger {
-    background: #fef2f2;
-    color: #991b1b;
-    border: 1px solid #fecaca;
-  }
-
   @media (max-width: 767px) {
     .page-content-card,
     .page-hero-card {
@@ -378,12 +186,6 @@
       "id": "enable_title",
       "label": "Enable Title",
       "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_contact_form",
-      "label": "Show Contact Form",
-      "default": false
     }
   ],
   "presets": [
