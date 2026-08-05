@@ -65,6 +65,11 @@
         "type": "shopify://apps/seolab-seo-optimizer/blocks/app_embed/faf700f6-3b71-45c3-86d4-83ea9f7d9216",
         "disabled": false,
         "settings": {}
+      },
+      "1010346387011022953": {
+        "type": "shopify://apps/gptlab/blocks/app_embed/019e923e-9c84-76cd-a285-13b157fc1dcd",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
